@@ -1,53 +1,4 @@
 /* Alinhamento principal */
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: var(--cor-fundo);
-}
-
-.contentContainer {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  gap: 20px;
-  max-width: 1200px;
-  width: 100%;
-}
-
-.contentgrid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0px 0px 3rem;
-  max-width: 45rem;
-}
-
-.row {
-  margin: 0px 0;
-}
-
-.title {
-  font-size: 7rem;
-  font-weight: 400;
-  color: var(--cor-texto-titulo);
-  font-family: "Boheme Floral", serif;
-}
-
-.subTitile {
-  font-size: 1rem;
-  color: var(--cor-texto-corpo);
-  margin: 1rem 0rem 0rem;
-}
-
-.subtext {
-  font-size: 1rem;
-  color: var(--cor-texto-corpo);
-  text-align: center;
-  margin: 0px 0 50px;
-  max-width: 350px;
-}
-
 @keyframes spin {
   0% {
     transform: rotate(0deg); /* Início da rotação */
@@ -56,17 +7,142 @@
     transform: rotate(360deg); /* Completa uma volta */
   }
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Garante que o conteúdo ocupe pelo menos a altura da tela */
+  background-color: var(--cor-fundo);
+  overflow: hidden; /* Evita rolagem extra */
+  padding: 1rem 0; /* Adiciona espaçamento superior e inferior */
+  box-sizing: border-box; /* Garante que o padding não afete o layout */
+  margin: 0; /* Remove margens externas */
+}
+
+.contentContainer {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  width: 100%;
+  padding: 1rem; /* Adiciona espaçamento interno */
+  box-sizing: border-box; /* Garante que o padding não afete o tamanho do grid */
+}
+
+.contentgrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  margin: 0 auto; /* Centraliza horizontalmente */
+  max-width: 45rem;
+  padding: 1rem 0; /* Adiciona espaçamento superior e inferior */
+}
+
+.row {
+  margin: 1rem 0; /* Adiciona espaçamento entre as linhas */
+}
+
+.imageFlor,
+.imageFolha {
+  display: flex;
+  justify-content: center; /* Centraliza as imagens */
+  align-items: center; /* Garante o alinhamento vertical */
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 7rem);
+  font-weight: 400;
+  color: var(--cor-texto-titulo);
+  font-family: "Boheme Floral", serif;
+  text-align: center; /* Centraliza o título */
+}
+
+.subTitile {
+  font-size: 1.1rem;
+  color: var(--cor-texto-corpo);
+  margin: 1rem 0 0; /* Remove margens desnecessárias */
+  text-align: center; /* Centraliza o subtítulo */
+}
+
+.subtext {
+  font-size: 1rem;
+  color: var(--cor-texto-corpo);
+  text-align: center;
+  margin: 0 0 2rem; /* Reduz margem inferior */
+  max-width: 350px;
+}
+
 .imageCircleRound {
-  display: inline-block; /* Garantir que a imagem se comporte como um elemento inline */
-  animation: spin 5s linear infinite; /* Define a animação */
+  display: inline-block;
+  animation: spin 5s linear infinite;
+  margin: 1rem 0; /* Ajuste de espaçamento */
 }
 
 .imageFlor {
-  display: flex !important;
-  align-items: flex-end !important;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center; /* Centraliza em telas menores */
 }
 
 .imageFolha {
   display: flex;
   justify-content: flex-end;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .contentContainer {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  @media (orientation: landscape) {
+    .title {
+      font-size: 4rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .contentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .title {
+    font-size: 3.9rem;
+  }
+  @media (orientation: landscape) {
+    /* Seus estilos para modo paisagem */
+    .contentContainer {
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .contentgrid {
+    padding: 0.5rem 0; /* Reduz espaçamento em telas menores */
+  }
+
+  .row {
+    margin: 0.5rem 0; /* Ajusta espaçamento entre linhas */
+  }
+}
+
+@media (max-width: 320px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtext {
+    font-size: 0.8rem;
+    max-width: 200px;
+  }
+
+  .imageCircleRound {
+    width: 20px;
+    height: 20px; /* Reduz o tamanho em telas muito pequenas */
+  }
 }
