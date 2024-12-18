@@ -13,3 +13,11 @@
   font-weight: normal; /* Peso da fonte (opcional) */
   font-style: normal; /* Estilo da fonte (opcional) */
 }
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
