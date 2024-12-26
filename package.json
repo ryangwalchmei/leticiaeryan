@@ -5,7 +5,8 @@
   "scripts": {
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
-    "dev": "next dev"
+    "dev": "next dev",
+    "test:watch": "jest --watchAll"
   },
   "author": "",
   "license": "ISC",
