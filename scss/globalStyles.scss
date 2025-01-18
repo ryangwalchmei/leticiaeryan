@@ -220,7 +220,20 @@ body {
     flex: 0 0 auto;
     width: 100%;
   }
-
+  .landing1 .static-hero .slide-title h2,
+  .landing1 .static-hero-s10 .slide-title h2,
+  .landing1 .static-hero-s2 .slide-title h2,
+  .landing1 .static-hero-s3 .slide-title h2,
+  .landing1 .static-hero-s5 .slide-title h2 {
+    color: #101010;
+    font-size: 90px;
+    font-style: normal;
+    font-weight: 400;
+    font-family: "Boheme Floral", serif;
+    line-height: normal;
+    text-align: center;
+    text-transform: capitalize;
+  }
   @media (min-width: 992px) {
     .col-lg-6 {
       flex: 0 0 auto;
@@ -344,10 +357,11 @@ body {
     color: #101010;
     font-size: 90px;
     font-style: normal;
+    font-family: "Boheme Floral", serif;
     font-weight: 400;
     line-height: normal;
     text-align: center;
-    text-transform: capitalize;
+    text-transform: none;
   }
 
   .static-hero .slide-text,
@@ -1462,18 +1476,20 @@ body {
   h5,
   h6 {
     color: #101010;
-    font-family: Sail, cursive;
+    font-family: "Boheme Floral";
     font-weight: 400;
   }
+
   .static-hero-s2 .wpo-static-hero-inner .slide-title-sub h3 {
     // border: 1px solid rgba(93, 124, 120, 0.8);
     color: #657150;
     display: inline-block;
-    font-size: 50px;
+    font-size: 80px;
+    font-family: "Boheme Floral";
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    padding: 15px 40px;
+    padding: 5px 90px;
   }
   .css-1mq9hl3 {
     animation-duration: 1200ms;
