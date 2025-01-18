@@ -21,7 +21,7 @@ export default function Landing1(props) {
                       </div>
                       <div className="slide-text">
                         <div className="css-1idtd5j" style={{ animationDelay: "0ms" }}>
-                          <p className="">Nós vamos nos casar em 12 de julho de 2025</p>
+                          <p className="">12 de julho de 2025</p>
                         </div>
                       </div>
                       <div className="shape-2">
