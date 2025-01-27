@@ -1,4 +1,4 @@
-export function Section3() {
+export default function L2Section3() {
   return <section className="wpo-story-section-s2 section-padding" id="story">
     <div className="container">
       <div className="wpo-section-title undefined">

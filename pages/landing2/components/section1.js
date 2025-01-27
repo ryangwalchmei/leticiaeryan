@@ -1,4 +1,4 @@
-export function Section1() {
+export default function L2Section1() {
   return <section className="section1 static-hero-s2 ">
     <div className="hero-container">
       <div className="hero-inner">

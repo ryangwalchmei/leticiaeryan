@@ -1,4 +1,4 @@
-export function Section2() {
+export default function L1Section2() {
   return <section className="wpo-couple-section section-padding" id="couple">
     <div className="container">
       <div className="couple-area clearfix">

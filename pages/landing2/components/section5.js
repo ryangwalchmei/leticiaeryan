@@ -1,4 +1,4 @@
-export function Section5() {
+export default function L2Section5() {
   return <section className="wpo-contact-section pt-120 section-padding">
     <div className="container-fluid">
       <div className="row justify-content-center">

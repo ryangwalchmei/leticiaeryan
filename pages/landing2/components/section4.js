@@ -1,4 +1,4 @@
-export function Section4() {
+export default function L2Section4() {
   return <section className="wpo-portfolio-section section-padding undefined" id="gallery">
     <h2 className="hidden">some</h2>
     <div className="container-fluid">
