@@ -33,5 +33,11 @@ async function getNewClient() {
 export default { query, getNewClient };
 
 function getSSLValues() {
-  return process.env.NODE_ENV === 'production' ? true : false;
+  if (process.env.POSTGRES_CA) {
+    return {
+      ca: process.env.POSTGRES_CA
+    };
+  }
+
+  return process.env.NODE_ENV === 'development' ? true : false;
 }
