@@ -6,7 +6,10 @@
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
     "dev": "next dev",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "services:up": "docker compose -f infra/compose.yaml up -d",
+    "services:stop": "docker compose -f infra/compose.yaml stop",
+    "services:down": "docker compose -f infra/compose.yaml down"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +17,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "next": "^15.1.0",
+    "pg": "^8.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sass": "^1.83.4"

@@ -1,9 +1,11 @@
+import database from "infra/database";
+
 async function status(req, res) {
-  // const result = await database.query("SELECT 1+1 as sum;");
+  const result = await database.query("SELECT 1+1 as sum;");
 
-  // console.log(result.rows);
+  console.log(result.rows);
 
-  res.status(200).json({ message: "Tudo ok" });
+  res.status(200).json(result.rows);
 }
 
 export default status;
