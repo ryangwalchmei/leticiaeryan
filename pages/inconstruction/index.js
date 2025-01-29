@@ -8,7 +8,7 @@ export default function InConstruction() {
         {/* Imagem folha */}
         <div className={style.imageFolha}>
           <Image
-            src="/images/folha1.svg" // Caminho relativo na pasta public
+            src="/images/shape1.svg" // Caminho relativo na pasta public
             alt="Folha decorativa"
             width={150} // Largura da imagem
             height={150} // Altura da imagem

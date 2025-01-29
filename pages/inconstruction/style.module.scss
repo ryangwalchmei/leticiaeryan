@@ -18,6 +18,8 @@
   padding: 1rem 0; /* Adiciona espaçamento superior e inferior */
   box-sizing: border-box; /* Garante que o padding não afete o layout */
   margin: 0; /* Remove margens externas */
+
+  height: 133.4vh;
 }
 
 .contentContainer {
@@ -52,7 +54,7 @@
 }
 
 .title {
-  font-size: clamp(2rem, 5vw, 7rem);
+  font-size: 6rem;
   font-weight: 400;
   color: var(--cor-texto-titulo);
   font-family: "Boheme Floral", serif;
@@ -60,18 +62,21 @@
 }
 
 .subTitile {
-  font-size: 1.1rem;
+  font-size: 2rem;
+  font-weight: bold;
   color: var(--cor-texto-corpo);
   margin: 1rem 0 0; /* Remove margens desnecessárias */
   text-align: center; /* Centraliza o subtítulo */
+  font-family: "Jost";
 }
 
 .subtext {
-  font-size: 1rem;
+  font-family: "Jost";
+  font-size: 1.2em;
   color: var(--cor-texto-corpo);
   text-align: center;
   margin: 0 0 2rem; /* Reduz margem inferior */
-  max-width: 350px;
+  max-width: 500px;
 }
 
 .imageCircleRound {
@@ -91,58 +96,17 @@
   justify-content: flex-end;
 }
 
-/* Responsividade */
-@media (max-width: 1024px) {
-  .contentContainer {
-    grid-template-columns: 1fr;
-    gap: 10px;
+
+@media (max-width: 770px) {
+  .contentContainer{
+    
+  grid-template-columns: 1fr;
+  transition: all;
+
+  .imageFolha{
+    justify-content: center;
   }
 
-  @media (orientation: landscape) {
-    .title {
-      font-size: 4rem;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .contentContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .title {
-    font-size: 3.9rem;
-  }
-  @media (orientation: landscape) {
-    /* Seus estilos para modo paisagem */
-    .contentContainer {
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .contentgrid {
-    padding: 0.5rem 0; /* Reduz espaçamento em telas menores */
   }
 
-  .row {
-    margin: 0.5rem 0; /* Ajusta espaçamento entre linhas */
-  }
-}
-
-@media (max-width: 320px) {
-  .title {
-    font-size: 2rem;
-  }
-
-  .subtext {
-    font-size: 0.8rem;
-    max-width: 200px;
-  }
-
-  .imageCircleRound {
-    width: 20px;
-    height: 20px; /* Reduz o tamanho em telas muito pequenas */
-  }
 }
