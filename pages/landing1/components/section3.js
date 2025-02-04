@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function L1Section3() {
   return (
     <section className="wpo-story-section section-padding" id="story">
@@ -11,7 +13,7 @@ export default function L1Section3() {
             <div className="wpo-story-img-wrap">
               <div className="css-1py3kjq" style={{ animationDelay: "0ms" }}>
                 <div className="wpo-story-img">
-                  <img src="/images/photos/4.jpg" alt="" />
+                  <Image src="/images/photos/4.jpg" alt="" />
                 </div>
               </div>
               <div className="clip-shape">
@@ -24,7 +26,7 @@ export default function L1Section3() {
                 </svg>
               </div>
               <div className="wpo-img-shape">
-                <img src="/images/shape.png" alt="" />
+                <Image src="/images/shape.png" alt="" />
               </div>
             </div>
             <div className="wpo-story-content">
@@ -45,7 +47,7 @@ export default function L1Section3() {
             <div className="wpo-story-img-wrap">
               <div className="css-1py3kjq" style={{ animationDelay: "0ms" }}>
                 <div className="wpo-story-img">
-                  <img src="/images/photos/5.jpg" alt="" />
+                  <Image src="/images/photos/5.jpg" alt="" />
                 </div>
               </div>
               <div className="clip-shape">
@@ -58,7 +60,7 @@ export default function L1Section3() {
                 </svg>
               </div>
               <div className="wpo-img-shape">
-                <img src="/images/shape2.png" alt="" />
+                <Image src="/images/shape2.png" alt="" />
               </div>
             </div>
             <div className="wpo-story-content">
@@ -79,7 +81,7 @@ export default function L1Section3() {
             <div className="wpo-story-img-wrap">
               <div className="css-1py3kjq" style={{ animationDelay: "0ms" }}>
                 <div className="wpo-story-img">
-                  <img src="/images/photos/6.jpg" alt="" />
+                  <Image src="/images/photos/6.jpg" alt="" />
                 </div>
               </div>
               <div className="clip-shape">
@@ -92,7 +94,7 @@ export default function L1Section3() {
                 </svg>
               </div>
               <div className="wpo-img-shape">
-                <img src="/images/shape3.png" alt="" />
+                <Image src="/images/shape3.png" alt="" />
               </div>
             </div>
             <div className="wpo-story-content">
@@ -112,16 +114,16 @@ export default function L1Section3() {
       </div>
 
       <div className="flower-shape-1">
-        <img src="/images/flower-shape1.svg" alt="" />
+        <Image src="/images/flower-shape1.svg" alt="" />
       </div>
       <div className="flower-shape-2">
-        <img src="/images/flower-shape2.svg" alt="" />
+        <Image src="/images/flower-shape2.svg" alt="" />
       </div>
       <div className="flower-shape-3">
-        <img src="/images/flower-shape3.svg" alt="" />
+        <Image src="/images/flower-shape3.svg" alt="" />
       </div>
       <div className="flower-shape-4">
-        <img src="/images/flower-shape4.svg" alt="" />
+        <Image src="/images/flower-shape4.svg" alt="" />
       </div>
     </section>
   );

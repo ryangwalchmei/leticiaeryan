@@ -4,7 +4,7 @@ import Section3 from "./components/section3";
 import Section4 from "./components/section4";
 import Section5 from "./components/section5";
 
-export default function Landing2(props) {
+export default function Landing2() {
   return (
     <div className="app landing2" id="scrool">
       <div className="app ">

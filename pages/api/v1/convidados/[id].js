@@ -6,8 +6,6 @@ export default function convidado(request, response) {
     if (request.method === "GET") {
       return getHandler(request, response);
     }
-
-    return postHandler(request, response);
   } catch (error) {
     console.log("Error");
   }

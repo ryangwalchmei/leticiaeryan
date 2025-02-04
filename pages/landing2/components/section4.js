@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function L2Section4() {
   return (
     <section
@@ -26,7 +28,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/2.jpg"
                               alt=""
                               className="img img-responsive"
@@ -52,7 +54,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/3.jpg"
                               alt=""
                               className="img img-responsive"
@@ -78,7 +80,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/4.jpg"
                               alt=""
                               className="img img-responsive"
@@ -104,7 +106,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/5.jpg"
                               alt=""
                               className="img img-responsive"
@@ -130,7 +132,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/6.jpg"
                               alt=""
                               className="img img-responsive"
@@ -156,7 +158,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/1.jpg"
                               alt=""
                               className="img img-responsive"
@@ -182,7 +184,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/2.jpg"
                               alt=""
                               className="img img-responsive"
@@ -208,7 +210,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/3.jpg"
                               alt=""
                               className="img img-responsive"
@@ -234,7 +236,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/4.jpg"
                               alt=""
                               className="img img-responsive"
@@ -260,7 +262,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/5.jpg"
                               alt=""
                               className="img img-responsive"
@@ -286,7 +288,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/6.jpg"
                               alt=""
                               className="img img-responsive"
@@ -312,7 +314,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/1.jpg"
                               alt=""
                               className="img img-responsive"
@@ -338,7 +340,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/2.jpg"
                               alt=""
                               className="img img-responsive"
@@ -364,7 +366,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/3.jpg"
                               alt=""
                               className="img img-responsive"
@@ -390,7 +392,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/4.jpg"
                               alt=""
                               className="img img-responsive"
@@ -416,7 +418,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/5.jpg"
                               alt=""
                               className="img img-responsive"
@@ -442,7 +444,7 @@ export default function L2Section4() {
                           style={{ width: "100%", display: "inline-block" }}
                         >
                           <div className="img-holder">
-                            <img
+                            <Image
                               src="/images/photos/6.jpg"
                               alt=""
                               className="img img-responsive"
