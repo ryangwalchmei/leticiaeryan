@@ -1,5 +1,5 @@
-import database from 'infra/database.js';
-import orchestrator from 'tests/orchestrator';
+import database from "infra/database.js";
+import orchestrator from "tests/orchestrator";
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
@@ -18,6 +18,4 @@ test("GET to /api/v1/migrations should return 200", async () => {
   } catch (error) {
     throw error;
   }
-
-
 });
