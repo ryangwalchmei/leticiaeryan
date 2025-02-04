@@ -17,5 +17,5 @@ export default function convidado(request, response) {
 
 async function getHandler(request, response) {
   const returnUser = await convidados.getConvidado(request.query.id);
-  return response.status(200).json(returnUser);
+  return response.status(200).json(returnUser[0]);
 }

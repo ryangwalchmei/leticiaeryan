@@ -30,5 +30,5 @@ async function getHandler(request, response) {
 async function postHandler(request, response) {
   const returnIdconvidadosDb = await convidadosDb.createConvidados(request.body);
 
-  return response.status(201).json(returnIdconvidadosDb);
+  return response.status(201).json(returnIdconvidadosDb[0]);
 } 
