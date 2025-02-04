@@ -1,3 +1,6 @@
+import Link from "next/link";
+import Image from "next/image";
+
 export default function L2Section2() {
   return (
     <section className="wpo-couple-section-s2 section-padding" id="couple">
@@ -49,19 +52,19 @@ export default function L2Section2() {
                           <div className="social">
                             <ul>
                               <li>
-                                <a href="/">
+                                <Link href="/">
                                   <i className="ti-facebook"></i>
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="/">
+                                <Link href="/">
                                   <i className="ti-twitter-alt"></i>
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="/">
+                                <Link href="/">
                                   <i className="ti-instagram"></i>
-                                </a>
+                                </Link>
                               </li>
                             </ul>
                           </div>
@@ -76,7 +79,7 @@ export default function L2Section2() {
                     <div className="couple-img-wrap">
                       <div className="couple-common">
                         <div className="couple-img">
-                          <img src="/images/photos/bride.png" alt="" />
+                          <Image src="/images/photos/bride.png" alt="" />
                         </div>
                       </div>
                       <div
@@ -86,7 +89,7 @@ export default function L2Section2() {
                         data-path="280"
                       >
                         <div className="couple-img">
-                          <img src="/images/photos/groom.png" alt="" />
+                          <Image src="/images/photos/groom.png" alt="" />
                         </div>
                       </div>
                     </div>
@@ -128,19 +131,19 @@ export default function L2Section2() {
                           <div className="social">
                             <ul>
                               <li>
-                                <a href="/">
+                                <Link href="/">
                                   <i className="ti-facebook"></i>
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="/">
+                                <Link href="/">
                                   <i className="ti-twitter-alt"></i>
-                                </a>
+                                </Link>
                               </li>
                               <li>
-                                <a href="/">
+                                <Link href="/">
                                   <i className="ti-instagram"></i>
-                                </a>
+                                </Link>
                               </li>
                             </ul>
                           </div>
@@ -158,10 +161,10 @@ export default function L2Section2() {
         </div>
       </div>
       <div className="left-shape">
-        <img src="/images/left.svg" alt="" />
+        <Image src="/images/left.svg" alt="" />
       </div>
       <div className="right-shape">
-        <img src="/images/right.svg" alt="" />
+        <Image src="/images/right.svg" alt="" />
       </div>
     </section>
   );

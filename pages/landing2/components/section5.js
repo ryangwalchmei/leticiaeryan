@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function L2Section5() {
   return (
     <section className="wpo-contact-section pt-120 section-padding">
@@ -116,7 +118,7 @@ export default function L2Section5() {
           ></path>
         </svg>
         <div className="shape-1">
-          <img
+          <Image
             alt=""
             src="images/shape.5cd3fd7f.svg"
             width="126"
@@ -129,7 +131,7 @@ export default function L2Section5() {
         </div>
         <div className="shape-2">
           <div className="css-9l6fbh" style={{ animationDelay: "0ms" }}>
-            <img
+            <Image
               alt=""
               src="images/shape2.2feeb9cc.svg"
               width="422"
@@ -144,7 +146,7 @@ export default function L2Section5() {
         </div>
         <div className="shape-3">
           <div className="css-1cdo1ab" style={{ animationDelay: "0ms" }}>
-            <img
+            <Image
               alt=""
               src="images/shape3.cc20e434.svg"
               width="203"
@@ -158,7 +160,7 @@ export default function L2Section5() {
           </div>
         </div>
         <div className="shape-4">
-          <img
+          <Image
             alt=""
             src="images/shape4.1c07d73f.svg"
             width="84"
@@ -171,7 +173,7 @@ export default function L2Section5() {
         </div>
         <div className="shape-5">
           <div className="css-1wm1lhc" style={{ animationDelay: "0ms" }}>
-            <img
+            <Image
               alt=""
               src="images/shape5.97b24316.svg"
               width="291"
@@ -186,7 +188,7 @@ export default function L2Section5() {
         </div>
         <div className="shape-6">
           <div className="css-ngpoky" style={{ animationDelay: "0ms" }}>
-            <img
+            <Image
               alt=""
               src="images/shape6.1962cab9.svg"
               width="310"

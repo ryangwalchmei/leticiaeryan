@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function L2Section1() {
   return (
     <section className="section1 static-hero-s2 ">
@@ -36,7 +38,7 @@ export default function L2Section1() {
                       className="css-1a0toe9"
                       style={{ animationDelay: "0ms" }}
                     >
-                      <img src="/images/shape2.svg" alt="" />
+                      <Image src="/images/shape2.svg" alt="" />
                     </div>
                   </div>
                   <div className="clearfix"></div>
@@ -49,32 +51,32 @@ export default function L2Section1() {
       <div className="static-hero-right">
         <div className="static-hero-img scene" id="scene">
           <div className="static-hero-img-inner">
-            <img className="zoom" src="/images/photos/7.jpg" alt="" />
+            <Image className="zoom" src="/images/photos/7.jpg" alt="" />
             <div className="hero-img-inner-shape">
-              <img src="/images/shape9.svg" alt="" />
+              <Image src="/images/shape9.svg" alt="" />
             </div>
             <div className="hero-img-inner-shape-2">
-              <img src="/images/shape10.svg" alt="" />
+              <Image src="/images/shape10.svg" alt="" />
             </div>
           </div>
           <div className="static-hero-shape-1">
             <div className="css-5dedai" style={{ animationDelay: "0ms" }}>
-              <img src="/images/shape7.svg" alt="" />
+              <Image src="/images/shape7.svg" alt="" />
             </div>
           </div>
           <div className="static-hero-shape-2">
             <div className="css-5dedai" style={{ animationDelay: "0ms" }}>
-              <img src="/images/shape8.svg" alt="" />
+              <Image src="/images/shape8.svg" alt="" />
             </div>
           </div>
           <div className="inner-image-1">
             <span className="layer" data-depth="0.25">
-              <img src="/images/photos/inner-1.jpg" alt="" />
+              <Image src="/images/photos/inner-1.jpg" alt="" />
             </span>
           </div>
           <div className="inner-image-2">
             <span className="layer" data-depth="0.45">
-              <img src="/images/photos/inner-2.jpg" alt="" />
+              <Image src="/images/photos/inner-2.jpg" alt="" />
             </span>
           </div>
         </div>

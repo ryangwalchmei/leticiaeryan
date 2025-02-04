@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function L1Section1() {
   return (
     <section className="static-hero">
@@ -9,7 +11,7 @@ export default function L1Section1() {
                 <div className="wpo-static-hero-inner">
                   <div className="shape-1">
                     <div class="css-1pvcaf" style={{ animationDelay: "0ms" }}>
-                      <img src="/images/shape1.svg" alt="" class="" />
+                      <Image src="/images/shape1.svg" alt="" class="" />
                     </div>
                   </div>
                   <div className="slide-title">
@@ -33,7 +35,7 @@ export default function L1Section1() {
                       className="css-8xt6b1"
                       style={{ animationDelay: "0ms" }}
                     >
-                      <img src="/images/shape2.svg" alt="" className="" />
+                      <Image src="/images/shape2.svg" alt="" className="" />
                     </div>
                   </div>
                   <div className="clearfix"></div>
@@ -46,37 +48,37 @@ export default function L1Section1() {
       <div className="static-hero-right">
         <div className="static-hero-img scene" id="scene">
           <div className="static-hero-img-inner">
-            <img src="/images/photos/1.jpg" alt="" />
+            <Image src="/images/photos/1.jpg" alt="" />
           </div>
           <div className="static-hero-shape-1">
             <span className="layer" data-depth="0.25">
               <div className="css-v87i24" style={{ animationDelay: "0ms" }}>
-                <img src="/images/shape3.svg" alt="" className="" />
+                <Image src="/images/shape3.svg" alt="" className="" />
               </div>
             </span>
           </div>
           <div className="static-hero-shape-2">
             <span className="layer" data-depth="0.45">
               <div className="css-1or2e28" style={{ animationDelay: "0ms" }}>
-                <img src="/images/shape4.svg" alt="" className="" />
+                <Image src="/images/shape4.svg" alt="" className="" />
               </div>
             </span>
           </div>
           <div className="static-hero-shape-3">
             <span className="layer" data-depth="0.65">
               <div className="css-1idtd5j" style={{ animationDelay: "0ms" }}>
-                <img src="/images/shape5.svg" alt="" className="" />
+                <Image src="/images/shape5.svg" alt="" className="" />
               </div>
             </span>
           </div>
           <div className="static-hero-shape-4">
             <div className="css-lvy0nt" style={{ animationDelay: "0ms" }}>
-              <img src="/images/shape6.svg" alt="" className="" />
+              <Image src="/images/shape6.svg" alt="" className="" />
             </div>
           </div>
         </div>
         <div className="static-hero-img-bg">
-          <img src="/images/bg-shape.png" alt="" className="" />
+          <Image src="/images/bg-shape.png" alt="" className="" />
         </div>
       </div>
       <div className="right-shape">

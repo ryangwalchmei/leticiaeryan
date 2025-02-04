@@ -59,11 +59,9 @@ describe("GET /api/v1/convidados", () => {
   test("Verifica estrutura dos convidados", async () => {
     expect(Array.isArray(responseBody)).toBe(true);
 
-    if (responseBody.length > 0) {
-      const firstConvidado = responseBody[0];
-      expect(firstConvidado).toHaveProperty("id");
-      expect(firstConvidado).toHaveProperty("name");
-    }
+    const firstConvidado = responseBody[0];
+    expect(firstConvidado).toHaveProperty("id");
+    expect(firstConvidado).toHaveProperty("name");
   });
 });
 

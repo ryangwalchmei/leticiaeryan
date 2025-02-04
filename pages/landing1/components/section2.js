@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function L1Section2() {
   return (
     <section className="wpo-couple-section section-padding" id="couple">
@@ -8,10 +10,10 @@ export default function L1Section2() {
               <div className="couple-item">
                 <div className="couple-img-wrap">
                   <div className="couple-img">
-                    <img src="/images/photos/2.jpg" alt="" />
+                    <Image src="/images/photos/2.jpg" alt="" />
                   </div>
                   <div className="c-shape">
-                    <img src="/images/image-bg.svg" alt="" />
+                    <Image src="/images/image-bg.svg" alt="" />
                   </div>
                 </div>
                 <div className="couple-text">
@@ -47,10 +49,10 @@ export default function L1Section2() {
               <div className="couple-item">
                 <div className="couple-img-wrap">
                   <div className="couple-img">
-                    <img src="/images/photos/3.jpg" alt="" />
+                    <Image src="/images/photos/3.jpg" alt="" />
                   </div>
                   <div className="c-shape">
-                    <img src="/images/image-bg.svg" alt="" />
+                    <Image src="/images/image-bg.svg" alt="" />
                   </div>
                 </div>
                 <div className="couple-text">
