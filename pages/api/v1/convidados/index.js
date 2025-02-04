@@ -1,13 +1,12 @@
-
-import convidadosFactory from 'models/convidados.js';
+import convidadosFactory from "models/convidados.js";
 
 const convidadosDb = convidadosFactory();
 
 export default function convidados(request, response) {
-  const allowedMethods = ['GET', 'POST'];
+  const allowedMethods = ["GET", "POST"];
   const isPermited = allowedMethods.includes(request.method);
 
-  if (!isPermited) throw new Error;
+  if (!isPermited) throw new Error();
 
   try {
     if (request.method === "GET") {
@@ -15,10 +14,8 @@ export default function convidados(request, response) {
     }
 
     return postHandler(request, response);
-
   } catch (error) {
     console.log("Error");
-
   }
 }
 
@@ -28,7 +25,9 @@ async function getHandler(request, response) {
 }
 
 async function postHandler(request, response) {
-  const returnIdconvidadosDb = await convidadosDb.createConvidados(request.body);
+  const returnIdconvidadosDb = await convidadosDb.createConvidados(
+    request.body,
+  );
 
   return response.status(201).json(returnIdconvidadosDb[0]);
-} 
+}

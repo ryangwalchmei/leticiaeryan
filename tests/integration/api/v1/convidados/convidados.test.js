@@ -1,4 +1,4 @@
-import orchestrator from 'tests/orchestrator';
+import orchestrator from "tests/orchestrator";
 
 const convidadoDefaultParams = {
   name: "Ryan",
@@ -10,7 +10,7 @@ const convidadoDefaultParams = {
   ispadrin: true,
   pertencea: "Noivo",
   statusconvite: 1,
-  cell: "11987654321"
+  cell: "11987654321",
 };
 
 let userCreated = null;
@@ -37,8 +37,12 @@ describe("POST /api/v1/convidados", () => {
     expect(responseBody).toHaveProperty("id");
     expect(typeof responseBody.id).toBe("string");
     expect(responseBody.name).toBe(convidadoDefaultParams.name);
-    expect(responseBody.quantindividuals).toBe(convidadoDefaultParams.quantindividuals);
-    expect(responseBody.quantchildrens).toBe(convidadoDefaultParams.quantchildrens);
+    expect(responseBody.quantindividuals).toBe(
+      convidadoDefaultParams.quantindividuals,
+    );
+    expect(responseBody.quantchildrens).toBe(
+      convidadoDefaultParams.quantchildrens,
+    );
     userCreated = responseBody;
   });
 });
@@ -46,19 +50,19 @@ describe("POST /api/v1/convidados", () => {
 describe("GET /api/v1/convidados", () => {
   let responseBody;
 
-  test('Verifica se a API retorna status 200', async () => {
+  test("Verifica se a API retorna status 200", async () => {
     const response = await fetch(`http://localhost:3000/api/v1/convidados`);
     expect(response.status).toBe(200);
     responseBody = await response.json();
   });
 
-  test('Verifica estrutura dos convidados', async () => {
+  test("Verifica estrutura dos convidados", async () => {
     expect(Array.isArray(responseBody)).toBe(true);
 
     if (responseBody.length > 0) {
       const firstConvidado = responseBody[0];
-      expect(firstConvidado).toHaveProperty('id');
-      expect(firstConvidado).toHaveProperty('name');
+      expect(firstConvidado).toHaveProperty("id");
+      expect(firstConvidado).toHaveProperty("name");
     }
   });
 });
@@ -66,7 +70,9 @@ describe("GET /api/v1/convidados", () => {
 describe("GET /api/v1/convidados/:id", () => {
   let responseBody;
   test("Get convidado by ID", async () => {
-    const response = await fetch(`http://localhost:3000/api/v1/convidados/${userCreated.id}`);
+    const response = await fetch(
+      `http://localhost:3000/api/v1/convidados/${userCreated.id}`,
+    );
     expect(response.status).toBe(200);
     responseBody = await response.json();
   });

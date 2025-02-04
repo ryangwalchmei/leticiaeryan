@@ -96,17 +96,13 @@
   justify-content: flex-end;
 }
 
-
 @media (max-width: 770px) {
-  .contentContainer{
-    
-  grid-template-columns: 1fr;
-  transition: all;
+  .contentContainer {
+    grid-template-columns: 1fr;
+    transition: all;
 
-  .imageFolha{
-    justify-content: center;
+    .imageFolha {
+      justify-content: center;
+    }
   }
-
-  }
-
 }

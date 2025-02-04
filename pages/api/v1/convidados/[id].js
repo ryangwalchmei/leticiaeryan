@@ -1,4 +1,4 @@
-import userFactory from 'models/convidados';
+import userFactory from "models/convidados";
 const convidados = userFactory();
 
 export default function convidado(request, response) {
@@ -8,10 +8,8 @@ export default function convidado(request, response) {
     }
 
     return postHandler(request, response);
-
   } catch (error) {
     console.log("Error");
-
   }
 }
 
