@@ -4,8 +4,6 @@ const convidados = userFactory();
 export default function convidado(request, response) {
   try {
     if (request.method === "GET") {
-      console.log(request);
-
       return getHandler(request, response);
     }
 

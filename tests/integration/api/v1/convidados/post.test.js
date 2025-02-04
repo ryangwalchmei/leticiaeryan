@@ -1,3 +1,12 @@
+import orchestrator from 'tests/orchestrator';
+
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
+  await fetch(`http://localhost:3000/api/v1/migrations`, {
+    method: "POST"
+  });
+});
+
 describe('POST /api/v1/convidados', () => {
   test('Create new convidado', async () => {
     const newConvidado = {
@@ -22,12 +31,13 @@ describe('POST /api/v1/convidados', () => {
     });
 
     const responseBody = await response.json();
-    console.log(responseBody);
 
     expect(response.status).toBe(201);
 
     expect(typeof responseBody).toBe('object');
     expect(responseBody[0]).toHaveProperty('id');
     expect(responseBody[0]).toMatchObject(newConvidado);
+
+    return responseBody[0].id;
   });
 });
