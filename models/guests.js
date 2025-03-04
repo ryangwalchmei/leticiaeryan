@@ -118,7 +118,25 @@ export default function Guest() {
 
     try {
       const returnQuery = await database.query({
-        text: "UPDATE public.guests SET name = $1, email = $2,  cell = $3, is_family = $4, is_friend = $5, is_musician = $6, is_witness = $7, is_bridesmaid = $8, is_bestman = $9, is_bride = $10, is_groom = $11, guest_of = $12, confirmation_status = $13, confirmation_date = $14 WHERE id = $15 RETURNING *;",
+        text: `UPDATE public.guests 
+                SET 
+                  name = COALESCE($1, name),
+                  email = COALESCE($2, email),
+                  cell = COALESCE($3, cell),
+                  is_family = COALESCE($4, is_family),
+                  is_friend = COALESCE($5, is_friend),
+                  is_musician = COALESCE($6, is_musician),
+                  is_witness = COALESCE($7, is_witness),
+                  is_bridesmaid = COALESCE($8, is_bridesmaid),
+                  is_bestman = COALESCE($9, is_bestman),
+                  is_bride = COALESCE($10, is_bride),
+                  is_groom = COALESCE($11, is_groom),
+                  guest_of = COALESCE($12, guest_of),
+                  confirmation_status = COALESCE($13, confirmation_status),
+                  confirmation_date = COALESCE($14, confirmation_date) 
+                WHERE id = $15 
+                RETURNING *;
+                `,
         values: [
           name,
           email,

@@ -147,3 +147,142 @@ describe("GET /api/v1/guests/:id", () => {
     expect(errorBody.message).toContain("Invalid ID");
   });
 });
+
+describe("PUT /api/v1/guests/:id", () => {
+  let responseBody;
+  test("Update a guests by ID", async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/guests/${guestCreated.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Letícia Vitória",
+          confirmation_status: "confirmado",
+        }),
+      },
+    );
+    expect(response.status).toBe(200);
+    responseBody = await response.json();
+  });
+
+  test("Verifica integridade dos dados atualizados", async () => {
+    expect(responseBody).toHaveProperty("id");
+    expect(typeof responseBody.id).toBe("string");
+    expect(responseBody.name).toBe("Letícia Vitória");
+    expect(responseBody.confirmation_status).toBe("confirmado");
+  });
+
+  test("Erro ao atualizar convidado com ID inexistente", async () => {
+    const response = await fetch(`http://localhost:3000/api/v1/guests/999999`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: "Letícia Vitória",
+        confirmation_status: "confirmado",
+      }),
+    });
+    expect(response.status).toBe(404);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("Invalid ID");
+  });
+
+  test("Erro ao atualizar convidado com nome vazio", async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/guests/${guestCreated.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "",
+          confirmation_status: "confirmado",
+        }),
+      },
+    );
+    expect(response.status).toBe(400);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("Name is required");
+  });
+
+  test("Erro ao atualizar convidado sem especificar id", async () => {
+    const response = await fetch(`http://localhost:3000/api/v1/guests/`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: "Leticia",
+        confirmation_status: "confirmado",
+      }),
+    });
+    expect(response.status).toBe(400);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("guest_id is required");
+  });
+
+  test("Erro ao tentar atualizar ID do convidado", async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/guests/${guestCreated.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: "e7148d3f-d79e-453c-a8ba-4312d159b811",
+          name: "Leticia",
+          confirmation_status: "confirmado",
+        }),
+      },
+    );
+    expect(response.status).toBe(400);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("ID cannot be changed");
+  });
+});
+
+describe("DELETE /api/v1/guests/:id", () => {
+  test("Delete a guest by ID", async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/guests/${guestCreated.id}`,
+      { method: "DELETE" },
+    );
+    expect(response.status).toBe(204);
+  });
+  test("Verifica se o convidado foi deletado", async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/guests/${guestCreated.id}`,
+    );
+    expect(response.status).toBe(404);
+  });
+
+  test("Erro ao deletar convidado com ID inexistente", async () => {
+    const response = await fetch(`http://localhost:3000/api/v1/guests/999999`, {
+      method: "DELETE",
+    });
+    expect(response.status).toBe(404);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("Invalid ID");
+  });
+
+  test("Erro ao deletar convidado com ID inválido", async () => {
+    const response = await fetch(`http://localhost:3000/api/v1/guests/abc`, {
+      method: "DELETE",
+    });
+    expect(response.status).toBe(404);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("Invalid ID");
+  });
+
+  test("Erro ao deletar convidado com ID vazio", async () => {
+    const response = await fetch(`http://localhost:3000/api/v1/guests/`, {
+      method: "DELETE",
+    });
+    expect(response.status).toBe(404);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("guest_id is required");
+  });
+});
