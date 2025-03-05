@@ -61,7 +61,13 @@ export default function Invitation() {
 
     try {
       const returnQuery = await database.query({
-        text: "UPDATE public.invitation SET name = $1, shipping_date = $2,  status = $3  WHERE id = $4 RETURNING *;",
+        text: `UPDATE public.invitation 
+                SET 
+                  name = COALESCE($1, name), 
+                  shipping_date = COALESCE($2, shipping_date),  
+                  status = COALESCE($3, status)  
+                WHERE id = $4 
+                RETURNING *;`,
         values: [name, shipping_date, status, id],
       });
 

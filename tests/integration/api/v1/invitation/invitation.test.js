@@ -168,6 +168,74 @@ describe("PUT /api/v1/invitation/:id", () => {
 
     expect(response.status).toBe(400);
   });
+
+  test("Erro ao atualizar convite com ID inexistente", async () => {
+    const response = await fetch(
+      "http://localhost:3000/api/v1/invitation/999999",
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Letícia e Família",
+          status: "confirmado",
+        }),
+      },
+    );
+
+    expect(response.status).toBe(404);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("Invalid ID");
+  });
+
+  test("Erro ao atualizar convite com nome vazio", async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/invitation/${invitationCreated.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: "", status: "confirmado" }),
+      },
+    );
+
+    expect(response.status).toBe(400);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("Name is required");
+  });
+
+  test("Erro ao atualizar convite sem especificar id", async () => {
+    const response = await fetch("http://localhost:3000/api/v1/invitation/", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: "Letícia e Família", status: "confirmado" }),
+    });
+
+    expect(response.status).toBe(400);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("invitation_id is required");
+  });
+
+  test("Erro ao tentar atualizar ID do convite", async () => {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/invitation/${invitationCreated.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: "1234",
+          name: "Letícia e Família",
+          status: "confirmado",
+        }),
+      },
+    );
+
+    expect(response.status).toBe(400);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("ID cannot be changed");
+  });
 });
 
 describe("DELETE /api/v1/invitation/:id", () => {
@@ -183,5 +251,40 @@ describe("DELETE /api/v1/invitation/:id", () => {
       `http://localhost:3000/api/v1/invitation/${invitationCreated.id}`,
     );
     expect(response.status).toBe(404);
+  });
+
+  test("Erro ao deletar convite com ID inexistente", async () => {
+    const response = await fetch(
+      "http://localhost:3000/api/v1/invitation/999999",
+      { method: "DELETE" },
+    );
+
+    expect(response.status).toBe(404);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("Invalid ID");
+  });
+
+  test("Erro ao deletar convite sem especificar id", async () => {
+    const response = await fetch("http://localhost:3000/api/v1/invitation/", {
+      method: "DELETE",
+    });
+
+    expect(response.status).toBe(400);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("invitation_id is required");
+  });
+
+  test("Erro ao deletar convite com ID inválido", async () => {
+    const response = await fetch(
+      "http://localhost:3000/api/v1/invitation/1234",
+      { method: "DELETE" },
+    );
+
+    expect(response.status).toBe(404);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain("Invalid ID");
   });
 });
