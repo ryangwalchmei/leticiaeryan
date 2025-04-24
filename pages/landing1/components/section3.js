@@ -13,7 +13,12 @@ export default function L1Section3() {
             <div className="wpo-story-img-wrap">
               <div className="css-1py3kjq" style={{ animationDelay: "0ms" }}>
                 <div className="wpo-story-img">
-                  <Image src="/images/photos/4.jpg" alt="" />
+                  <Image
+                    src="/images/photos/4.jpg"
+                    alt=""
+                    width={239}
+                    height={310}
+                  />
                 </div>
               </div>
               <div className="clip-shape">
@@ -26,7 +31,12 @@ export default function L1Section3() {
                 </svg>
               </div>
               <div className="wpo-img-shape">
-                <Image src="/images/shape.png" alt="" />
+                <Image
+                  src="/images/shape.png"
+                  alt=""
+                  width={535}
+                  height={535}
+                />
               </div>
             </div>
             <div className="wpo-story-content">
@@ -47,7 +57,12 @@ export default function L1Section3() {
             <div className="wpo-story-img-wrap">
               <div className="css-1py3kjq" style={{ animationDelay: "0ms" }}>
                 <div className="wpo-story-img">
-                  <Image src="/images/photos/5.jpg" alt="" />
+                  <Image
+                    src="/images/photos/5.jpg"
+                    alt=""
+                    width={239}
+                    height={310}
+                  />
                 </div>
               </div>
               <div className="clip-shape">
@@ -60,7 +75,12 @@ export default function L1Section3() {
                 </svg>
               </div>
               <div className="wpo-img-shape">
-                <Image src="/images/shape2.png" alt="" />
+                <Image
+                  src="/images/shape2.png"
+                  alt=""
+                  width={535}
+                  height={535}
+                />
               </div>
             </div>
             <div className="wpo-story-content">
@@ -81,7 +101,12 @@ export default function L1Section3() {
             <div className="wpo-story-img-wrap">
               <div className="css-1py3kjq" style={{ animationDelay: "0ms" }}>
                 <div className="wpo-story-img">
-                  <Image src="/images/photos/6.jpg" alt="" />
+                  <Image
+                    src="/images/photos/6.jpg"
+                    alt=""
+                    width={239}
+                    height={310}
+                  />
                 </div>
               </div>
               <div className="clip-shape">
@@ -94,7 +119,12 @@ export default function L1Section3() {
                 </svg>
               </div>
               <div className="wpo-img-shape">
-                <Image src="/images/shape3.png" alt="" />
+                <Image
+                  src="/images/shape3.png"
+                  alt=""
+                  width={549}
+                  height={660}
+                />
               </div>
             </div>
             <div className="wpo-story-content">
@@ -114,16 +144,36 @@ export default function L1Section3() {
       </div>
 
       <div className="flower-shape-1">
-        <Image src="/images/flower-shape1.svg" alt="" />
+        <Image
+          src="/images/flower-shape1.svg"
+          alt=""
+          width={370}
+          height={720}
+        />
       </div>
       <div className="flower-shape-2">
-        <Image src="/images/flower-shape2.svg" alt="" />
+        <Image
+          src="/images/flower-shape2.svg"
+          alt=""
+          width={304}
+          height={660}
+        />
       </div>
       <div className="flower-shape-3">
-        <Image src="/images/flower-shape3.svg" alt="" />
+        <Image
+          src="/images/flower-shape3.svg"
+          alt=""
+          width={279}
+          height={641}
+        />
       </div>
       <div className="flower-shape-4">
-        <Image src="/images/flower-shape4.svg" alt="" />
+        <Image
+          src="/images/flower-shape4.svg"
+          alt=""
+          width={156}
+          height={210}
+        />
       </div>
     </section>
   );

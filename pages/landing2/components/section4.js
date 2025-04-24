@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { FaEye } from "react-icons/fa";
 
 export default function L2Section4() {
   return (
@@ -32,9 +33,11 @@ export default function L2Section4() {
                               src="/images/photos/2.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -58,9 +61,11 @@ export default function L2Section4() {
                               src="/images/photos/3.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -84,9 +89,11 @@ export default function L2Section4() {
                               src="/images/photos/4.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -110,9 +117,11 @@ export default function L2Section4() {
                               src="/images/photos/5.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -136,9 +145,11 @@ export default function L2Section4() {
                               src="/images/photos/6.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -162,9 +173,11 @@ export default function L2Section4() {
                               src="/images/photos/1.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -188,9 +201,11 @@ export default function L2Section4() {
                               src="/images/photos/2.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -214,9 +229,11 @@ export default function L2Section4() {
                               src="/images/photos/3.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -240,9 +257,11 @@ export default function L2Section4() {
                               src="/images/photos/4.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -266,9 +285,11 @@ export default function L2Section4() {
                               src="/images/photos/5.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -292,9 +313,11 @@ export default function L2Section4() {
                               src="/images/photos/6.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -318,9 +341,11 @@ export default function L2Section4() {
                               src="/images/photos/1.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -344,9 +369,11 @@ export default function L2Section4() {
                               src="/images/photos/2.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -370,9 +397,11 @@ export default function L2Section4() {
                               src="/images/photos/3.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -396,9 +425,11 @@ export default function L2Section4() {
                               src="/images/photos/4.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -422,9 +453,11 @@ export default function L2Section4() {
                               src="/images/photos/5.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>
@@ -448,9 +481,11 @@ export default function L2Section4() {
                               src="/images/photos/6.jpg"
                               alt=""
                               className="img img-responsive"
+                              width={273}
+                              height={355}
                             />
                             <div className="hover-content">
-                              <i className="ti-plus"></i>
+                              <FaEye />
                             </div>
                           </div>
                         </div>

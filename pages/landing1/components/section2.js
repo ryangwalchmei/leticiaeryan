@@ -10,10 +10,20 @@ export default function L1Section2() {
               <div className="couple-item">
                 <div className="couple-img-wrap">
                   <div className="couple-img">
-                    <Image src="/images/photos/2.jpg" alt="" />
+                    <Image
+                      src="/images/photos/2.jpg"
+                      alt=""
+                      width={208}
+                      height={208}
+                    />
                   </div>
                   <div className="c-shape">
-                    <Image src="/images/image-bg.svg" alt="" />
+                    <Image
+                      src="/images/image-bg.svg"
+                      alt=""
+                      width={261}
+                      height={231}
+                    />
                   </div>
                 </div>
                 <div className="couple-text">
@@ -49,10 +59,20 @@ export default function L1Section2() {
               <div className="couple-item">
                 <div className="couple-img-wrap">
                   <div className="couple-img">
-                    <Image src="/images/photos/3.jpg" alt="" />
+                    <Image
+                      src="/images/photos/3.jpg"
+                      alt=""
+                      width={208}
+                      height={208}
+                    />
                   </div>
                   <div className="c-shape">
-                    <Image src="/images/image-bg.svg" alt="" />
+                    <Image
+                      src="/images/image-bg.svg"
+                      alt=""
+                      width={261}
+                      height={231}
+                    />
                   </div>
                 </div>
                 <div className="couple-text">

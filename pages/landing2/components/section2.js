@@ -79,7 +79,12 @@ export default function L2Section2() {
                     <div className="couple-img-wrap">
                       <div className="couple-common">
                         <div className="couple-img">
-                          <Image src="/images/photos/bride.png" alt="" />
+                          <Image
+                            src="/images/photos/bride.png"
+                            alt=""
+                            width={239}
+                            height={606}
+                          />
                         </div>
                       </div>
                       <div
@@ -89,7 +94,12 @@ export default function L2Section2() {
                         data-path="280"
                       >
                         <div className="couple-img">
-                          <Image src="/images/photos/groom.png" alt="" />
+                          <Image
+                            src="/images/photos/groom.png"
+                            alt=""
+                            width={239}
+                            height={606}
+                          />
                         </div>
                       </div>
                     </div>
@@ -161,10 +171,10 @@ export default function L2Section2() {
         </div>
       </div>
       <div className="left-shape">
-        <Image src="/images/left.svg" alt="" />
+        <Image src="/images/left.svg" alt="" width={386} height={803} />
       </div>
       <div className="right-shape">
-        <Image src="/images/right.svg" alt="" />
+        <Image src="/images/right.svg" alt="" width={386} height={803} />
       </div>
     </section>
   );
