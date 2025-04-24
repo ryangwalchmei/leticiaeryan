@@ -11,7 +11,13 @@ export default function L1Section1() {
                 <div className="wpo-static-hero-inner">
                   <div className="shape-1">
                     <div class="css-1pvcaf" style={{ animationDelay: "0ms" }}>
-                      <Image src="/images/shape1.svg" alt="" class="" />
+                      <Image
+                        src="/images/shape1.svg"
+                        alt=""
+                        class=""
+                        width={211}
+                        height={83}
+                      />
                     </div>
                   </div>
                   <div className="slide-title">
@@ -35,7 +41,13 @@ export default function L1Section1() {
                       className="css-8xt6b1"
                       style={{ animationDelay: "0ms" }}
                     >
-                      <Image src="/images/shape2.svg" alt="" className="" />
+                      <Image
+                        src="/images/shape2.svg"
+                        alt=""
+                        className=""
+                        width={223}
+                        height={222}
+                      />
                     </div>
                   </div>
                   <div className="clearfix"></div>
@@ -48,37 +60,67 @@ export default function L1Section1() {
       <div className="static-hero-right">
         <div className="static-hero-img scene" id="scene">
           <div className="static-hero-img-inner">
-            <Image src="/images/photos/1.jpg" alt="" />
+            <Image src="/images/photos/1.jpg" alt="" width={334} height={525} />
           </div>
           <div className="static-hero-shape-1">
             <span className="layer" data-depth="0.25">
               <div className="css-v87i24" style={{ animationDelay: "0ms" }}>
-                <Image src="/images/shape3.svg" alt="" className="" />
+                <Image
+                  src="/images/shape3.svg"
+                  alt=""
+                  className=""
+                  width={147}
+                  height={159}
+                />
               </div>
             </span>
           </div>
           <div className="static-hero-shape-2">
             <span className="layer" data-depth="0.45">
               <div className="css-1or2e28" style={{ animationDelay: "0ms" }}>
-                <Image src="/images/shape4.svg" alt="" className="" />
+                <Image
+                  src="/images/shape4.svg"
+                  alt=""
+                  className=""
+                  width={110}
+                  height={163}
+                />
               </div>
             </span>
           </div>
           <div className="static-hero-shape-3">
             <span className="layer" data-depth="0.65">
               <div className="css-1idtd5j" style={{ animationDelay: "0ms" }}>
-                <Image src="/images/shape5.svg" alt="" className="" />
+                <Image
+                  src="/images/shape5.svg"
+                  alt=""
+                  className=""
+                  width={162}
+                  height={154}
+                />
               </div>
             </span>
           </div>
           <div className="static-hero-shape-4">
             <div className="css-lvy0nt" style={{ animationDelay: "0ms" }}>
-              <Image src="/images/shape6.svg" alt="" className="" />
+              <Image
+                src="/images/shape6.svg"
+                alt=""
+                className=""
+                width={110}
+                height={163}
+              />
             </div>
           </div>
         </div>
         <div className="static-hero-img-bg">
-          <Image src="/images/bg-shape.png" alt="" className="" />
+          <Image
+            src="/images/bg-shape.png"
+            alt=""
+            className=""
+            width={514}
+            height={718}
+          />
         </div>
       </div>
       <div className="right-shape">
