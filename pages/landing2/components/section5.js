@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function L2Section5() {
   return (
@@ -13,85 +14,10 @@ export default function L2Section5() {
               </div>
               <div className="wpo-contact-form-area">
                 <form className="contact-validation-active">
-                  <div className="row">
-                    <div className="col col-lg-12 col-12">
-                      <div className="form-field">
-                        <input
-                          type="text"
-                          name="name"
-                          className="form-control"
-                          placeholder="Seu nome"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                    <div className="col col-lg-12 col-12">
-                      <div className="form-field">
-                        <input
-                          type="email"
-                          name="email"
-                          className="form-control"
-                          placeholder="Seu email"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                    <div className="col col-lg-12 col-12">
-                      <div className="radio-buttons">
-                        <p>
-                          <input
-                            type="radio"
-                            id="attend"
-                            name="radio-group"
-                            checked=""
-                          />
-                          <label for="attend">Sim, eu estarei lá</label>
-                        </p>
-                        <p>
-                          <input type="radio" id="not" name="radio-group" />
-                          <label for="not">Desculpe, não posso ir</label>
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col col-lg-12 col-12">
-                      <div className="form-field">
-                        <select
-                          type="text"
-                          className="form-control"
-                          name="guest"
-                        >
-                          <option>Número de convidados</option>
-                          <option>01</option>
-                          <option>02</option>
-                          <option>03</option>
-                          <option>04</option>
-                          <option>05</option>
-                          <option>06</option>
-                        </select>
-                      </div>
-                    </div>
-                    {/* <div className="col col-lg-12 col-12">
-                    <div className="form-field">
-                      <input type="text" name="reason" className="form-control" placeholder="What Will You Be Attending" value="" />
-                    </div>
-                  </div>
-                  <div className="col col-lg-12 col-12">
-                    <div className="form-field">
-                      <select type="text" className="form-control" name="meal">
-                        <option>Meal Preferences</option>
-                        <option>Chicken Soup</option>
-                        <option>Motton Kabab</option>
-                        <option>Chicken BBQ</option>
-                        <option>Mix Salad</option>
-                        <option>Beef Ribs </option>
-                      </select>
-                    </div>
-                  </div> */}
-                  </div>
                   <div className="submit-area">
-                    <button type="submit" className="theme-btn">
+                    <Link href="rsvp" type="submit" className="theme-btn">
                       RSVP
-                    </button>
+                    </Link>
                   </div>
                 </form>
               </div>
