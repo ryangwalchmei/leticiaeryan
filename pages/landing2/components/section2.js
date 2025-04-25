@@ -1,7 +1,18 @@
-import Link from "next/link";
 import Image from "next/image";
 
 export default function L2Section2() {
+  const listInformations = {
+    bride: {
+      image: "/images/photos/bride.png",
+      name: "Letícia Vitória",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna orci auctor vitae nisl. Erat fringilla pellentesque amet tempus. Commodo mi vitae, sagittis blandit.",
+    },
+    groom: {
+      image: "/images/photos/groom.png",
+      name: "Ryan Galvão",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna orci auctor vitae nisl. Erat fringilla pellentesque amet tempus. Commodo mi vitae, sagittis blandit.",
+    },
+  };
   return (
     <section className="wpo-couple-section-s2 section-padding" id="couple">
       <div className="container-fluid">
@@ -42,32 +53,8 @@ export default function L2Section2() {
                           </svg>
                         </div>
                         <div className="couple-text">
-                          <h3>Letícia Vitória</h3>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Urna orci auctor vitae nisl. Erat fringilla
-                            pellentesque amet tempus. Commodo mi vitae, sagittis
-                            blandit.
-                          </p>
-                          <div className="social">
-                            <ul>
-                              <li>
-                                <Link href="/">
-                                  <i className="ti-facebook"></i>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link href="/">
-                                  <i className="ti-twitter-alt"></i>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link href="/">
-                                  <i className="ti-instagram"></i>
-                                </Link>
-                              </li>
-                            </ul>
-                          </div>
+                          <h3>{listInformations.bride.name}</h3>
+                          <p>{listInformations.bride.text}</p>
                         </div>
                         <div className="round-shape">
                           <div className="inner"></div>
@@ -80,8 +67,8 @@ export default function L2Section2() {
                       <div className="couple-common">
                         <div className="couple-img">
                           <Image
-                            src="/images/photos/bride.png"
-                            alt=""
+                            src={listInformations.bride.image}
+                            alt={`Photo of ${listInformations.bride.name}`}
                             width={239}
                             height={606}
                           />
@@ -95,8 +82,8 @@ export default function L2Section2() {
                       >
                         <div className="couple-img">
                           <Image
-                            src="/images/photos/groom.png"
-                            alt=""
+                            src={listInformations.groom.image}
+                            alt={`Photo of ${listInformations.groom.name}`}
                             width={239}
                             height={606}
                           />
@@ -131,32 +118,8 @@ export default function L2Section2() {
                           </svg>
                         </div>
                         <div className="couple-text">
-                          <h3>Ryan Galvão</h3>
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Urna orci auctor vitae nisl. Erat fringilla
-                            pellentesque amet tempus. Commodo mi vitae, sagittis
-                            blandit.
-                          </p>
-                          <div className="social">
-                            <ul>
-                              <li>
-                                <Link href="/">
-                                  <i className="ti-facebook"></i>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link href="/">
-                                  <i className="ti-twitter-alt"></i>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link href="/">
-                                  <i className="ti-instagram"></i>
-                                </Link>
-                              </li>
-                            </ul>
-                          </div>
+                          <h3>{listInformations.groom.name}</h3>
+                          <p>{listInformations.groom.text}</p>
                         </div>
                         <div className="round-shape">
                           <div className="inner"></div>
