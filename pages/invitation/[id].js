@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import cx from "classnames";
 import { Navbar } from "components/navbar/navbar";
+import WpoPageTitle from "components/wpoPageTitle";
 
 async function fetchAPI(endpoint) {
   const response = await fetch(endpoint);
@@ -40,25 +41,11 @@ export default function Invitation() {
   return (
     <>
       <Navbar />
-      <section className="wpo-page-title">
-        <div className="container">
-          <div className="row">
-            <div className="col col-xs-12">
-              <div className="wpo-breadcumb-wrap">
-                <h2>{invitation.name}</h2>
-                <ol className="wpo-breadcumb-wrap">
-                  <li>
-                    <span>Confirmação de Presença</span>
-                  </li>
-                  <li>
-                    <span>{invitation.pin_code}</span>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WpoPageTitle
+        title={invitation.name}
+        subtitle1={"Confirmação de Presença"}
+        subtitle2={invitation.pin_code}
+      />
       <GuestCards id={id} />
     </>
   );
