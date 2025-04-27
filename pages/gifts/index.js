@@ -11,8 +11,8 @@ const listGifts = [
     link: "/product-single/Cadeira-de-escritorio",
     title: "Cadeira de escritório",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 2,
@@ -21,8 +21,8 @@ const listGifts = [
     link: "/product-single/Cama-box-king",
     title: "Cama box king",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 3,
@@ -31,8 +31,8 @@ const listGifts = [
     link: "/product-single/Banquetas",
     title: "Banquetas",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 4,
@@ -41,8 +41,8 @@ const listGifts = [
     link: "/product-single/Tabua-de-passar-roupa",
     title: "Tábua de passar roupa",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 5,
@@ -51,8 +51,8 @@ const listGifts = [
     link: "/product-single/Escada",
     title: "Escada",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 6,
@@ -61,8 +61,8 @@ const listGifts = [
     link: "/product-single/Tabua-de-frios",
     title: "Tábua de frios",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 7,
@@ -71,8 +71,8 @@ const listGifts = [
     link: "/product-single/Torradeira",
     title: "Torradeira",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 8,
@@ -81,8 +81,8 @@ const listGifts = [
     link: "/product-single/Mixer-3-em-1",
     title: "Mixer 3 em 1",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 9,
@@ -91,8 +91,8 @@ const listGifts = [
     link: "/product-single/Frigobar",
     title: "Frigobar",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 10,
@@ -101,8 +101,8 @@ const listGifts = [
     link: "/product-single/Tigelas",
     title: "Tigelas",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 11,
@@ -111,8 +111,8 @@ const listGifts = [
     link: "/product-single/Formas-de-bolo-variadas",
     title: "Formas de bolo variadas",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 12,
@@ -121,8 +121,8 @@ const listGifts = [
     link: "/product-single/Panela-de-pressao-eletrica",
     title: "Panela de pressão elétrica",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 13,
@@ -131,8 +131,8 @@ const listGifts = [
     link: "/product-single/Jogo-de-jantar",
     title: "Jogo de jantar",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 14,
@@ -141,8 +141,8 @@ const listGifts = [
     link: "/product-single/Jogo-de-panela",
     title: "Jogo de panela",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 15,
@@ -151,8 +151,8 @@ const listGifts = [
     link: "/product-single/Jogo-de-xicaras",
     title: "Jogo de xícaras",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 16,
@@ -161,8 +161,8 @@ const listGifts = [
     link: "/product-single/Jogo-de-jarras",
     title: "Jogo de jarras",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 17,
@@ -171,8 +171,8 @@ const listGifts = [
     link: "/product-single/Jogos-de-copos",
     title: "Jogos de copos",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 18,
@@ -181,8 +181,8 @@ const listGifts = [
     link: "/product-single/Refratarios",
     title: "Refratários",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 19,
@@ -191,8 +191,8 @@ const listGifts = [
     link: "/product-single/Formas-de-cozinha",
     title: "Formas de cozinha",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 20,
@@ -201,8 +201,8 @@ const listGifts = [
     link: "/product-single/Faqueiro",
     title: "Faqueiro",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 21,
@@ -211,8 +211,8 @@ const listGifts = [
     link: "/product-single/Jogo-marinex",
     title: "Jogo marinex",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 22,
@@ -221,8 +221,8 @@ const listGifts = [
     link: "/product-single/Talheres",
     title: "Talheres",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 23,
@@ -231,8 +231,8 @@ const listGifts = [
     link: "/product-single/Potes-hermeticos",
     title: "Potes herméticos",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 24,
@@ -241,8 +241,8 @@ const listGifts = [
     link: "/product-single/Microondas",
     title: "Microondas",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 25,
@@ -251,8 +251,8 @@ const listGifts = [
     link: "/product-single/Forno-eletrico",
     title: "Forno elétrico",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 26,
@@ -261,8 +261,8 @@ const listGifts = [
     link: "/product-single/Cocktop",
     title: "Cocktop",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 27,
@@ -271,8 +271,8 @@ const listGifts = [
     link: "/product-single/Mesa-com-cadeiras",
     title: "Mesa com cadeiras",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 28,
@@ -281,8 +281,8 @@ const listGifts = [
     link: "/product-single/Tabua-de-cortar-carne",
     title: "Tábua de cortar carne",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 29,
@@ -291,8 +291,8 @@ const listGifts = [
     link: "/product-single/Jogo-de-toalhas",
     title: "Jogo de Toalhas",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 30,
@@ -301,8 +301,8 @@ const listGifts = [
     link: "/product-single/Televisao",
     title: "Televisão",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 31,
@@ -311,8 +311,8 @@ const listGifts = [
     link: "/product-single/Geladeira",
     title: "Geladeira",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 32,
@@ -321,8 +321,8 @@ const listGifts = [
     link: "/product-single/Potes-de-plastico",
     title: "Potes de plástico",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 33,
@@ -331,8 +331,8 @@ const listGifts = [
     link: "/product-single/Marmiteira-eletrica",
     title: "Marmita elétrica",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 34,
@@ -341,8 +341,8 @@ const listGifts = [
     link: "/product-single/Jogo-de-tacas",
     title: "Jogo de taças",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 35,
@@ -351,8 +351,8 @@ const listGifts = [
     link: "/product-single/Caixa-termica",
     title: "Caixa térmica",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 36,
@@ -361,8 +361,8 @@ const listGifts = [
     link: "/product-single/Jogo-de-churrasco",
     title: "Jogo de churrasco",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 37,
@@ -371,8 +371,8 @@ const listGifts = [
     link: "/product-single/Cortinas",
     title: "Cortinas",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 38,
@@ -381,8 +381,8 @@ const listGifts = [
     link: "/product-single/Ventilador-de-pe",
     title: "Ventilador de pé",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 39,
@@ -391,8 +391,8 @@ const listGifts = [
     link: "/product-single/Climatizador-de-ar",
     title: "Climatizador de ar",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 40,
@@ -401,8 +401,8 @@ const listGifts = [
     link: "/product-single/Jogo-de-guardanapo",
     title: "Jogo de guardanapo",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 41,
@@ -411,8 +411,8 @@ const listGifts = [
     link: "/product-single/Maquina-centrifuga",
     title: "Máquina centrífuga",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 42,
@@ -421,8 +421,8 @@ const listGifts = [
     link: "/product-single/Ferro-de-passar-roupa",
     title: "Ferro de passar roupa",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 43,
@@ -431,8 +431,8 @@ const listGifts = [
     link: "/product-single/Chaleira",
     title: "Chaleira",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 44,
@@ -441,8 +441,8 @@ const listGifts = [
     link: "/product-single/Bule-de-cafe",
     title: "Bule de café",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 45,
@@ -451,8 +451,8 @@ const listGifts = [
     link: "/product-single/Cafeteira",
     title: "Cafeteira",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 46,
@@ -461,8 +461,8 @@ const listGifts = [
     link: "/product-single/Porta-temperos",
     title: "Porta temperos",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 47,
@@ -471,8 +471,8 @@ const listGifts = [
     link: "/product-single/Maquina-de-suco-de-laranja",
     title: "Máquina de suco de laranja",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 48,
@@ -481,8 +481,8 @@ const listGifts = [
     link: "/product-single/Conchas-colher-de-pau-pilao",
     title: "Conchas, colher de pau, pilão",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 49,
@@ -491,8 +491,8 @@ const listGifts = [
     link: "/product-single/Garrafa-de-cafe",
     title: "Garrafa de café",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 50,
@@ -501,8 +501,8 @@ const listGifts = [
     link: "/product-single/Rack-de-sala",
     title: "Rack de sala",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 51,
@@ -511,8 +511,8 @@ const listGifts = [
     link: "/product-single/Painel-de-tv",
     title: "Painel de TV",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 52,
@@ -521,8 +521,8 @@ const listGifts = [
     link: "/product-single/Edredons",
     title: "Edredons",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 53,
@@ -531,8 +531,8 @@ const listGifts = [
     link: "/product-single/Chopeira",
     title: "Chopeira",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 54,
@@ -541,8 +541,8 @@ const listGifts = [
     link: "/product-single/Suqueira",
     title: "Suqueira",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 55,
@@ -551,8 +551,8 @@ const listGifts = [
     link: "/product-single/Bomboniere",
     title: "Bomboniere",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 56,
@@ -561,8 +561,8 @@ const listGifts = [
     link: "/product-single/Balde-de-gelo-inox",
     title: "Balde de gelo inox",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 57,
@@ -571,8 +571,8 @@ const listGifts = [
     link: "/product-single/Potes-para-sobremesa",
     title: "Potes para sobremesa",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 58,
@@ -581,8 +581,8 @@ const listGifts = [
     link: "/product-single/Almofadas",
     title: "Almofadas",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 59,
@@ -591,8 +591,8 @@ const listGifts = [
     link: "/product-single/Petisqueira",
     title: "Petisqueira",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 60,
@@ -601,8 +601,8 @@ const listGifts = [
     link: "/product-single/Travesseiros",
     title: "Travesseiros",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 61,
@@ -611,8 +611,8 @@ const listGifts = [
     link: "/product-single/Jogo-americano",
     title: "Jogo americano",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 62,
@@ -621,8 +621,8 @@ const listGifts = [
     link: "/product-single/Aparelho-de-fondue",
     title: "Aparelho de fondue",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 63,
@@ -631,8 +631,8 @@ const listGifts = [
     link: "/product-single/Tapete",
     title: "Tapete",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 64,
@@ -641,8 +641,8 @@ const listGifts = [
     link: "/product-single/Cervejeira",
     title: "Cervejeira",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
   {
     id: 72,
@@ -651,8 +651,8 @@ const listGifts = [
     link: "/product-single/Jogo-de-cama",
     title: "Jogo de cama",
     price: ["$0.00"],
-    disponivel: true,
-    recebido: false,
+    available: true,
+    received: false,
   },
 
   // presentes indisponíveis
@@ -663,8 +663,8 @@ const listGifts = [
     link: "/product-single/Airfryer",
     title: "Airfryer",
     price: ["$0.00"],
-    disponivel: false,
-    recebido: false,
+    available: false,
+    received: false,
   },
   {
     id: 66,
@@ -673,8 +673,8 @@ const listGifts = [
     link: "/product-single/Sanduicheira",
     title: "Sanduicheira",
     price: ["$0.00"],
-    disponivel: false,
-    recebido: false,
+    available: false,
+    received: false,
   },
   {
     id: 67,
@@ -683,8 +683,8 @@ const listGifts = [
     link: "/product-single/Liquidificador",
     title: "Liquidificador",
     price: ["$0.00"],
-    disponivel: false,
-    recebido: false,
+    available: false,
+    received: false,
   },
   {
     id: 68,
@@ -693,8 +693,8 @@ const listGifts = [
     link: "/product-single/Batedeira",
     title: "Batedeira",
     price: ["$0.00"],
-    disponivel: false,
-    recebido: false,
+    available: false,
+    received: false,
   },
   {
     id: 69,
@@ -703,8 +703,8 @@ const listGifts = [
     link: "/product-single/Pipoqueira",
     title: "Pipoqueira",
     price: ["$0.00"],
-    disponivel: false,
-    recebido: false,
+    available: false,
+    received: false,
   },
   {
     id: 70,
@@ -713,8 +713,8 @@ const listGifts = [
     link: "/product-single/Churrasqueira-eletrica",
     title: "Churrasqueira elétrica",
     price: ["$0.00"],
-    disponivel: false,
-    recebido: false,
+    available: false,
+    received: false,
   },
   {
     id: 71,
@@ -723,8 +723,8 @@ const listGifts = [
     link: "/product-single/Purificador de Água",
     title: "Purificador de Água",
     price: ["$0.00"],
-    disponivel: false,
-    recebido: false,
+    available: false,
+    received: false,
   },
   {
     id: 73,
@@ -733,8 +733,8 @@ const listGifts = [
     link: "/product-single/Panela-eletrica-de-arroz",
     title: "Panela elétrica de arroz",
     price: ["$0.00"],
-    disponivel: false,
-    recebido: true,
+    available: false,
+    received: true,
   },
   {
     id: 74,
@@ -743,12 +743,16 @@ const listGifts = [
     link: "/product-single/Fogao",
     title: "Fogão",
     price: ["$0.00"],
-    disponivel: false,
-    recebido: true,
+    available: false,
+    received: true,
   },
 ];
 
 export default function Gifts() {
+  const config = {
+    showPrices: false,
+  };
+
   return (
     <>
       <Navbar />
@@ -762,7 +766,9 @@ export default function Gifts() {
                   <div className="wpo-product-wrap">
                     <div className="row">
                       {listGifts
-                        .filter((product) => product.ext) // Filtra os produtos que possuem imgSrc
+                        .filter((product) => product.ext)
+                        .filter((product) => product.available)
+                        .filter((product) => !product.received)
                         .map((product) => (
                           <div
                             key={product.id}
@@ -816,21 +822,16 @@ export default function Gifts() {
                                 <h3>
                                   <a href={product.link}>{product.title}</a>
                                 </h3>
-                                {/* <ul>
-                                  <li>{product.price[0]}</li>
-                                  <li>{product.price[1]}</li>
-                                </ul> */}
+                                {config.showPrices && (
+                                  <ul>
+                                    <li>{product.price[0]}</li>
+                                    <li>{product.price[1]}</li>
+                                  </ul>
+                                )}
                               </div>
                             </div>
                           </div>
                         ))}
-                    </div>
-                    <div className="load-btn d-none">
-                      <span>
-                        <button className="loadmore-btn theme-btn">
-                          Load More
-                        </button>
-                      </span>
                     </div>
                   </div>
                 </div>
