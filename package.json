@@ -29,6 +29,7 @@
     "classnames": "^2.5.1",
     "dotenv": "16.4.7",
     "dotenv-expand": "11.0.6",
+    "fs": "^0.0.1-security",
     "next": "15.1.0",
     "node-pg-migrate": "6.2.2",
     "pg": "8.13.1",
