@@ -9,6 +9,7 @@ import {
   FaCheck,
 } from "react-icons/fa";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export function Navbar() {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
@@ -25,13 +26,10 @@ export function Navbar() {
   const router = useRouter();
   const currentRoute = router.pathname;
 
-  const routesToTransparent = ["/landing2"];
+  const routesToTransparent = ["/landing2", "/"];
 
   useEffect(() => {
-    const isTransparent = routesToTransparent.some((route) =>
-      currentRoute.startsWith(route),
-    );
-
+    const isTransparent = routesToTransparent.includes(currentRoute);
     if (!isTransparent) {
       setIsScrolled(true);
       return;
@@ -106,9 +104,14 @@ export function Navbar() {
                   </div>
                   <div className="col-lg-2 col-md-6 col-6">
                     <div className="navbar-header">
-                      <a className="navbar-brand" href="/home">
-                        Letícia e Ryan
-                      </a>
+                      <Link className="navbar-brand" href="/">
+                        <Image
+                          src={"/images/logo-wb.svg"}
+                          alt=""
+                          width={showMenuMobile ? 100 : 50}
+                          height={showMenuMobile ? 100 : 50}
+                        />
+                      </Link>
                     </div>
                   </div>
                   <div className="col-lg-8 col-md-1 col-1">
