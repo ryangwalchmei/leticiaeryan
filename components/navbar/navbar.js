@@ -29,10 +29,7 @@ export function Navbar() {
   const routesToTransparent = ["/landing2", "/"];
 
   useEffect(() => {
-    const isTransparent = routesToTransparent.some((route) =>
-      currentRoute.startsWith(route),
-    );
-
+    const isTransparent = routesToTransparent.includes(currentRoute);
     if (!isTransparent) {
       setIsScrolled(true);
       return;
