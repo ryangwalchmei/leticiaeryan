@@ -14,6 +14,7 @@ import Image from "next/image";
 export function Navbar() {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const menuItens = [
     { name: "Home", link: "/landing2", icon: <FaHome /> },
@@ -27,9 +28,9 @@ export function Navbar() {
   const currentRoute = router.pathname;
 
   const routesToTransparent = ["/landing2", "/"];
+  const isTransparent = routesToTransparent.includes(currentRoute);
 
   useEffect(() => {
-    const isTransparent = routesToTransparent.includes(currentRoute);
     if (!isTransparent) {
       setIsScrolled(true);
       return;
@@ -50,10 +51,17 @@ export function Navbar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentRoute]);
 
+  useEffect(() => {
+    setIsMobile(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
+  }, []);
+
   return (
     <>
       <div className={`fixed-navbar fade show ${isScrolled ? "active " : ""}`}>
-        <header id="header">
+        <header
+          id="header"
+          style={{ paddingBottom: `${isMobile && isScrolled ? "6rem" : ""}` }}
+        >
           <div className="wpo-site-header wpo-header-style-1 undefined">
             <nav className="navigation navbar navbar-expand-lg navbar-light">
               <div className="container-fluid">
