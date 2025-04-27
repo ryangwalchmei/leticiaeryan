@@ -11,12 +11,13 @@ exports.up = (pgm) => {
       notNull: true,
       primaryKey: true,
     },
-    name: { type: "varchar(255)", notNull: true },
-    categoria: { type: "varchar(255)", notNull: true, default: "Não listado" },
-    preco_estimado: { type: "integer", default: 0 },
-    loja_sugerida: { type: "varchar(255)" },
-    status: { type: "varchar(255)", default: "Ocioso" },
-    data_reserva: { type: "varchar(255)", default: false },
+    ext: { type: "varchar(255)", notNull: true },
+    alt: { type: "varchar(255)", notNull: true, default: "" },
+    link: { type: "text", notNull: false },
+    title: { type: "varchar(255)" },
+    price: { type: "varchar(255)" },
+    available: { type: "boolean", default: false },
+    received: { type: "boolean", default: false },
   });
 };
 

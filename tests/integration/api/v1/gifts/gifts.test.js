@@ -1,12 +1,13 @@
 import orchestrator from "tests/orchestrator";
 
 const giftsDefaultParams = {
-  name: "Kit de cosméticos",
-  categoria: "Cosméticos",
-  preco_estimado: 300,
-  loja_sugerida: "Natura",
-  status: "Ocioso",
-  data_reserva: new Date().toISOString(),
+  ext: ".jpg",
+  alt: "Cosméticos",
+  link: "https://www.natura.com.br/maquiagem/kit-de-maquiagem-para-o-olho-e-boca/p",
+  title: "Natura",
+  price: "1000",
+  available: false,
+  received: false,
 };
 
 let giftCreated = null;
@@ -55,7 +56,7 @@ describe("GET /api/v1/gifts", () => {
 
     const firstConvidado = responseBody[0];
     expect(firstConvidado).toHaveProperty("id");
-    expect(firstConvidado).toHaveProperty("name");
+    expect(firstConvidado).toHaveProperty("title");
   });
 });
 
@@ -72,8 +73,8 @@ describe("GET /api/v1/gifts/:id", () => {
   test("Verifica estrutura do presente", async () => {
     expect(typeof responseBody).toBe("object");
     expect(responseBody).toStrictEqual(giftCreated);
-    expect(responseBody).toHaveProperty("name");
-    expect(responseBody).toHaveProperty("categoria");
+    expect(responseBody).toHaveProperty("id");
+    expect(responseBody).toHaveProperty("title");
   });
 });
 
@@ -87,7 +88,7 @@ describe("PUT /api/v1/gifts/:id", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...giftsDefaultParams,
-          name: "Kit de maquiagem",
+          title: "Kit de maquiagem",
         }),
       },
     );
@@ -98,11 +99,7 @@ describe("PUT /api/v1/gifts/:id", () => {
   test("Verifica integridade dos dados atualizados", async () => {
     expect(responseBody).toHaveProperty("id");
     expect(typeof responseBody.id).toBe("string");
-    expect(responseBody.name).toBe("Kit de maquiagem");
-    expect(responseBody.quantindividuals).toBe(
-      giftsDefaultParams.quantindividuals,
-    );
-    expect(responseBody.quantchildrens).toBe(giftsDefaultParams.quantchildrens);
+    expect(responseBody.title).toBe("Kit de maquiagem");
   });
 });
 

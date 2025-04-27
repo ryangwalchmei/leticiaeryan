@@ -21,26 +21,12 @@ export default function gifts() {
     }
   }
   async function createGifts(data) {
-    const {
-      name,
-      categoria,
-      preco_estimado,
-      loja_sugerida,
-      status,
-      data_reserva,
-    } = data;
+    const { ext, alt, link, title, price, available, received } = data;
 
     try {
       const returnQuery = database.query({
-        text: "INSERT INTO public.gifts (name, categoria, preco_estimado, loja_sugerida, status, data_reserva) VALUES($1, $2, $3, $4, $5, $6)  RETURNING *;",
-        values: [
-          name,
-          categoria,
-          preco_estimado,
-          loja_sugerida,
-          status,
-          data_reserva,
-        ],
+        text: "INSERT INTO public.gifts (ext, alt, link, title, price, available, received) VALUES($1, $2, $3, $4, $5, $6, $7)  RETURNING *;",
+        values: [ext, alt, link, title, price, available, received],
       });
 
       return (await returnQuery).rows;
@@ -63,27 +49,12 @@ export default function gifts() {
   }
 
   async function updateGift(id, data) {
-    const {
-      name,
-      categoria,
-      preco_estimado,
-      loja_sugerida,
-      status,
-      data_reserva,
-    } = data;
+    const { ext, alt, link, title, price, available, received } = data;
 
     try {
       const returnQuery = database.query({
-        text: "UPDATE public.gifts SET name = $1, categoria = $2, preco_estimado = $3, loja_sugerida = $4, status = $5, data_reserva = $6 WHERE id = $7 RETURNING *;",
-        values: [
-          name,
-          categoria,
-          preco_estimado,
-          loja_sugerida,
-          status,
-          data_reserva,
-          id,
-        ],
+        text: "UPDATE public.gifts SET ext = $1, alt = $2, link = $3, title = $4, price = $5, available = $6, received = $7 WHERE id = $8 RETURNING *;",
+        values: [ext, alt, link, title, price, available, received, id],
       });
 
       return (await returnQuery).rows;
