@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   FaTimes,
@@ -6,22 +6,57 @@ import {
   FaGifts,
   FaPhotoVideo,
   FaPhone,
+  FaCheck,
 } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 export function Navbar() {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const menuItens = [
     { name: "Home", link: "/landing2", icon: <FaHome /> },
     { name: "Lista de Presentes", link: "/gifts", icon: <FaGifts /> },
     { name: "Galeria de Fotos", link: "/gallery", icon: <FaPhotoVideo /> },
+    { name: "Confirmar Presença", link: "/rsvp", icon: <FaCheck /> },
     { name: "Contato", link: "/contact", icon: <FaPhone /> },
   ];
+
+  const router = useRouter();
+  const currentRoute = router.pathname;
+
+  const routesToTransparent = ["/landing2"];
+
+  useEffect(() => {
+    const isTransparent = routesToTransparent.some((route) =>
+      currentRoute.startsWith(route),
+    );
+
+    if (!isTransparent) {
+      setIsScrolled(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentRoute]);
+
   return (
     <>
-      <div className="fixed-navbar ">
+      <div className={`fixed-navbar fade show ${isScrolled ? "active " : ""}`}>
         <header id="header">
-          <div className="wpo-site-header wpo-header-style-3">
+          <div className="wpo-site-header wpo-header-style-1 undefined">
             <nav className="navigation navbar navbar-expand-lg navbar-light">
               <div className="container-fluid">
                 <div className="row align-items-center">
