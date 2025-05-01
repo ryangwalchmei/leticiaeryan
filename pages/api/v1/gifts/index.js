@@ -1,4 +1,4 @@
-import giftsFactory from "models/gifts";
+import giftsFactory from "../../../../models/gifts";
 
 const giftsDb = giftsFactory();
 

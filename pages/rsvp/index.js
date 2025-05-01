@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { Navbar } from "../../components/navbar/navbar";
+import Navbar from "../../components/navbar/navbar";
 import useSWR from "swr";
 
 async function fetchAPI(endpoint) {

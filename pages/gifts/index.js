@@ -1,5 +1,5 @@
-import { Navbar } from "components/navbar/navbar";
-import WpoPageTitle from "components/wpoPageTitle";
+import Navbar from "../../components/navbar/navbar";
+import WpoPageTitle from "../../components/wpoPageTitle";
 import { FaGift } from "react-icons/fa";
 import useSWR from "swr";
 

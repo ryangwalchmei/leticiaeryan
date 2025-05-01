@@ -1,4 +1,4 @@
-import guestFactory from "models/guests";
+import guestFactory from "../../../../models/guests";
 
 const guestDb = guestFactory();
 

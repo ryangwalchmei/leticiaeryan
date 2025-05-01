@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 
-import database from "infra/database.js";
+import database from "../infra/database.js";
 export default function Invitation() {
   async function getInvitations() {
     try {

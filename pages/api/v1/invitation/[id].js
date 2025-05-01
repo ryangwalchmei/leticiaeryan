@@ -1,4 +1,4 @@
-import invitationFactory from "models/invitation";
+import invitationFactory from "../../../../models/invitation";
 const invitation = invitationFactory();
 
 export default function Invitation(request, response) {
@@ -92,6 +92,8 @@ async function deleteHandler(request, response) {
     }
 
     await invitation.deleteInvitation(request.query.id).then(() => {
+      console.log(returnInvitation[0]);
+
       return response.status(204).json(returnInvitation[0]);
     });
   } catch (error) {

@@ -11,7 +11,7 @@ import {
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export function Navbar() {
+export default function Navbar() {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);

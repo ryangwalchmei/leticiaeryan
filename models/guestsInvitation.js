@@ -1,4 +1,4 @@
-import database from "infra/database";
+import database from "../infra/database";
 
 export default function GuestsInvitation() {
   async function getGuestsByInvitationId(id) {

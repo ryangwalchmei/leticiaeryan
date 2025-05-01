@@ -1,4 +1,4 @@
-import guestsFactory from "models/guests";
+import guestsFactory from "../../../../models/guests";
 const guests = guestsFactory();
 
 export default function Guests(request, response) {

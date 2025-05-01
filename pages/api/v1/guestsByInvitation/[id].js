@@ -1,5 +1,5 @@
-import guestInvitationFactory from "models/guestsInvitation";
-import invitationFactory from "models/invitation";
+import guestInvitationFactory from "../../../../models/guestsInvitation";
+import invitationFactory from "../../../../models/invitation";
 
 const guestInvitation = guestInvitationFactory();
 const invitation = invitationFactory();

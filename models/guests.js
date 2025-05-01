@@ -1,4 +1,4 @@
-import database from "infra/database.js";
+import database from "../infra/database.js";
 export default function Guest() {
   async function getGuests() {
     try {

@@ -1,4 +1,4 @@
-import invitationFactory from "models/invitation";
+import invitationFactory from "../../../../models/invitation";
 
 const invitationDb = invitationFactory();
 

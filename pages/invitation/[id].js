@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import cx from "classnames";
-import { Navbar } from "components/navbar/navbar";
-import WpoPageTitle from "components/wpoPageTitle";
+import Navbar from "../../components/navbar/navbar";
+import WpoPageTitle from "../../components/wpoPageTitle";
 
 async function fetchAPI(endpoint) {
   const response = await fetch(endpoint);
@@ -123,35 +123,41 @@ function GuestCards({ id }) {
                       <li>
                         Situação:{" "}
                         <span>
-                          {guest.confirmation_status || "Pendente"}{" "}
-                          {guest.confirmation_status &&
-                            `- ${guest.confirmation_date}`}
+                          {guest.confirmation_status === "pending " ||
+                            (guest.confirmation_status === null && "Pendente")}
+                          {guest.confirmation_status === "declined" &&
+                            "Não irá comparecer"}
+                          {guest.confirmation_status === "confirmed" &&
+                            "Irá comparecer"}
                         </span>
                       </li>
                     </ul>
                     <div>
                       <button
                         className={cx("btn", {
-                          "btn-secondary": guest.confirmation_status === null,
+                          "btn-secondary":
+                            guest.confirmation_status === "pending" ||
+                            guest.confirmation_status === null,
                           "btn-danger":
-                            guest.confirmation_status === "CONFIRMED",
+                            guest.confirmation_status === "confirmed",
                           "btn-success":
-                            guest.confirmation_status === "REJECTED",
+                            guest.confirmation_status === "declined",
                         })}
                         onClick={() => {
                           const newStatus =
-                            guest.confirmation_status === null ||
-                            guest.confirmation_status === "REJECTED"
-                              ? "CONFIRMED"
-                              : "REJECTED";
+                            guest.confirmation_status === "pending  " ||
+                            guest.confirmation_status === "declined"
+                              ? "confirmed"
+                              : "declined";
                           handleChangeStatus(guest.id, newStatus);
                         }}
                       >
-                        {guest.confirmation_status === null && "Confirmar"}
-                        {guest.confirmation_status === "REJECTED" &&
-                          "Confirmar"}
-                        {guest.confirmation_status === "CONFIRMED" &&
+                        {guest.confirmation_status === "pending " ||
+                          (guest.confirmation_status === null && "Confirmar")}
+                        {guest.confirmation_status === "confirmed" &&
                           "Desconfirmar"}
+                        {guest.confirmation_status === "declined" &&
+                          "Confirmar"}
                       </button>
                     </div>
                   </div>

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Navbar } from "components/navbar/navbar";
+import Navbar from "../../components/navbar/navbar";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight, FaEye, FaTimes } from "react-icons/fa";
-import WpoPageTitle from "components/wpoPageTitle";
+import WpoPageTitle from "../../components/wpoPageTitle";
 
 const styles = {
   slideImage: {
