@@ -57,6 +57,7 @@ function SideMenuMobile({ open, toggleDrawer }) {
         </Stack>
         <Stack sx={{ p: 2 }}>
           <Button
+            onClick={() => toggleDrawer(false)}
             variant="outlined"
             fullWidth
             startIcon={<LogoutRoundedIcon />}

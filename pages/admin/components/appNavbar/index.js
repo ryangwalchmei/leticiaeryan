@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -6,10 +7,8 @@ import MuiToolbar from "@mui/material/Toolbar";
 import { tabsClasses } from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-// import ColorModeIconDropdown from "./theme/sharedThemes/ColorModeIconDropdown";
 import { useMenu } from "contexts/menuContext";
 import MenuButton from "../menuButton";
-import { useState } from "react";
 import SideMenuMobile from "../sideMenu/sideMenuMobile";
 
 const Toolbar = styled(MuiToolbar)({
@@ -100,7 +99,7 @@ export default function AppNavbar() {
           <MenuButton aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuRoundedIcon />
           </MenuButton>
-          <SideMenuMobile open={open} toggleDrawer={toggleDrawer} />
+          <SideMenuMobile open={open} toggleDrawer={setOpen} />
         </Stack>
       </Toolbar>
     </AppBar>
