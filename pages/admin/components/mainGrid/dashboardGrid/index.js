@@ -6,8 +6,9 @@ import { useMenu } from "contexts/menuContext";
 import { useData } from "contexts/getDataContext";
 import StatCard from "./statCard";
 import { useEffect, useMemo, useState } from "react";
-import RenderOnLoadingData from "../../isLoading";
+import RenderOnLoadingData from "components/isLoading";
 
+// Importa o gráfico que roda apenas no cliente (desativa SSR)
 const ChartOnlyClient = dynamic(() => import("./chartOnlyClient"), {
   ssr: false,
 });

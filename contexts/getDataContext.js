@@ -10,11 +10,13 @@ export const GetDataProvider = ({ children }) => {
     isLoading: isLoadingInvitations,
     mutate: refreshInvitations,
   } = useSWR("/api/v1/invitation", fetchAPI);
+
   const {
     data: guestList = [],
     isLoading: isLoadingGuests,
     mutate: refreshGuests,
   } = useSWR("/api/v1/guests", fetchAPI);
+
   const { data: giftList = [], isLoading: isLoadingGifts } = useSWR(
     "/api/v1/gifts",
     fetchAPI,
@@ -24,6 +26,14 @@ export const GetDataProvider = ({ children }) => {
   const [mappedGuests, setMappedGuests] = useState([]);
 
   useEffect(() => {
+    if (
+      isLoadingInvitations ||
+      isLoadingGuests ||
+      !invitationList.length ||
+      !guestList.length
+    )
+      return;
+
     const invitations = [...invitationList]
       .sort((a, b) => a.name.localeCompare(b.name))
       .map((invitation) => ({
@@ -33,9 +43,17 @@ export const GetDataProvider = ({ children }) => {
         ),
       }));
     setMappedInvitations(invitations);
-  }, [invitationList, guestList]);
+  }, [invitationList, guestList, isLoadingInvitations, isLoadingGuests]);
 
   useEffect(() => {
+    if (
+      isLoadingGuests ||
+      isLoadingInvitations ||
+      !guestList.length ||
+      !invitationList.length
+    )
+      return;
+
     const guests = [...guestList]
       .sort((a, b) => a.name.localeCompare(b.name))
       .map((guest) => ({
@@ -44,7 +62,7 @@ export const GetDataProvider = ({ children }) => {
           invitationList.find((inv) => inv.id === guest.invitation_id) || {},
       }));
     setMappedGuests(guests);
-  }, [guestList, invitationList]);
+  }, [guestList, invitationList, isLoadingGuests, isLoadingInvitations]);
 
   const confirmationSummary = {
     invitation: {

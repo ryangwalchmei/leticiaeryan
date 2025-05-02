@@ -16,17 +16,16 @@ export default function TableGuests() {
   const [mappedGuestsFiltered, setMappedGuestsFiltered] = useState([]);
 
   useEffect(() => {
-    if (!mappedGuests) return;
+    if (!mappedGuests || !Array.isArray(mappedGuests)) return;
 
-    if (selectedInvitationExternalId?.id) {
-      const filtered = mappedGuests.filter(
-        (item) => item.invitation_id === selectedInvitationExternalId.id,
-      );
-      setMappedGuestsFiltered(filtered);
-    } else {
-      setMappedGuestsFiltered(mappedGuests);
-    }
-  }, [selectedInvitationExternalId, mappedGuests]);
+    const filtered = selectedInvitationExternalId?.id
+      ? mappedGuests.filter(
+          (item) => item.invitation_id === selectedInvitationExternalId.id,
+        )
+      : mappedGuests;
+
+    setMappedGuestsFiltered(filtered);
+  }, [mappedGuests, selectedInvitationExternalId?.id, isLoadingGuests]);
 
   const header = [
     { name: "Nome", textEnd: false },
@@ -38,6 +37,7 @@ export default function TableGuests() {
   ];
 
   const statusMap = {
+    null: { label: "Pendente", class: "bg-secondary" },
     confirmed: { label: "Confirmado", class: "bg-success" },
     declined: { label: "Rejeitado", class: "bg-danger" },
     pending: { label: "Pendente", class: "bg-secondary" },
@@ -97,8 +97,8 @@ export default function TableGuests() {
                     style={{ cursor: "pointer" }}
                     onClick={() => actions[2]?.action(item)}
                   >
-                    <span className={`badge ${status.class}`}>
-                      {status.label}
+                    <span className={`badge ${status?.class}`}>
+                      {status?.label}
                     </span>
                   </td>
                   <td>
