@@ -38,6 +38,7 @@ export default function TableGuests() {
   ];
 
   const statusMap = {
+    null: { label: "Rejeitado", class: "bg-danger" },
     confirmed: { label: "Confirmado", class: "bg-success" },
     declined: { label: "Rejeitado", class: "bg-danger" },
     pending: { label: "Pendente", class: "bg-secondary" },
@@ -97,8 +98,8 @@ export default function TableGuests() {
                     style={{ cursor: "pointer" }}
                     onClick={() => actions[2]?.action(item)}
                   >
-                    <span className={`badge ${status.class}`}>
-                      {status.label}
+                    <span className={`badge ${status?.class}`}>
+                      {status?.label}
                     </span>
                   </td>
                   <td>
