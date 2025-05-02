@@ -1,0 +1,60 @@
+import * as React from "react";
+import Button from "@mui/material/Button";
+import { FaPlus } from "react-icons/fa";
+import { useMenu } from "contexts/menuContext";
+
+export default function CustomButtonCreate() {
+  const { selectedMenu } = useMenu();
+
+  function ButtonWhereInvitation() {
+    return (
+      <Button
+        variant="outlined"
+        size="small"
+        startIcon={<FaPlus fontSize="small" />}
+        sx={{ minWidth: "fit-content" }}
+        onClick={() => {}}
+      >
+        Criar um novo Convite
+      </Button>
+    );
+  }
+
+  function ButtonWhereGuests() {
+    return (
+      <Button
+        variant="outlined"
+        size="small"
+        startIcon={<FaPlus fontSize="small" />}
+        sx={{ minWidth: "fit-content" }}
+        onClick={() => {}}
+      >
+        Criar um novo Convidado
+      </Button>
+    );
+  }
+
+  function ButtonWhereGifts() {
+    return (
+      <Button
+        variant="outlined"
+        size="small"
+        startIcon={<FaPlus fontSize="small" />}
+        sx={{ minWidth: "fit-content" }}
+      >
+        Cadastrar um novo Presente
+      </Button>
+    );
+  }
+
+  switch (selectedMenu) {
+    case "Convites":
+      return ButtonWhereInvitation();
+    case "Convidados":
+      return ButtonWhereGuests();
+    case "Presentes":
+      return ButtonWhereGifts();
+    default:
+      return;
+  }
+}
