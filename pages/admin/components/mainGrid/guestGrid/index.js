@@ -5,7 +5,6 @@ import TableGuests from "./tableGuests";
 
 export default function GuestsGrid() {
   const { selectedInvitationExternalId } = useMenu();
-
   return (
     <>
       <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>

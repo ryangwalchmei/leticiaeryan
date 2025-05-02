@@ -3,10 +3,14 @@ import { IconButton } from "@mui/material";
 import { FaTrash, FaUserEdit, FaCheck } from "react-icons/fa";
 import { useData } from "contexts/getDataContext";
 import { useMenu } from "contexts/menuContext";
+import { useCreateData } from "contexts/createDataContext";
 
 export default function TableGuests() {
   const { selectedInvitationExternalId } = useMenu();
   const { mappedGuests, loadingData } = useData();
+  const { guests } = useCreateData();
+
+  const { deleteGuest, toggleGuestConfirmationStatus } = guests;
   const { isLoadingInvitations, isLoadingGuests } = loadingData;
 
   const [mappedGuestsFiltered, setMappedGuestsFiltered] = useState([]);
@@ -49,13 +53,13 @@ export default function TableGuests() {
     },
     {
       name: "Deletar",
-      action: () => {},
+      action: async (item) => await deleteGuest(item),
       Icon: FaTrash,
       color: "error",
     },
     {
       name: "Confirmar",
-      action: () => {},
+      action: (item) => toggleGuestConfirmationStatus(item),
       Icon: FaCheck,
       color: "success",
     },

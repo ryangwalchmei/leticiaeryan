@@ -1,19 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import useSWR from "swr";
+import fetchAPI from "./utils/fetchAPI";
 
 const GetDataContext = createContext();
-
-async function fetchAPI(endpoint, options) {
-  const response = await fetch(endpoint, options);
-  if (!response.ok) {
-    const errorBody = await response.json();
-    throw new Error(errorBody.message || "An error occurred");
-  }
-  if (response.status === 204 || response.statusText === "No Content") {
-    return null;
-  }
-  return response.json();
-}
 
 export const GetDataProvider = ({ children }) => {
   const {
