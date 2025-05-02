@@ -4,16 +4,28 @@ import { FaPeopleLine } from "react-icons/fa6";
 import { FaTrash, FaUserPlus } from "react-icons/fa";
 import React from "react";
 import { useData } from "contexts/getDataContext";
+import { useMenu } from "contexts/menuContext";
 
 export default function TableInvitations() {
   const { confirmationSummary, mappedInvitations, loadingData } = useData();
 
+  const { setSelectedInvitationExternalId, setSelectedMenu } = useMenu();
   const { isLoadingInvitations, isLoadingGuests } = loadingData;
+
+  // eslint-disable-next-line no-unused-vars
+  const [selectedInvitation, setInvitationSelected] = React.useState({});
+
+  const handleNavigateToGuestOfInvitation = (item) => {
+    setSelectedInvitationExternalId(item);
+
+    setInvitationSelected(item);
+    setSelectedMenu("Convidados");
+  };
 
   let actions = [
     {
       name: "Mostrar Convidados",
-      action: () => {},
+      action: handleNavigateToGuestOfInvitation,
       Icon: FaPeopleLine,
       color: "",
     },

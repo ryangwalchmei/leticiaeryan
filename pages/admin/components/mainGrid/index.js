@@ -1,5 +1,6 @@
 import { useMenu } from "contexts/menuContext";
 import InvitationsGrid from "./invitationsGrid";
+import GuestsGrid from "./guestGrid";
 
 export default function MainGrid() {
   const { selectedMenu } = useMenu();
@@ -10,7 +11,7 @@ export default function MainGrid() {
     case "Convites":
       return <InvitationsGrid />;
     case "Convidados":
-      return;
+      return <GuestsGrid />;
     default:
       break;
   }
