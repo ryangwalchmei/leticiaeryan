@@ -161,6 +161,8 @@ export const CreateDataProvider = ({ children }) => {
   // Guests
 
   async function createGuestForInvitation(formValues) {
+    console.log(formValues);
+
     try {
       if (formValues) {
         await fetchAPI(`/api/v1/guests`, {
@@ -168,7 +170,7 @@ export const CreateDataProvider = ({ children }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({}),
+          body: JSON.stringify(formValues),
         });
 
         await refresh().refreshGuests();
@@ -211,7 +213,7 @@ export const CreateDataProvider = ({ children }) => {
 
       await Swal.fire({
         title: "Atualizado!",
-        text: `Status de confirmação alterado para "${updatedStatus}".`,
+        text: `Status de confirmação do convite ${item.name} alterado para ${updatedStatus}.`,
         icon: "success",
       });
     } catch {

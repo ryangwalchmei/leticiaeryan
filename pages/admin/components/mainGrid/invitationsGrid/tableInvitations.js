@@ -5,15 +5,27 @@ import { FaTrash, FaUserPlus } from "react-icons/fa";
 import React from "react";
 import { useData } from "contexts/getDataContext";
 import { useMenu } from "contexts/menuContext";
+import { useCreateData } from "contexts/createDataContext";
+import ModalAddGuestInInvitation from "./modalAddGuestInInvitation";
 
 export default function TableInvitations() {
   const { confirmationSummary, mappedInvitations, loadingData } = useData();
-
   const { setSelectedInvitationExternalId, setSelectedMenu } = useMenu();
+  const { invitations } = useCreateData();
+
   const { isLoadingInvitations, isLoadingGuests } = loadingData;
 
   // eslint-disable-next-line no-unused-vars
   const [selectedInvitation, setInvitationSelected] = React.useState({});
+  const [openModalCreateGuestInInvitation, setIsCreateGuestModalOpen] =
+    React.useState(false);
+
+  const openCreateGuestModal = (item) => {
+    setIsCreateGuestModalOpen(true);
+    setInvitationSelected(item);
+  };
+
+  const closeCreateGuestModal = () => setIsCreateGuestModalOpen(false);
 
   const handleNavigateToGuestOfInvitation = (item) => {
     setSelectedInvitationExternalId(item);
@@ -31,19 +43,19 @@ export default function TableInvitations() {
     },
     {
       name: "Deletar",
-      action: () => {},
+      action: invitations.deleteInvitation,
       Icon: FaTrash,
       color: "error",
     },
     {
       name: "Mudar status de entrega",
-      action: () => {},
+      action: invitations.toggleInvitationStatus,
       Icon: LuRefreshCcwDot,
       color: "secondary",
     },
     {
       name: "Adicionar Convidado",
-      action: () => {},
+      action: openCreateGuestModal,
       Icon: FaUserPlus,
       color: "success",
     },
@@ -129,6 +141,11 @@ export default function TableInvitations() {
           )}
         </tbody>
       </table>
+      <ModalAddGuestInInvitation
+        open={openModalCreateGuestInInvitation}
+        close={closeCreateGuestModal}
+        selectedInvitation={selectedInvitation}
+      />
     </div>
   );
 }
