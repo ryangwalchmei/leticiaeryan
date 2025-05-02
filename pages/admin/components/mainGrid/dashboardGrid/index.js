@@ -5,6 +5,8 @@ import dynamic from "next/dynamic";
 import { useMenu } from "contexts/menuContext";
 import { useData } from "contexts/getDataContext";
 import StatCard from "./statCard";
+import { useEffect, useMemo, useState } from "react";
+import RenderOnLoadingData from "../../isLoading";
 
 const ChartOnlyClient = dynamic(() => import("./chartOnlyClient"), {
   ssr: false,
@@ -12,32 +14,68 @@ const ChartOnlyClient = dynamic(() => import("./chartOnlyClient"), {
 
 export default function DashboardGrid() {
   const { informations } = useMenu();
-  const { guestList, confirmationSummary } = useData();
+  const { guestList, confirmationSummary = {} } = useData();
+
+  const [guestCategories, setGuestCategories] = useState({
+    Padrinho: { rol: "Padrinho", value: 0, confirmated: 0, rejeited: 0 },
+    Madrinha: { rol: "Madrinha", value: 0, confirmated: 0, rejeited: 0 },
+    Família: { rol: "Família", value: 0, confirmated: 0, rejeited: 0 },
+    Amigos: { rol: "Amigos", value: 0, confirmated: 0, rejeited: 0 },
+    Músico: { rol: "Músico", value: 0, confirmated: 0, rejeited: 0 },
+    Testemunha: { rol: "Testemunha", value: 0, confirmated: 0, rejeited: 0 },
+  });
+
+  useEffect(() => {
+    const baseCategories = {
+      Padrinho: { rol: "Padrinho", value: 0, confirmated: 0, rejeited: 0 },
+      Madrinha: { rol: "Madrinha", value: 0, confirmated: 0, rejeited: 0 },
+      Família: { rol: "Família", value: 0, confirmated: 0, rejeited: 0 },
+      Amigos: { rol: "Amigos", value: 0, confirmated: 0, rejeited: 0 },
+      Músico: { rol: "Músico", value: 0, confirmated: 0, rejeited: 0 },
+      Testemunha: { rol: "Testemunha", value: 0, confirmated: 0, rejeited: 0 },
+    };
+
+    guestList?.forEach((guest) => {
+      const status = guest?.confirmation_status;
+      const update = (key) => {
+        baseCategories[key].value++;
+        if (status === "confirmed") baseCategories[key].confirmated++;
+        if (status === "declined") baseCategories[key].rejeited++;
+      };
+
+      if (guest?.is_bestman) update("Padrinho");
+      if (guest?.is_bridesmaid) update("Madrinha");
+      if (guest?.is_family) update("Família");
+      if (guest?.is_friend) update("Amigos");
+      if (guest?.is_musician) update("Músico");
+      if (guest?.is_witness) update("Testemunha");
+    });
+
+    setGuestCategories(baseCategories);
+  }, [guestList]);
 
   const dataCards = [
     {
       title: "Convites Criados",
-      value: `${confirmationSummary.invitation.total}`,
-      interval: `de ${informations.maxInvitation} convites`,
+      value: String(confirmationSummary?.invitation?.total || 0),
+      interval: `de ${informations?.maxInvitation || 0} convites`,
       chart: (
         <Gauge
           color="primary"
           cornerRadius="50%"
           text={({ value }) => `${value}%`}
-          value={
-            Math.round(
-              (Number(confirmationSummary.invitation.total) /
-                informations.maxInvitation) *
-                100,
-            ) || 0
-          }
+          value={Math.round(
+            ((confirmationSummary?.invitation?.total || 0) /
+              (informations?.maxInvitation || 1)) *
+              100,
+          )}
         />
       ),
     },
     {
       title: "Entrega dos Convites Digitais",
-      value: `${confirmationSummary.invitation.confirmed}`,
-      interval: `de ${confirmationSummary.invitation.total} convites`,
+      value: String(confirmationSummary?.invitation?.confirmed || 0),
+      interval: `de ${confirmationSummary?.invitation?.total || 0} convites`,
       chart: (
         <PieChart
           series={[
@@ -45,18 +83,18 @@ export default function DashboardGrid() {
               data: [
                 {
                   id: 0,
-                  value: confirmationSummary.invitation.pending,
+                  value: confirmationSummary?.invitation?.pending || 0,
                   label: "Pendentes",
                 },
                 {
                   id: 1,
-                  value: confirmationSummary.invitation.confirmed,
-                  label: "entregues",
+                  value: confirmationSummary?.invitation?.confirmed || 0,
+                  label: "Entregues",
                 },
                 {
                   id: 2,
-                  value: confirmationSummary.invitation.declined,
-                  label: "não entregues",
+                  value: confirmationSummary?.invitation?.declined || 0,
+                  label: "Não entregues",
                 },
               ],
               highlightScope: { faded: "global", highlighted: "item" },
@@ -70,8 +108,8 @@ export default function DashboardGrid() {
     },
     {
       title: "Convidados Confirmados",
-      value: confirmationSummary.guest.confirmed,
-      interval: `de ${confirmationSummary.guest.total} convidados`,
+      value: String(confirmationSummary?.guest?.confirmed || 0),
+      interval: `de ${confirmationSummary?.guest?.total || 0} convidados`,
       chart: (
         <PieChart
           series={[
@@ -79,17 +117,17 @@ export default function DashboardGrid() {
               data: [
                 {
                   id: 0,
-                  value: confirmationSummary.guest.pending,
+                  value: confirmationSummary?.guest?.pending || 0,
                   label: "Pendentes",
                 },
                 {
                   id: 1,
-                  value: confirmationSummary.guest.confirmed,
+                  value: confirmationSummary?.guest?.confirmed || 0,
                   label: "Confirmado",
                 },
                 {
                   id: 2,
-                  value: confirmationSummary.guest.declined,
+                  value: confirmationSummary?.guest?.declined || 0,
                   label: "Rejeitado",
                 },
               ],
@@ -103,9 +141,8 @@ export default function DashboardGrid() {
     },
     {
       title: "Presentes ganhos",
-      value: `${confirmationSummary.gifts.receivedCount}`,
-      interval: `e ${confirmationSummary.gifts.pending || 0} foram prometidos`,
-      trend: "neutral",
+      value: String(confirmationSummary?.gifts?.receivedCount || 0),
+      interval: `e ${confirmationSummary?.gifts?.pending || 0} foram prometidos`,
       chart: (
         <PieChart
           series={[
@@ -113,17 +150,17 @@ export default function DashboardGrid() {
               data: [
                 {
                   id: 1,
-                  value: confirmationSummary.gifts.receivedCount,
+                  value: confirmationSummary?.gifts?.receivedCount || 0,
                   label: "Recebidos",
                 },
                 {
                   id: 0,
-                  value: confirmationSummary.gifts.available,
+                  value: confirmationSummary?.gifts?.available || 0,
                   label: "Disponíveis",
                 },
                 {
                   id: 2,
-                  value: confirmationSummary.gifts.pending,
+                  value: confirmationSummary?.gifts?.pending || 0,
                   label: "Pendentes",
                 },
               ],
@@ -136,61 +173,42 @@ export default function DashboardGrid() {
       ),
     },
   ];
-  const guestCategories = {
-    Padrinho: { rol: "Padrinho", value: 0, confirmated: 0, rejeited: 0 },
-    Madrinha: { rol: "Madrinha", value: 0, confirmated: 0, rejeited: 0 },
-    Família: { rol: "Família", value: 0, confirmated: 0, rejeited: 0 },
-    Amigos: { rol: "Amigos", value: 0, confirmated: 0, rejeited: 0 },
-    Músico: { rol: "Músico", value: 0, confirmated: 0, rejeited: 0 },
-    Testemunha: { rol: "Testemunha", value: 0, confirmated: 0, rejeited: 0 },
-  };
 
-  guestList?.forEach((guest) => {
-    const status = guest.confirmation_status;
-    const update = (key) => {
-      guestCategories[key].value++;
-      if (status === "confirmed") guestCategories[key].confirmated++;
-      if (status === "declined") guestCategories[key].rejeited++;
-    };
-
-    if (guest?.is_bestman) update("Padrinho");
-    if (guest?.is_bridesmaid) update("Madrinha");
-    if (guest?.is_family) update("Família");
-    if (guest?.is_friend) update("Amigos");
-    if (guest?.is_musician) update("Músico");
-    if (guest?.is_witness) update("Testemunha");
-  });
-
-  const result = Object.values(guestCategories);
+  const result = useMemo(
+    () => Object.values(guestCategories),
+    [guestCategories],
+  );
 
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
-      {/* cards */}
       <Typography component="h4" variant="h4" sx={{ mb: 2 }}>
         Olá, Letícia
       </Typography>
 
-      <Grid
-        container
-        spacing={2}
-        columns={12}
-        sx={{ mb: (theme) => theme.spacing(4) }}
+      <RenderOnLoadingData
+        dependencies={[
+          "isLoadingInvitations",
+          "isLoadingGuests",
+          "isLoadingGifts",
+        ]}
       >
-        {dataCards?.map((card, index) => (
-          <Grid item key={index} xs={12} sm={6} lg={3}>
-            <StatCard {...card} />
-          </Grid>
-        ))}
+        <Grid container spacing={2} columns={12} sx={{ mb: 4 }}>
+          {dataCards.map((card, index) => (
+            <Grid item key={index} xs={12} sm={6} lg={3}>
+              <StatCard {...card} />
+            </Grid>
+          ))}
 
-        <Grid item xs={12} md={6}>
-          <SessionsChart
-            title={"Confirmações por categoria"}
-            subtitle={"Contando cada convidado em todos suas guestCategories"}
-            value={confirmationSummary.guest.confirmed}
-            Chart={<ChartOnlyClient result={result} />}
-          />
+          <Grid item xs={12} md={6}>
+            <SessionsChart
+              title="Confirmações por categoria"
+              subtitle="Contando cada convidado em todas as suas categorias"
+              value={confirmationSummary?.guest?.confirmed || 0}
+              Chart={<ChartOnlyClient result={result} />}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </RenderOnLoadingData>
     </Box>
   );
 }
