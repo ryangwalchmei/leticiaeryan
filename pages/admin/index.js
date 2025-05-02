@@ -1,6 +1,7 @@
 import { CssBaseline } from "@mui/material";
 import { Box } from "@mui/system";
 import SideMenu from "./components/sideMenu";
+import AppNavbar from "./components/appNavbar";
 
 export default function AdminPage() {
   return (
@@ -15,6 +16,7 @@ export default function AdminPage() {
           })}
         >
           <SideMenu />
+          <AppNavbar />
         </Box>
       </Box>
     </>

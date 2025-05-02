@@ -9,7 +9,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon, { listItemIconClasses } from "@mui/material/ListItemIcon";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
-import MenuButton from "./menuButton";
+import MenuButton from "../menuButton";
 
 const MenuItem = styled(MuiMenuItem)({
   margin: "2px 0",
@@ -53,8 +53,8 @@ export default function OptionsMenu() {
           },
         }}
       >
-        {/* <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem> */}
+        <MenuItem onClick={handleClose}>Perfil</MenuItem>
+        <MenuItem onClick={handleClose}>Minha conta</MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>Adicionar outra conta</MenuItem>
         <MenuItem onClick={handleClose}>Configurações</MenuItem>
