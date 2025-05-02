@@ -4,6 +4,7 @@ import { alpha, Box, Stack } from "@mui/material";
 import SideMenu from "./components/sideMenu";
 import AppNavbar from "./components/appNavbar";
 import Header from "./components/header";
+import MainGrid from "./components/mainGrid";
 export default function AdminPage() {
   return (
     <>
@@ -32,6 +33,7 @@ export default function AdminPage() {
               }}
             >
               <Header />
+              <MainGrid />
             </Stack>
           </Box>
         </Box>
