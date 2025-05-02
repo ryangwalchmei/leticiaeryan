@@ -5,9 +5,11 @@ import SideMenu from "./components/sideMenu";
 import AppNavbar from "./components/appNavbar";
 import Header from "./components/header";
 import MainGrid from "./components/mainGrid";
-export default function AdminPage() {
+import AppTheme from "./themes/appTheme";
+
+export default function AdminPage(props) {
   return (
-    <>
+    <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: "flex" }}>
         <SideMenu />
@@ -38,6 +40,6 @@ export default function AdminPage() {
           </Box>
         </Box>
       </Box>
-    </>
+    </AppTheme>
   );
 }
