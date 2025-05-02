@@ -104,7 +104,8 @@ export default function ModalAddGuestInInvitation({
       <Fade in={open}>
         <Box sx={styleModal}>
           <Typography variant="h6">
-            Criar Convidado - {selectedInvitation.name}
+            Criar Convidado -{" "}
+            {selectedInvitation?.name ?? "Convite não selecionado"}
           </Typography>
           <Grid container spacing={2}>
             {/* Campos de Entrada */}

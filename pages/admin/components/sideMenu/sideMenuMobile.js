@@ -16,7 +16,7 @@ function SideMenuMobile({ open, toggleDrawer }) {
       anchor="right"
       open={open}
       variant="temporary"
-      onClose={toggleDrawer(false)}
+      onClose={() => toggleDrawer(false)}
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
         [`& .${drawerClasses.paper}`]: {

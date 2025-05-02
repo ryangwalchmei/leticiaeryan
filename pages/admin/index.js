@@ -5,7 +5,7 @@ import SideMenu from "./components/sideMenu";
 import AppNavbar from "./components/appNavbar";
 import Header from "./components/header";
 import MainGrid from "./components/mainGrid";
-import AppTheme from "./themes/appTheme";
+import AppTheme from "../../themes/appTheme";
 
 export default function AdminPage(props) {
   return (
