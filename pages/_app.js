@@ -3,10 +3,11 @@ import "../scss/globalStyles.scss";
 import { MenuProvider } from "contexts/menuContext";
 import { GetDataProvider } from "contexts/getDataContext";
 import { CreateDataProvider } from "contexts/createDataContext";
+import ErrorBoundary from "components/ErrorBoundary/ErrorBoundary";
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <ErrorBoundary>
       <GetDataProvider>
         <MenuProvider>
           <CreateDataProvider>
@@ -50,6 +51,6 @@ export default function MyApp({ Component, pageProps }) {
           </CreateDataProvider>
         </MenuProvider>
       </GetDataProvider>
-    </>
+    </ErrorBoundary>
   );
 }
