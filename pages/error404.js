@@ -26,7 +26,7 @@ export default function Error404() {
                     solicitou. Isso pode ocorrer porque você digitou o endereço
                     da web incorretamente.
                   </p>
-                  <Link className="theme-btn" href="/landing2">
+                  <Link className="theme-btn" href="/">
                     {" "}
                     Voltar à Página Inicial
                   </Link>

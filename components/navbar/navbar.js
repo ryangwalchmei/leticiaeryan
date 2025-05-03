@@ -17,7 +17,7 @@ export function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
 
   const menuItens = [
-    { name: "Home", link: "/landing2", icon: <FaHome /> },
+    { name: "Home", link: "/", icon: <FaHome /> },
     { name: "Lista de Presentes", link: "/gifts", icon: <FaGifts /> },
     { name: "Galeria de Fotos", link: "/gallery", icon: <FaPhotoVideo /> },
     { name: "Confirmar Presença", link: "/rsvp", icon: <FaCheck /> },

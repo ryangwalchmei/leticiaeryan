@@ -11,7 +11,7 @@ export default function Landing2() {
   return (
     <>
       <Navbar />
-      <div className="app landing2" id="scrool">
+      <div className="app landing2" id="scroll">
         <div className="app">
           {sections.map((Section, index) => (
             <Section key={index} />
