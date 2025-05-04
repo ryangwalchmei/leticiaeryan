@@ -3,6 +3,7 @@ import { Navbar } from "components/navbar/navbar";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight, FaEye, FaTimes } from "react-icons/fa";
 import WpoPageTitle from "components/wpoPageTitle";
+import Footer from "components/footer";
 
 const styles = {
   slideImage: {
@@ -173,6 +174,7 @@ export default function Gallery() {
           </div>
         </div>
       )}
+      <Footer />
     </>
   );
 }

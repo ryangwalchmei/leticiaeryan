@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Navbar } from "../../components/navbar/navbar";
 import useSWR from "swr";
+import Footer from "components/footer";
+import WpoPageTitle from "components/wpoPageTitle";
 
 async function fetchAPI(endpoint) {
   const response = await fetch(endpoint);
@@ -63,14 +65,14 @@ export default function RSVP() {
   return (
     <>
       <Navbar />
-      <section className="wpo-contact-pg-section section-padding">
+      <WpoPageTitle
+        title={"Confirme sua presença aqui!"}
+        subtitle1={"Por favor, insira o PIN CODE impresso no seu convite."}
+      />
+      <section className="wpo-contact-pg-section">
         <div className="container">
           <div className="row">
             <div className="col col-lg-10 offset-lg-1">
-              <div className="wpo-contact-title">
-                <h2>Confirme sua presença aqui!</h2>
-                <p>Por favor, insira o PIN CODE impresso no seu convite.</p>
-              </div>
               <div className="wpo-contact-form-area">
                 <form
                   onSubmit={handleSubmit}
@@ -120,6 +122,7 @@ export default function RSVP() {
           </div>
         </section>
       </section>
+      <Footer />
     </>
   );
 }

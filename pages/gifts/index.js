@@ -1,3 +1,4 @@
+import Footer from "components/footer";
 import { Navbar } from "components/navbar/navbar";
 import WpoPageTitle from "components/wpoPageTitle";
 import { FaGift } from "react-icons/fa";
@@ -119,6 +120,7 @@ export default function Gifts() {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 }

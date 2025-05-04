@@ -1,5 +1,6 @@
 @use "styles/scss/helpers/_variables.scss" as *;
 @use "styles/scss/helpers/_mixins.scss" as *;
+/* 3.2 wpo-couple-section */
 
 .wpo-couple-section {
   padding-bottom: 120px;
@@ -772,10 +773,6 @@
     .img-holder {
       position: relative;
 
-      img {
-        height: auto;
-      }
-
       .hover-content {
         transition: all 0.3s;
         position: absolute;
@@ -994,22 +991,22 @@
         -moz-appearance: none;
         // background: transparent url(../../images/select-icon2.png) no-repeat
         //   calc(100% - 15px) center;
-        position: relative;
+        // position: relative;
 
         option {
           color: $text-color;
         }
       }
 
-      // .react-datepicker__input-container input {
-      //   -webkit-appearance: none;
-      //   -ms-appearance: none;
-      //   -o-appearance: none;
-      //   appearance: none;
-      //   -moz-appearance: none;
-      //   background: transparent url(../../images/date2.png) no-repeat
-      //     calc(100% - 15px) center;
-      // }
+      .react-datepicker__input-container input {
+        -webkit-appearance: none;
+        -ms-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+        -moz-appearance: none;
+        // background: transparent url(../../images/date2.png) no-repeat
+        //   calc(100% - 15px) center;
+      }
 
       .radio-buttons {
         display: flex;
