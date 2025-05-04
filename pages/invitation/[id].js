@@ -4,6 +4,7 @@ import useSWR from "swr";
 import cx from "classnames";
 import { Navbar } from "components/navbar/navbar";
 import WpoPageTitle from "components/wpoPageTitle";
+import Footer from "components/footer";
 
 // Função de busca reutilizável
 const fetchAPI = async (endpoint) => {
@@ -118,55 +119,58 @@ function GuestCards({ id }) {
   };
 
   return (
-    <div className="team-pg-area section-padding">
-      <div className="container">
-        <div className="team-info-wrap">
-          <div className="row align-items-center">
-            {guests.length > 0 ? (
-              guests.map((guest) => (
-                <div key={guest.id} className="col-lg-6">
-                  <div className="team-info-text">
-                    <h2>{guest.name}</h2>
-                    <ul>
-                      {guest.email && (
+    <>
+      <div className="team-pg-area section-padding">
+        <div className="container">
+          <div className="team-info-wrap">
+            <div className="row align-items-center">
+              {guests.length > 0 ? (
+                guests.map((guest) => (
+                  <div key={guest.id} className="col-lg-6">
+                    <div className="team-info-text">
+                      <h2>{guest.name}</h2>
+                      <ul>
+                        {guest.email && (
+                          <li>
+                            Email: <span>{guest.email}</span>
+                          </li>
+                        )}
+                        {guest.cell && (
+                          <li>
+                            Celular: <span>{guest.cell}</span>
+                          </li>
+                        )}
                         <li>
-                          Email: <span>{guest.email}</span>
+                          Situação:{" "}
+                          <span>
+                            {guest.confirmation_status || "Pendente"}
+                            {guest.confirmation_status &&
+                              ` - ${guest.confirmation_date}`}
+                          </span>
                         </li>
-                      )}
-                      {guest.cell && (
-                        <li>
-                          Celular: <span>{guest.cell}</span>
-                        </li>
-                      )}
-                      <li>
-                        Situação:{" "}
-                        <span>
-                          {guest.confirmation_status || "Pendente"}
-                          {guest.confirmation_status &&
-                            ` - ${guest.confirmation_date}`}
-                        </span>
-                      </li>
-                    </ul>
-                    {renderStatusButton(guest)}
+                      </ul>
+                      {renderStatusButton(guest)}
+                    </div>
                   </div>
-                </div>
-              ))
-            ) : (
-              <section className="wpo-page-title">
-                <div className="container">
-                  <div className="row">
-                    <div className="col col-xs-12">
-                      <div className="wpo-breadcumb-wrap">
-                        Nenhum convidado encontrado.
+                ))
+              ) : (
+                <section className="wpo-page-title">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col col-xs-12">
+                        <div className="wpo-breadcumb-wrap">
+                          Nenhum convidado encontrado.
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
-            )}
+                </section>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
