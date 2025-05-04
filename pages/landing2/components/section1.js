@@ -42,19 +42,19 @@ export default function L2Section1() {
               <div className="col-xl-6 col-lg-6 col-12">
                 <div className="wpo-static-hero-inner">
                   <AnimatedDiv
-                    className="slide-title-sub css-1a0toe9"
+                    className="slide-title-sub animate__animated animate__fadeInUp"
                     style={{ animationDelay: "0ms" }}
                   >
                     <h3 className="titleCouple">{listInformations.title}</h3>
                   </AnimatedDiv>
                   <AnimatedDiv
-                    className="slide-title css-1pvcaf"
+                    className="slide-title animate__animated animate__fadeInUp animate__slower "
                     style={{ animationDelay: "20ms" }}
                   >
                     <h2>{listInformations.subtitle}</h2>
                   </AnimatedDiv>
                   <AnimatedDiv
-                    className="slide-text css-1idtd5j"
+                    className="slide-text animate__animated animate__fadeInUp animate__slower"
                     style={{ animationDelay: "0ms" }}
                   >
                     <p>{listInformations.date}</p>
@@ -63,7 +63,8 @@ export default function L2Section1() {
                     src="/images/shape2.svg"
                     width={223}
                     height={222}
-                    className="shape-2 css-1a0toe9"
+                    className="shape-2 animate__animated animate__fadeInUp animate__delay-1s animate__slower"
+                    style={{ animationDelay: "20ms" }}
                   />
                   <div className="clearfix"></div>
                 </div>
@@ -99,13 +100,13 @@ export default function L2Section1() {
             src="/images/shape7.svg"
             width={477}
             height={451}
-            className="static-hero-shape-1 css-5dedai"
+            className="static-hero-shape-1  animate__animated animate__rotateInUpLeft  animate__delay-1s"
           />
           <StaticHeroShape
             src="/images/shape8.svg"
             width={473}
             height={462}
-            className="static-hero-shape-2 css-5dedai"
+            className="static-hero-shape-2 animate__animated animate__rotateInUpRight  animate__delay-2s"
           />
           <InnerImage
             src={listPhotos.groom}

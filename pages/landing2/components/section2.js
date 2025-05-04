@@ -65,7 +65,7 @@ export default function L2Section2() {
                   <div className="col-lg-6">
                     <div className="couple-img-wrap">
                       <div className="couple-common">
-                        <div className="couple-img">
+                        <div className="couple-img animate__animated animate__pulse animate__delay-1s animate__slow">
                           <Image
                             src={listInformations.bride.image}
                             alt={`Photo of ${listInformations.bride.name}`}
@@ -80,7 +80,7 @@ export default function L2Section2() {
                         data-point="middle"
                         data-path="280"
                       >
-                        <div className="couple-img">
+                        <div className="couple-img animate__animated animate__pulse animate__delay-3s animate__slow">
                           <Image
                             src={listInformations.groom.image}
                             alt={`Photo of ${listInformations.groom.name}`}
