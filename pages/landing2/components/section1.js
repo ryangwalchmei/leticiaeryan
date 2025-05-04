@@ -34,7 +34,7 @@ export default function L2Section1() {
   );
 
   return (
-    <section className="section1 static-hero-s2">
+    <section className="static-hero-s2">
       <div className="hero-container">
         <div className="hero-inner">
           <div className="container-fluid">
@@ -42,13 +42,13 @@ export default function L2Section1() {
               <div className="col-xl-6 col-lg-6 col-12">
                 <div className="wpo-static-hero-inner">
                   <AnimatedDiv
-                    className="slide-title-sub css-1pvcaf"
+                    className="slide-title-sub css-1a0toe9"
                     style={{ animationDelay: "0ms" }}
                   >
                     <h3 className="titleCouple">{listInformations.title}</h3>
                   </AnimatedDiv>
                   <AnimatedDiv
-                    className="slide-title css-1mq9hl3"
+                    className="slide-title css-1pvcaf"
                     style={{ animationDelay: "20ms" }}
                   >
                     <h2>{listInformations.subtitle}</h2>
