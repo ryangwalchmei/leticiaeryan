@@ -772,6 +772,10 @@
     .img-holder {
       position: relative;
 
+      img {
+        height: auto;
+      }
+
       .hover-content {
         transition: all 0.3s;
         position: absolute;

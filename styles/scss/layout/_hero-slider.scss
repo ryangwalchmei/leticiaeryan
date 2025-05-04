@@ -791,6 +791,10 @@
         position: relative;
         border-radius: 300px;
 
+        img {
+          height: auto;
+        }
+
         .zoom {
           -webkit-animation: kenburn 25s 2s alternate infinite;
           -animation: kenburn 25s 2s alternate infinite;

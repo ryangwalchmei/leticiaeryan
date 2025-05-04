@@ -25,10 +25,12 @@ export default function L2Section1() {
     </div>
   );
 
-  const InnerImage = ({ src, width, height, depth }) => (
+  const InnerImage = ({ src, depth, classImage }) => (
     <div className={`inner-image-${depth === 0.25 ? "1" : "2"}`}>
       <span className="layer" data-depth={depth}>
-        <Image src={src} alt="" width={width} height={height} />
+        {/* <Image className={classImage} src={src} alt="" width={width} height={height} /> */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className={classImage} src={src} alt="" />
       </span>
     </div>
   );
@@ -110,9 +112,10 @@ export default function L2Section1() {
           />
           <InnerImage
             src={listPhotos.groom}
-            width={208}
-            height={208}
+            // width={208}
+            // height={208}
             depth={0.25}
+            classImage=""
           />
           <InnerImage
             src={listPhotos.bride}
