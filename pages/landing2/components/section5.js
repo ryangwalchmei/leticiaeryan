@@ -66,9 +66,11 @@ export default function L2Section5() {
               <div className="wpo-contact-form-area">
                 <form className="contact-validation-active">
                   <div className="submit-area">
-                    <Link href="rsvp" type="submit" className="theme-btn">
-                      {listInformations.textButton}
-                    </Link>
+                    <button className="theme-btn">
+                      <Link style={{ color: "ButtonHighlight" }} href="rsvp">
+                        {listInformations.textButton}
+                      </Link>
+                    </button>
                   </div>
                 </form>
               </div>

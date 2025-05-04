@@ -40,11 +40,14 @@ export default function L2Section3() {
         <div
           className={`col col-lg-6 col-12 ${reverse ? "order-lg-1 order-2" : ""}`}
         >
-          <div className="css-jpyrwk" style={{ animationDelay: "0ms" }}>
-            <div className="wpo-story-content">
+          <div
+            className={`animate__animated ${reverse ? "animate__fadeInLeft" : "animate__fadeInRight"}`}
+            style={{ animationDelay: "0ms" }}
+          >
+            <div className="wpo-story-content ">
               <div className="thumb">
                 <span>{row.date}</span>
-                <div className="pin">
+                <div className="pin ">
                   <Image src="/images/pin.svg" alt="" width={38} height={65} />
                 </div>
               </div>

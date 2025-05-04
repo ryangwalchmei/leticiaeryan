@@ -1,0 +1,241 @@
+@use "styles/scss/helpers/_variables.scss" as *;
+@use "styles/scss/helpers/_mixins.scss" as *;
+/*--------------------------------------------------------------
+22. wpo-shop-page
+--------------------------------------------------------------*/
+.wpo-shop-page {
+  .wpo-product-section {
+    padding: 0;
+    padding-left: 30px;
+    overflow: unset;
+
+    @media (max-width: 991px) {
+      padding-left: 0;
+    }
+    .wpo-product-img {
+      img {
+        width: 100%;
+      }
+    }
+
+    .wpo-product-wrap {
+      .wpo-product-item .wpo-product-text h3 {
+        @media (max-width: 1399px) {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  .sorting-section {
+    padding-bottom: 20px;
+    ul {
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+      align-items: center;
+      flex-wrap: wrap;
+
+      li {
+        margin: 10px 0;
+      }
+    }
+
+    .nice-select {
+      ul {
+        display: block;
+      }
+    }
+  }
+
+  .load-btn {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .loadmore-btn {
+    cursor: pointer;
+  }
+}
+
+//
+
+.wpo-product-section {
+  padding-bottom: 70px;
+  overflow: hidden;
+
+  @media (max-width: 991px) {
+    padding-bottom: 50px;
+  }
+
+  @media (max-width: 767px) {
+    padding-bottom: 30px;
+  }
+
+  .wpo-product-wrap {
+    .wpo-product-item {
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+
+      .wpo-product-img {
+        position: relative;
+        overflow: hidden;
+        transition: color 0.25s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover::after,
+        &:hover::before {
+          transform: scale(1, 1);
+        }
+
+        &::after,
+        &::before {
+          content: "";
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          bottom: 15px;
+          left: 15px;
+          transition: all 0.5s;
+          z-index: 1;
+
+          @media (max-width: 1199px) {
+            top: 10px;
+            right: 10px;
+            bottom: 10px;
+            left: 10px;
+          }
+        }
+
+        &::after {
+          border-right: 1px solid $white;
+          border-left: 1px solid $white;
+          transform: scale(1, 0);
+        }
+
+        &::before {
+          border-top: 1px solid $white;
+          border-bottom: 1px solid $white;
+          transform: scale(0, 1);
+        }
+
+        img {
+          transform: scale(1);
+          transition: all 0.3s;
+          width: 100%;
+
+          @media (max-width: 575px) {
+            width: 100%;
+          }
+        }
+
+        ul {
+          display: flex;
+          list-style: none;
+          justify-content: center;
+          position: absolute;
+          left: 50%;
+          bottom: -50px;
+          transform: translateX(-50%);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s;
+          z-index: 11;
+
+          li {
+            font-size: 18px;
+            color: $theme-primary-color-s2;
+
+            &:first-child {
+              margin-right: 5px;
+
+              button {
+                width: 40px;
+                padding: 0;
+              }
+            }
+
+            button {
+              font-weight: 400;
+              font-size: 18px;
+              height: 50px;
+              line-height: 50px;
+              color: $theme-primary-color;
+              display: block;
+              width: 140px;
+              text-align: center;
+              background: $white;
+              border: 0;
+
+              &:hover {
+                background: $theme-primary-color;
+                color: $white;
+              }
+            }
+          }
+        }
+      }
+
+      &:hover {
+        .wpo-product-img {
+          ul {
+            opacity: 1;
+            visibility: visible;
+            bottom: 50px;
+          }
+
+          img {
+            transform: scale(1.2);
+          }
+        }
+      }
+
+      .wpo-product-text {
+        padding-top: 20px;
+        text-align: center;
+        position: relative;
+
+        h3 {
+          font-size: 30px;
+          font-style: normal;
+          font-weight: 400;
+
+          @media (max-width: 1199px) {
+            font-size: 25px;
+          }
+
+          a {
+            color: $dark-gray;
+
+            &:hover {
+              color: $theme-primary-color;
+            }
+          }
+        }
+
+        ul {
+          display: flex;
+          list-style: none;
+          justify-content: center;
+
+          li {
+            font-size: 18px;
+            color: $theme-primary-color-s2;
+
+            @media (max-width: 1199px) {
+              font-size: 14px;
+            }
+
+            &:first-child {
+              margin-right: 10px;
+              text-decoration: line-through;
+              color: #999999;
+            }
+          }
+        }
+      }
+    }
+  }
+}
