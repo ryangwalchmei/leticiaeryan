@@ -6,8 +6,17 @@ import Section4 from "./components/section4";
 import Section5 from "./components/section5";
 import Footer from "components/footer";
 import DressCode from "./components/dressCode";
+import Couple from "./components/couple";
 
-const sections = [Section1, Section2, Section3, Section4, DressCode, Section5];
+const sections = [
+  Section1,
+  Section2,
+  Couple,
+  Section3,
+  Section4,
+  DressCode,
+  Section5,
+];
 
 export default function Landing2() {
   return (
