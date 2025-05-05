@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { TfiMapAlt } from "react-icons/tfi";
 
-export default function Contactpage() {
+export default function Local() {
   function Cards() {
     const cardsInfo = [
       {
