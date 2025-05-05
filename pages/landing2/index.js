@@ -7,6 +7,7 @@ import Section5 from "./components/section5";
 import Footer from "components/footer";
 import DressCode from "./components/dressCode";
 import Couple from "./components/couple";
+import Local from "./components/local";
 
 const sections = [
   Section1,
@@ -15,6 +16,7 @@ const sections = [
   Section3,
   Section4,
   DressCode,
+  Local,
   Section5,
 ];
 
