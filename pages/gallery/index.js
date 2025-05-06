@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { Navbar } from "components/navbar/navbar";
 import Image from "next/image";
-import { FaArrowLeft, FaArrowRight, FaEye, FaTimes } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import WpoPageTitle from "components/wpoPageTitle";
 import Footer from "components/footer";
+
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import Video from "yet-another-react-lightbox/plugins/video";
 
 const styles = {
   slideImage: {
@@ -23,91 +27,46 @@ const styles = {
 
 const media = [
   { type: "video", src: "/videos/RYAN-MT07 2 .mp4" },
-  { type: "image", src: "/images/photos/4.33ff15a4e154d08a9855.jpg" },
-  { type: "image", src: "/images/photos/5.93a7729d2b72463c8551.jpg" },
-  { type: "image", src: "/images/photos/6.8013d474b24a27f1c5ef.jpg" },
+  { type: "image", src: "/images/photos/gallery/1.jpg" },
+  { type: "image", src: "/images/photos/gallery/7.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-1.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-6.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-7.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-8.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-9.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-11.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-19.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-21.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-24.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-25.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-26.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-28.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-48.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-51.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-52.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-76.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-82.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-83.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-85.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-87.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-88.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-92.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-93.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-94.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-95.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-96.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-97.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-109.jpg" },
+  { type: "image", src: "/images/photos/gallery/Ensaio-112.jpg" },
 ];
 
-const renderMediaGrid = (item, onClick) => (
-  <div className="grid" style={styles.masonryItem} onClick={onClick}>
-    <div className="img-holder" style={{ cursor: "pointer" }}>
-      {item.type === "image" ? (
-        <Image
-          src={item.src}
-          alt=""
-          width={530}
-          height={300}
-          className="img img-responsive"
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
-      ) : (
-        <video
-          src={item.src}
-          controls={false}
-          width="100%"
-          height="auto"
-          muted
-          autoPlay
-          loop
-          style={{ width: "100%", display: "block" }}
-        />
-      )}
-      <div className="hover-content">
-        <FaEye />
-      </div>
-    </div>
-  </div>
-);
-
-const renderSlide = (item, isActive) => (
-  <div
-    className={`yarl__slide yarl__flex_center ${isActive ? "active-slide" : "inactive-slide"}`}
-  >
-    {item.type === "image" ? (
-      <Image
-        draggable="false"
-        className="yarl__slide_image"
-        src={item.src}
-        width={552}
-        height={398}
-        alt="Slide"
-        style={{
-          ...styles.slideImage,
-          opacity: isActive ? 1 : 0,
-          transition: "opacity 0.5s ease-in-out",
-        }}
-      />
-    ) : (
-      <video
-        controls
-        autoPlay
-        muted
-        style={{ maxWidth: "100%", maxHeight: "398px" }}
-      >
-        <source src={item.src} type="video/mp4" />
-        Seu navegador não suporta vídeo.
-      </video>
-    )}
-  </div>
-);
-
 export default function Gallery() {
-  const [isPortalOpen, setIsPortalOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
 
-  const openPortal = (index) => {
-    setCurrentIndex(index);
-    setIsPortalOpen(true);
-  };
-
-  const closePortal = () => setIsPortalOpen(false);
-
-  const showPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? media.length - 1 : prev - 1));
-  };
-
-  const showNext = () => {
-    setCurrentIndex((prev) => (prev === media.length - 1 ? 0 : prev + 1));
+  const handleClick = (i) => {
+    setIndex(i);
+    setOpen(true);
   };
 
   return (
@@ -120,14 +79,57 @@ export default function Gallery() {
       >
         <div className="container-fluid">
           <div className="sortable-gallery">
-            <div className="gallery-filters"></div>
             <div className="row">
               <div className="col-lg-12">
                 <div className="portfolio-grids gallery-container clearfix">
                   <div style={styles.masonryContainer}>
-                    {media.map((item, index) =>
-                      renderMediaGrid(item, () => openPortal(index)),
-                    )}
+                    {media.map((item, i) => (
+                      <div
+                        className="grid"
+                        style={styles.masonryItem}
+                        key={i}
+                        onClick={() => handleClick(i)}
+                      >
+                        <div
+                          className="img-holder"
+                          style={{ cursor: "pointer", position: "relative" }}
+                        >
+                          {item.type === "image" ? (
+                            <Image
+                              src={item.src}
+                              alt=""
+                              width={530}
+                              height={300}
+                              className="img img-responsive"
+                              style={{
+                                width: "100%",
+                                height: "auto",
+                                display: "block",
+                              }}
+                            />
+                          ) : (
+                            <video
+                              src={item.src}
+                              muted
+                              autoPlay
+                              loop
+                              style={{ width: "100%", display: "block" }}
+                            />
+                          )}
+                          <div
+                            className="hover-content"
+                            style={{
+                              position: "absolute",
+                              top: 10,
+                              right: 10,
+                              color: "white",
+                            }}
+                          >
+                            <FaEye />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -136,44 +138,23 @@ export default function Gallery() {
         </div>
       </section>
 
-      {isPortalOpen && (
-        <div
-          className="yarl__root yarl__portal yarl__no_scroll_padding yarl__portal_open fade-in"
-          role="presentation"
-          aria-live="polite"
-        >
-          <div className="yarl__container yarl__flex_center" tabIndex="-1">
-            <div className="yarl__carousel yarl__carousel_with_slides">
-              {renderSlide(media[currentIndex], true)}
-            </div>
-
-            <div className="yarl__toolbar">
-              <button
-                className="yarl__button"
-                onClick={closePortal}
-                aria-label="Close"
-              >
-                <FaTimes size={30} />
-              </button>
-            </div>
-
-            <button
-              className="yarl__button yarl__navigation_prev"
-              onClick={showPrevious}
-              aria-label="Previous"
-            >
-              <FaArrowLeft size={30} />
-            </button>
-            <button
-              className="yarl__button yarl__navigation_next"
-              onClick={showNext}
-              aria-label="Next"
-            >
-              <FaArrowRight size={30} />
-            </button>
-          </div>
-        </div>
-      )}
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        index={index}
+        slides={media.map((item) =>
+          item.type === "video"
+            ? {
+                type: "video",
+                width: 1280,
+                height: 720,
+                sources: [{ src: item.src, type: "video/mp4" }],
+              }
+            : { src: item.src },
+        )}
+        plugins={[Video]}
+        carousel={{ finite: false, preload: true }}
+      />
       <Footer />
     </>
   );

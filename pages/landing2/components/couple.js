@@ -26,7 +26,7 @@ export default function Couple() {
                   <Image
                     width={640}
                     height={640}
-                    src="/images/photos/7.jpg"
+                    src="/images/photos/couple.jpg"
                     alt=""
                   />
                 </div>
