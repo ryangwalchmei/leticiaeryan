@@ -8,9 +8,9 @@ export default function L2Section1() {
   };
 
   const listPhotos = {
-    bride: "/images/photos/inner-2.jpg",
-    groom: "/images/photos/inner-1.jpg",
-    couple: "/images/photos/7.jpg",
+    bride: "/images/photos/avatar-bride.jpg",
+    groom: "/images/photos/avatar-groom.jpg",
+    couple: "/images/photos/hero-couple.jpg",
   };
 
   const AnimatedDiv = ({ className, style, children }) => (
@@ -111,14 +111,14 @@ export default function L2Section1() {
             className="static-hero-shape-2 animate__animated animate__rotateInUpRight  animate__delay-2s"
           />
           <InnerImage
-            src={listPhotos.groom}
+            src={listPhotos.bride}
             // width={208}
             // height={208}
             depth={0.25}
             classImage=""
           />
           <InnerImage
-            src={listPhotos.bride}
+            src={listPhotos.groom}
             width={208}
             height={208}
             depth={0.45}

@@ -5,19 +5,19 @@ export default function L2Section3() {
     row1: {
       title: "Nos conhecemos",
       date: "fev 2022",
-      image: "/images/photos/4.33ff15a4e154d08a9855.jpg",
+      image: "/images/photos/history1.jpg",
       text: "Consectetur adipiscing elit. Fringilla at risus orci, tempus facilisi sed. Enim tortor, faucibus netus orci donec volutpat adipiscing. Sit condimentum elit convallis libero. Nunc in eu tellus ipsum placerat.",
     },
     row2: {
       title: "Ele propôs, eu disse sim",
       date: "10 Dez 2022",
-      image: "/images/photos/5.93a7729d2b72463c8551.jpg",
+      image: "/images/photos/history2.jpg",
       text: "Consectetur adipiscing elit. Fringilla at risus orci, tempus facilisi sed. Enim tortor, faucibus netus orci donec volutpat adipiscing. Sit condimentum elit convallis libero. Nunc in eu tellus ipsum placerat.",
     },
     row3: {
       title: "Nosso dia de noivado",
       date: "10 Dez 2024",
-      image: "/images/photos/6.8013d474b24a27f1c5ef.jpg",
+      image: "/images/photos/history3.jpg",
       text: "Consectetur adipiscing elit. Fringilla at risus orci, tempus facilisi sed. Enim tortor, faucibus netus orci donec volutpat adipiscing. Sit condimentum elit convallis libero. Nunc in eu tellus ipsum placerat.",
     },
   };

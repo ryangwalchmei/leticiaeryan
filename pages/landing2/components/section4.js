@@ -7,13 +7,14 @@ import { useState } from "react";
 
 export default function L2Section4() {
   const listPhotos = [
-    "/images/photos/1.jpg",
-    "/images/photos/4.jpg",
-    "/images/photos/5.jpg",
-    "/images/photos/6.jpg",
-    "/images/photos/7.jpg",
-    "/images/photos/6.jpg",
-    "/images/photos/4.jpg",
+    "/images/photos/slick1.jpg",
+    "/images/photos/slick2.jpg",
+    "/images/photos/slick3.jpg",
+    "/images/photos/slick4.jpg",
+    "/images/photos/slick5.jpg",
+    "/images/photos/slick6.jpg",
+    "/images/photos/slick7.jpg",
+    "/images/photos/slick8.jpg",
   ];
 
   const [open, setOpen] = useState(false);
@@ -62,7 +63,7 @@ export default function L2Section4() {
                         alt={`Foto ${idx + 1}`}
                         className="img img-responsive"
                         width={273}
-                        height={355}
+                        height={420}
                       />
                       <div className="hover-content">
                         <FaEye />
