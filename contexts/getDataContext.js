@@ -83,6 +83,26 @@ export const GetDataProvider = ({ children }) => {
     refreshGuests,
   });
 
+  async function exportInvitations() {
+    try {
+      const response = await fetch("/api/v1/exportInvitations");
+      if (!response.ok) {
+        throw new Error("Erro ao gerar o arquivo");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Convites.xlsx";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (error) {
+      alert("Erro ao exportar os dados");
+    }
+  }
+
   return (
     <GetDataContext.Provider
       value={{
@@ -94,6 +114,7 @@ export const GetDataProvider = ({ children }) => {
         confirmationSummary,
         loadingData,
         refresh,
+        exportInvitations,
       }}
     >
       {children}
