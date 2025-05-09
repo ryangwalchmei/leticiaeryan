@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "devonly": "next dev",
-    "dev": "npm run services:up && npm run wait-for-postgres && npm run migration:up && next dev -H 0.0.0.0",
+    "dev": "npm run services:up && npm run wait-for-postgres && npm run migration:up && next dev",
     "services:up": "docker compose -f infra/compose.yaml up -d",
     "services:stop": "docker compose -f infra/compose.yaml stop",
     "services:down": "docker compose -f infra/compose.yaml down",
