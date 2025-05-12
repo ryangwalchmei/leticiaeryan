@@ -67,7 +67,9 @@ export default function RSVP() {
       <Navbar />
       <WpoPageTitle
         title={"Confirme sua presença aqui!"}
-        subtitle1={"Por favor, insira o PIN CODE impresso no seu convite."}
+        subtitle1={
+          "Por favor, insira o PIN CODE impresso no seu convite digital (PDF)."
+        }
       />
       <section className="wpo-contact-pg-section">
         <div className="container">
