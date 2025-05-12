@@ -47,7 +47,7 @@ export default function Local() {
           <div className="col col-lg-12 ">
             <div className="wpo-section-title undefined">
               <h2>Localização</h2>
-              <p>A celebração da cerimônia e repção será no mesmo local.</p>
+              <p>A celebração da cerimônia e recepção será no mesmo local.</p>
             </div>
             <div className="office-info">
               <div className="row justify-content-center">
