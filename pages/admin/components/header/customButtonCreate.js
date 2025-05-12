@@ -1,14 +1,19 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { FaDownload, FaPlus } from "react-icons/fa";
+import { FaDownload, FaFilter, FaPlus } from "react-icons/fa";
 import { useMenu } from "contexts/menuContext";
 import { useCreateData } from "contexts/createDataContext";
 import { useData } from "contexts/getDataContext";
 import Swal from "sweetalert2";
+import { Switch } from "@mui/material";
 
 export default function CustomButtonCreate() {
   const { selectedMenu, setSelectedMenu } = useMenu();
-  const { exportInvitations } = useData();
+  const {
+    exportInvitations,
+    isFilterConfirmedGuests,
+    setIsFilterConfirmedGuests,
+  } = useData();
   const { invitations } = useCreateData();
 
   const { createNewInvitation } = invitations;
@@ -45,15 +50,31 @@ export default function CustomButtonCreate() {
     }
 
     return (
-      <Button
-        variant="outlined"
-        size="small"
-        startIcon={<FaPlus fontSize="small" />}
-        sx={{ minWidth: "fit-content" }}
-        onClick={() => navigateToInvitation()}
-      >
-        Criar um novo Convidado
-      </Button>
+      <>
+        <Button
+          variant="outlined"
+          size="small"
+          startIcon={<FaPlus fontSize="small" />}
+          sx={{ minWidth: "fit-content" }}
+          onClick={() => navigateToInvitation()}
+        >
+          Criar um novo Convidado
+        </Button>
+        <Button
+          variant="outlined"
+          size="small"
+          startIcon={<FaFilter fontSize="small" />}
+          sx={{ minWidth: "fit-content" }}
+        >
+          Filtrar Confirmados
+          <Switch
+            checked={isFilterConfirmedGuests}
+            defaultValue={false}
+            onChange={(e) => setIsFilterConfirmedGuests(e.target.checked)}
+            inputProps={{ "aria-label": "controlled" }}
+          />
+        </Button>
+      </>
     );
   }
 
