@@ -6,13 +6,13 @@ export default function L2Section3() {
       title: "Nos conhecemos",
       date: "27 mai 2022",
       image: "/images/photos/history1.jpg",
-      text: "A gente se conheceu em um dia qualquer, do jeito mais simples. Mas teve algo no olhar, na conversa... Desde o começo, pareca que seria especial.",
+      text: "A gente se conheceu em um dia qualquer, do jeito mais simples. Mas teve algo no olhar, na conversa... Desde o começo, parecia que seria especial.",
     },
     row2: {
       title: "Ele propôs, eu disse sim",
       date: "10 dez 2022",
       image: "/images/photos/history2.jpg",
-      text: "Depois de muitos sorrisos e conversas, cheou o momento. Com o coração acelerado, um 'Você quer namorar comigo?' virou um dos 'sim' mais especiais da nossa história. Foi o começo de um compromisso leve e cheio de carinho. ",
+      text: "Depois de muitos sorrisos e conversas, chegou o momento. Com o coração acelerado, um 'Você quer namorar comigo?' virou um dos 'sim' mais especiais da nossa história. Foi o começo de um compromisso leve e cheio de carinho. ",
     },
     row3: {
       title: "Nosso dia de noivado",
