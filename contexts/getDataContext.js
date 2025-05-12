@@ -23,6 +23,8 @@ export const GetDataProvider = ({ children }) => {
   const [mappedInvitations, setMappedInvitations] = useState([]);
   const [mappedGuests, setMappedGuests] = useState([]);
 
+  const [isFilterConfirmedGuests, setIsFilterConfirmedGuests] = useState(false);
+
   useEffect(() => {
     const invitations = [...invitationList]
       .sort((a, b) => a.name.localeCompare(b.name))
@@ -36,15 +38,25 @@ export const GetDataProvider = ({ children }) => {
   }, [invitationList, guestList]);
 
   useEffect(() => {
+    let confirmationFilter = null;
+    if (isFilterConfirmedGuests) {
+      confirmationFilter = "confirmed";
+    }
+
     const guests = [...guestList]
       .sort((a, b) => a.name.localeCompare(b.name))
       .map((guest) => ({
         ...guest,
         invitation:
           invitationList.find((inv) => inv.id === guest.invitation_id) || {},
-      }));
+      }))
+      .filter((guest) => {
+        if (confirmationFilter === null) return true;
+        return guest.confirmation_status === confirmationFilter;
+      });
+
     setMappedGuests(guests);
-  }, [guestList, invitationList]);
+  }, [guestList, invitationList, isFilterConfirmedGuests]);
 
   const confirmationSummary = {
     invitation: {
@@ -113,6 +125,8 @@ export const GetDataProvider = ({ children }) => {
         mappedGuests,
         confirmationSummary,
         loadingData,
+        isFilterConfirmedGuests,
+        setIsFilterConfirmedGuests,
         refresh,
         exportInvitations,
       }}

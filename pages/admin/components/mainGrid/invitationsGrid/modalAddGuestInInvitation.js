@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useCreateData } from "contexts/createDataContext";
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function ModalAddGuestInInvitation({
   selectedInvitation,
@@ -37,19 +37,6 @@ export default function ModalAddGuestInInvitation({
     is_bride: false,
     is_groom: false,
   });
-
-  const [formValues, setFormValues] = React.useState({});
-
-  useEffect(() => {
-    setFormValues({
-      name: guestName,
-      email: guestEmail,
-      cell: guestPhone,
-      ...guestRoles,
-      guest_of: "groom", // Supondo que "groom" seja o padrão, ajuste conforme necessário.
-      invitation_id: selectedInvitation.id,
-    });
-  }, [guestName, guestEmail, guestPhone, guestRoles, selectedInvitation.id]);
 
   const styleModal = {
     position: "absolute",
@@ -80,18 +67,54 @@ export default function ModalAddGuestInInvitation({
       Noivo: "is_groom",
     };
 
-    setRoles((prevRoles) => {
-      const updatedRoles = { ...prevRoles };
-      value.forEach((role) => {
-        const key = map[role];
-        if (key) updatedRoles[key] = true;
-      });
-      return updatedRoles;
+    const updatedRoles = {
+      is_family: false,
+      is_friend: false,
+      is_musician: false,
+      is_witness: false,
+      is_bridesmaid: false,
+      is_bestman: false,
+      is_bride: false,
+      is_groom: false,
+    };
+
+    value.forEach((role) => {
+      const key = map[role];
+      if (key) updatedRoles[key] = true;
+    });
+
+    setRoles(updatedRoles);
+  };
+
+  const resetForm = () => {
+    setNewGuestName("");
+    setNewGuestEmail("");
+    setNewGuestCell("");
+    setPersonName([]);
+    setRoles({
+      is_family: false,
+      is_friend: false,
+      is_musician: false,
+      is_witness: false,
+      is_bridesmaid: false,
+      is_bestman: false,
+      is_bride: false,
+      is_groom: false,
     });
   };
 
   const handleSubmit = () => {
-    createGuestForInvitation(formValues);
+    const payload = {
+      name: guestName,
+      email: guestEmail,
+      cell: guestPhone,
+      ...guestRoles,
+      guest_of: "groom", // Ajuste conforme a lógica do seu sistema
+      invitation_id: selectedInvitation.id,
+    };
+
+    createGuestForInvitation(payload);
+    resetForm();
     close();
   };
 
