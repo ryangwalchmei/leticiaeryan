@@ -4,9 +4,10 @@ import { FaDownload, FaPlus } from "react-icons/fa";
 import { useMenu } from "contexts/menuContext";
 import { useCreateData } from "contexts/createDataContext";
 import { useData } from "contexts/getDataContext";
+import Swal from "sweetalert2";
 
 export default function CustomButtonCreate() {
-  const { selectedMenu } = useMenu();
+  const { selectedMenu, setSelectedMenu } = useMenu();
   const { exportInvitations } = useData();
   const { invitations } = useCreateData();
 
@@ -38,13 +39,18 @@ export default function CustomButtonCreate() {
   }
 
   function ButtonWhereGuests() {
+    function navigateToInvitation() {
+      setSelectedMenu("Convites");
+      Swal.fire("Você precisa adicionar um convidado em um convite.");
+    }
+
     return (
       <Button
         variant="outlined"
         size="small"
         startIcon={<FaPlus fontSize="small" />}
         sx={{ minWidth: "fit-content" }}
-        onClick={() => {}}
+        onClick={() => navigateToInvitation()}
       >
         Criar um novo Convidado
       </Button>
