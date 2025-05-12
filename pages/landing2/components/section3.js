@@ -4,21 +4,21 @@ export default function L2Section3() {
   const listTexts = {
     row1: {
       title: "Nos conhecemos",
-      date: "fev 2022",
+      date: "27 mai 2022",
       image: "/images/photos/history1.jpg",
-      text: "Consectetur adipiscing elit. Fringilla at risus orci, tempus facilisi sed. Enim tortor, faucibus netus orci donec volutpat adipiscing. Sit condimentum elit convallis libero. Nunc in eu tellus ipsum placerat.",
+      text: "A gente se conheceu em um dia qualquer, do jeito mais simples. Mas teve algo no olhar, na conversa... Desde o começo, pareca que seria especial.",
     },
     row2: {
       title: "Ele propôs, eu disse sim",
-      date: "10 Dez 2022",
+      date: "10 dez 2022",
       image: "/images/photos/history2.jpg",
-      text: "Consectetur adipiscing elit. Fringilla at risus orci, tempus facilisi sed. Enim tortor, faucibus netus orci donec volutpat adipiscing. Sit condimentum elit convallis libero. Nunc in eu tellus ipsum placerat.",
+      text: "Depois de muitos sorrisos e conversas, cheou o momento. Com o coração acelerado, um 'Você quer namorar comigo?' virou um dos 'sim' mais especiais da nossa história. Foi o começo de um compromisso leve e cheio de carinho. ",
     },
     row3: {
       title: "Nosso dia de noivado",
-      date: "10 Dez 2024",
+      date: "10 dez 2024",
       image: "/images/photos/history3.jpg",
-      text: "Consectetur adipiscing elit. Fringilla at risus orci, tempus facilisi sed. Enim tortor, faucibus netus orci donec volutpat adipiscing. Sit condimentum elit convallis libero. Nunc in eu tellus ipsum placerat.",
+      text: "Um dos dias mais emocionantes da nossa história foi quando a gente olhou um para o outro e decidiu seguir em frente juntos, para sempre. Com grande emoção, lágrimas, sorrisos e a certeza de que o amor que construímos é real, forte e duradouro.",
     },
   };
 
