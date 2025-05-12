@@ -2,6 +2,7 @@ import React, { createContext, useContext } from "react";
 import Swal from "sweetalert2";
 import { useData } from "./getDataContext";
 import fetchAPI from "./utils/fetchAPI";
+import { showToast } from "components/toasts";
 
 const CreateDataContext = createContext();
 
@@ -10,14 +11,6 @@ export const CreateDataProvider = ({ children }) => {
 
   // Invitations
   async function createNewInvitation() {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
-    });
-
     const { value: formValues } = await Swal.fire({
       title: "Novo Convite",
       html: `<input id="newInvite-name" class="swal2-input" placeholder="Nome do convidado">`,
@@ -44,10 +37,10 @@ export const CreateDataProvider = ({ children }) => {
       await refresh().refreshInvitations();
       await refresh().refreshGuests();
 
-      swalWithBootstrapButtons.fire({
-        title: "Criado!",
-        text: "Convite criado com sucesso!",
+      showToast({
         icon: "success",
+        title: "Criado!",
+        text: "Convite foi criado com sucesso!",
       });
     }
   }
@@ -71,13 +64,13 @@ export const CreateDataProvider = ({ children }) => {
 
       await refresh().refreshInvitations();
 
-      await Swal.fire({
+      showToast({
+        icon: "success",
         title: "Atualizado!",
         text: `Status alterado para "${updatedStatus}".`,
-        icon: "success",
       });
     } catch {
-      // Erro já tratado no fetchAPI
+      showToast({ icon: "error", title: "Não atualizado!" });
     }
   }
 
@@ -108,16 +101,16 @@ export const CreateDataProvider = ({ children }) => {
       await refresh().refreshInvitations();
       await refresh().refreshGuests();
 
-      await swalWithBootstrapButtons.fire({
+      showToast({
+        icon: "success",
         title: "Excluído!",
         text: "Convite excluído com sucesso!",
-        icon: "success",
       });
     } else if (result.dismiss === Swal.DismissReason.cancel) {
-      await swalWithBootstrapButtons.fire({
-        title: "Cancelado",
-        text: "Convite não foi excluído!",
+      showToast({
         icon: "error",
+        title: "Cancelado!",
+        text: "Convite não foi excluído!",
       });
     }
   }
@@ -138,20 +131,17 @@ export const CreateDataProvider = ({ children }) => {
         });
 
         await refresh().refreshGuests();
-
-        await Swal.fire({
+        showToast({
+          icon: "success",
           title: "Convidado Criado!",
           text: "O convidado foi adicionado com sucesso.",
-          icon: "success",
         });
       }
     } catch (error) {
-      // O erro já será tratado pelo fetchAPI, mas podemos personalizar a mensagem se necessário
-      Swal.fire({
+      showToast({
+        icon: "error",
         title: "Erro!",
         text: error.message || "Ocorreu um erro ao adicionar o convidado.",
-        icon: "error",
-        confirmButtonText: "OK",
       });
     }
   }
@@ -175,13 +165,21 @@ export const CreateDataProvider = ({ children }) => {
       await refresh().refreshInvitations();
       await refresh().refreshGuests();
 
-      await Swal.fire({
-        title: "Atualizado!",
-        text: `Status de confirmação alterado com sucesso`,
+      let textStatus = "";
+      if (updatedStatus == "declined") textStatus = "rejeitado";
+      if (updatedStatus == "confirmed") textStatus = "confirmado";
+
+      showToast({
         icon: "success",
+        title: "Atualizado!",
+        text: `Convidado ${textStatus} com sucesso`,
       });
-    } catch {
-      // Erro já tratado no fetchAPI
+    } catch (error) {
+      showToast({
+        icon: "error",
+        title: "Erro!",
+        text: error.message || "Ocorreu um erro ao adicionar o convidado.",
+      });
     }
   }
 
@@ -211,16 +209,16 @@ export const CreateDataProvider = ({ children }) => {
 
       await refresh().refreshGuests();
 
-      await swalWithBootstrapButtons.fire({
+      showToast({
+        icon: "success",
         title: "Excluído!",
         text: "Convidado excluído com sucesso!",
-        icon: "success",
       });
     } else if (result.dismiss === Swal.DismissReason.cancel) {
-      await swalWithBootstrapButtons.fire({
-        title: "Cancelado",
-        text: "Convidado não foi excluído!",
+      showToast({
         icon: "error",
+        title: "Cancelado!",
+        text: "Convidado não foi excluído!",
       });
     }
   }
