@@ -5,12 +5,12 @@ export default function L2Section2() {
     bride: {
       image: "/images/photos/bride.png",
       name: "Letícia Vitória",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna orci auctor vitae nisl. Erat fringilla pellentesque amet tempus. Commodo mi vitae, sagittis blandit.",
+      text: "Preparamos esse site com carinho para compartilhar cada detalhe do nosso grande dia. Aproveite e celebre com a gente!",
     },
     groom: {
       image: "/images/photos/groom.png",
       name: "Ryan Galvão",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna orci auctor vitae nisl. Erat fringilla pellentesque amet tempus. Commodo mi vitae, sagittis blandit.",
+      text: "Sua presença aqui é muito especial! Seja bem-vindoª ao nosso sonho!",
     },
   };
   return (
