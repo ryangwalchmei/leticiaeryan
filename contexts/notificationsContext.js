@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import useSWR from "swr";
 import fetchAPI from "./utils/fetchAPI";
 import { showToast } from "components/toasts";
@@ -7,10 +7,16 @@ const NotificationsContext = createContext();
 
 export const NotificationsProvider = ({ children }) => {
   const {
-    data: notificationList = [],
+    data: rawNotificationList = [],
     isLoading: isLoadingNotifications,
     mutate: refreshNotifications,
   } = useSWR("/api/v1/notifications", fetchAPI);
+
+  const notificationList = useMemo(() => {
+    return [...rawNotificationList].sort(
+      (a, b) => new Date(b.datecreated) - new Date(a.datecreated),
+    );
+  }, [rawNotificationList]);
 
   const handleReadNotification = async (id) => {
     try {
@@ -55,13 +61,14 @@ export const NotificationsProvider = ({ children }) => {
     }
   };
 
-  const notificationsSummary = {
-    is_empty: notificationList.length === 0,
-    is_contains_unread:
-      notificationList.filter((notify) => notify.is_read === false).length > 0,
-    total_unread: notificationList.filter((notify) => notify.is_read === false)
-      .length,
-  };
+  const notificationsSummary = useMemo(() => {
+    const unread = notificationList.filter((n) => !n.is_read);
+    return {
+      is_empty: notificationList.length === 0,
+      is_contains_unread: unread.length > 0,
+      total_unread: unread.length,
+    };
+  }, [notificationList]);
 
   return (
     <NotificationsContext.Provider
