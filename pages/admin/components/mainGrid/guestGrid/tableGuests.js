@@ -60,7 +60,7 @@ export default function TableGuests() {
     },
     {
       name: "Confirmar",
-      action: (item) => toggleGuestConfirmationStatus(item),
+      action: (item) => toggleGuestConfirmationStatus(item, true),
       Icon: FaCheck,
       color: "success",
     },
