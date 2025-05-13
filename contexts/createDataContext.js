@@ -172,9 +172,19 @@ export const CreateDataProvider = ({ children }) => {
 
       createNotification({
         guest_id: item.id,
-        title: "Presença Confirmada",
-        message: `${item.name} confirmou presença `,
-        type: "Info",
+        title:
+          updatedStatus == "declined"
+            ? "Presença Rejeitada"
+            : updatedStatus == "confirmed"
+              ? "Presença Confirmada"
+              : "Presença marcada como pendente",
+        message: `${item.name} - ${item.invitation.name} (${item.invitation.pin_code})`,
+        type:
+          updatedStatus == "declined"
+            ? `alert`
+            : updatedStatus == "confirmed"
+              ? `success`
+              : "info",
       });
       await refreshNotifications();
 
