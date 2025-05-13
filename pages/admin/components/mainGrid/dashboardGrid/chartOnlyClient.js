@@ -12,8 +12,8 @@ export default function ChartOnlyClient({ result }) {
       colors={["green"]}
       layout="horizontal"
       xAxis={[{ label: "Nº Convidados" }]}
-      height={400}
-      width={656}
+      height={297}
+      width={535}
     />
   );
 }

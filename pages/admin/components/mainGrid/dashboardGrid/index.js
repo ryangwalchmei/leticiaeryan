@@ -61,6 +61,8 @@ export default function DashboardGrid() {
       interval: `de ${informations?.maxInvitation || 0} convites`,
       chart: (
         <Gauge
+          width={225}
+          height={107}
           color="primary"
           cornerRadius="50%"
           text={({ value }) => `${value}%`}
@@ -101,8 +103,8 @@ export default function DashboardGrid() {
             },
           ]}
           colors={["gray", "green", "lightcoral"]}
-          height={100}
-          width={200}
+          width={225}
+          height={107}
         />
       ),
     },
@@ -134,8 +136,8 @@ export default function DashboardGrid() {
             },
           ]}
           colors={["gray", "green", "lightcoral"]}
-          width={200}
-          height={100}
+          width={225}
+          height={107}
         />
       ),
     },
@@ -167,8 +169,8 @@ export default function DashboardGrid() {
             },
           ]}
           colors={["green", "gray", "lightcoral"]}
-          width={200}
-          height={100}
+          width={225}
+          height={107}
         />
       ),
     },
