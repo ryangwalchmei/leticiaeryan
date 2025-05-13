@@ -10,6 +10,7 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { useMenu } from "contexts/menuContext";
 import MenuButton from "../menuButton";
 import SideMenuMobile from "../sideMenu/sideMenuMobile";
+import { useNotifications } from "contexts/notificationsContext";
 
 const Toolbar = styled(MuiToolbar)({
   width: "100%",
@@ -29,6 +30,7 @@ const Toolbar = styled(MuiToolbar)({
 
 export default function AppNavbar() {
   const { selectedMenu, menuListItems } = useMenu();
+  const { notificationsSummary } = useNotifications();
 
   const [open, setOpen] = useState(false);
 
@@ -96,7 +98,11 @@ export default function AppNavbar() {
               {selectedMenu}
             </Typography>
           </Stack>
-          <MenuButton aria-label="menu" onClick={toggleDrawer(true)}>
+          <MenuButton
+            showBadge={notificationsSummary.is_contains_unread}
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+          >
             <MenuRoundedIcon />
           </MenuButton>
           <SideMenuMobile open={open} toggleDrawer={setOpen} />
