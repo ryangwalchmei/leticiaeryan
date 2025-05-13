@@ -3,11 +3,13 @@ import Swal from "sweetalert2";
 import { useData } from "./getDataContext";
 import fetchAPI from "./utils/fetchAPI";
 import { showToast } from "components/toasts";
+import { useNotifications } from "./notificationsContext";
 
 const CreateDataContext = createContext();
 
 export const CreateDataProvider = ({ children }) => {
   const { refresh } = useData();
+  const { createNotification, refreshNotifications } = useNotifications();
 
   // Invitations
   async function createNewInvitation() {
@@ -154,7 +156,7 @@ export const CreateDataProvider = ({ children }) => {
     else updatedStatus = "confirmed";
 
     try {
-      await fetchAPI(`/api/v1/guests/${item.id}`, {
+      const response = await fetchAPI(`/api/v1/guests/${item.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -162,8 +164,29 @@ export const CreateDataProvider = ({ children }) => {
         body: JSON.stringify({ confirmation_status: updatedStatus }),
       });
 
+      if (!response.id)
+        throw new Error("Erro ao mudar status de confirmação do convidado");
+
       await refresh().refreshInvitations();
       await refresh().refreshGuests();
+
+      createNotification({
+        guest_id: item.id,
+        title:
+          updatedStatus == "declined"
+            ? "Presença Rejeitada"
+            : updatedStatus == "confirmed"
+              ? "Presença Confirmada"
+              : "Presença marcada como pendente",
+        message: `${item.name} - ${item.invitation.name} (${item.invitation.pin_code})`,
+        type:
+          updatedStatus == "declined"
+            ? `alert`
+            : updatedStatus == "confirmed"
+              ? `success`
+              : "info",
+      });
+      await refreshNotifications();
 
       let textStatus = "";
       if (updatedStatus == "declined") textStatus = "rejeitado";
