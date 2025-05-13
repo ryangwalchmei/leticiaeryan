@@ -148,7 +148,7 @@ export const CreateDataProvider = ({ children }) => {
     }
   }
 
-  async function toggleGuestConfirmationStatus(item) {
+  async function toggleGuestConfirmationStatus(item, isShowToast) {
     let updatedStatus = null;
     if (item.confirmation_status === null) updatedStatus = "confirmed";
     else if (item.confirmation_status === "confirmed")
@@ -188,20 +188,21 @@ export const CreateDataProvider = ({ children }) => {
       });
       await refreshNotifications();
 
-      let textStatus = "";
-      if (updatedStatus == "declined") textStatus = "rejeitado";
-      if (updatedStatus == "confirmed") textStatus = "confirmado";
-
-      showToast({
-        icon: "success",
-        title: "Atualizado!",
-        text: `Convidado ${textStatus} com sucesso`,
-      });
+      if (isShowToast) {
+        let textStatus = "";
+        if (updatedStatus == "declined") textStatus = "rejeitado";
+        if (updatedStatus == "confirmed") textStatus = "confirmado";
+        showToast({
+          icon: "success",
+          title: "Atualizado!",
+          text: `Convidado ${textStatus} com sucesso`,
+        });
+      }
     } catch (error) {
       showToast({
         icon: "error",
         title: "Erro!",
-        text: error.message || "Ocorreu um erro ao adicionar o convidado.",
+        text: error.message || "Ocorreu um erro ao atualizar o convidado.",
       });
     }
   }
