@@ -19,7 +19,7 @@ export default function gifts(request, response) {
       return deleteHandler(request, response);
     }
   } catch (error) {
-    console.log("Error");
+    console.log("Error", error);
   }
 }
 

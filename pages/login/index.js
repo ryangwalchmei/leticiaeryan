@@ -30,6 +30,7 @@ export default function Login() {
 
       router.push("/admin");
     } catch (err) {
+      console.log(err);
       setError("Ocorreu um erro. Tente novamente.");
     }
   };

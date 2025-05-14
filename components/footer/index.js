@@ -3,6 +3,7 @@ import { FaGithub, FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 
 export default function Footer() {
+  const showMenuItemOptionals = false;
   return (
     <footer className="wpo-site-footer wpo-site-footer-s2">
       <div className="wpo-upper-footer">
@@ -25,7 +26,7 @@ export default function Footer() {
                       <Link href="/rsvp">Confirmar Presença</Link>
                     </li>
                   </ul>
-                  {false && (
+                  {showMenuItemOptionals && (
                     <ul>
                       <li>
                         <Link href="/about">Sobre nós</Link>
