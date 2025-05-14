@@ -14,7 +14,7 @@ let giftCreated = null;
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
-  await fetch("http://localhost:3000/api/v1/migrations", { method: "POST" });
+  await orchestrator.runMigrationsPending();
 });
 
 describe("POST /api/v1/gifts", () => {

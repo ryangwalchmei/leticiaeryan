@@ -13,7 +13,7 @@ let guestExample = null;
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
-  await fetch("http://localhost:3000/api/v1/migrations", { method: "POST" });
+  await orchestrator.runMigrationsPending();
 
   const invitationDb = await fetch("http://localhost:3000/api/v1/invitation", {
     method: "POST",
