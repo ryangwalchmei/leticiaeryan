@@ -18,7 +18,7 @@ export default function guest(request, response) {
         return response.status(405).end(`Method ${request.method} Not Allowed`);
     }
   } catch (error) {
-    console.log("Error");
+    console.log("Error", error);
   }
 }
 
@@ -43,6 +43,7 @@ async function getHandler(request, response) {
     );
     return response.status(200).send(file);
   } catch (error) {
+    console.log("Error", error);
     return response.status(500).json({ message: "Erro ao exportar os dados" });
   }
 }

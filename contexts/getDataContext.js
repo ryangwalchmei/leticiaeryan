@@ -111,6 +111,7 @@ export const GetDataProvider = ({ children }) => {
       a.click();
       a.remove();
     } catch (error) {
+      console.log("Erro ao exportar os dados dos convites", error);
       alert("Erro ao exportar os dados");
     }
   }

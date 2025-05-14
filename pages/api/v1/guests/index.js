@@ -24,7 +24,7 @@ export default function guest(request, response) {
         return response.status(405).end(`Method ${request.method} Not Allowed`);
     }
   } catch (error) {
-    console.log("Error");
+    console.log("Error", error);
   }
 }
 

@@ -11,7 +11,7 @@ export default function Gift(request, response) {
       return deleteHandler(request, response);
     }
   } catch (error) {
-    console.log("Error");
+    console.log("Error", error);
   }
 }
 
