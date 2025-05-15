@@ -2,13 +2,18 @@ import notificationFactory from "models/notifications";
 const notification = notificationFactory();
 
 export default async function Notifications(request, response) {
+  const allowedMethods = ["PUT"];
+  const isPermited = allowedMethods.includes(request.method);
+
+  if (!isPermited) {
+    response.setHeader("Allow", allowedMethods);
+    return response.status(405).end(`Method ${request.method} Not Allowed`);
+  }
+
   try {
     switch (request.method) {
       case "PUT":
         return await putHandler(request, response);
-      default:
-        response.setHeader("Allow", ["PUT"]);
-        return response.status(405).end(`Method ${request.method} Not Allowed`);
     }
   } catch (error) {
     console.error("Error:", error);

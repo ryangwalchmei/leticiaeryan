@@ -15,9 +15,7 @@ export default async function guest(request, response) {
   try {
     switch (request.method) {
       case "GET":
-        return await getHandler(request, response);
-      default:
-        return response.status(405).end(`Method ${request.method} Not Allowed`);
+        return getHandler(request, response);
     }
   } catch (error) {
     console.error("Erro inesperado:", error);

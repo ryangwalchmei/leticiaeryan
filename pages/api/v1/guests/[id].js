@@ -2,6 +2,15 @@ import guestsFactory from "models/guests";
 const guests = guestsFactory();
 
 export default function Guests(request, response) {
+  const allowedMethods = ["GET", "PUT", "DELETE"];
+  const isPermited = allowedMethods.includes(request.method);
+
+  if (!isPermited) {
+    {
+      response.setHeader("Allow", allowedMethods);
+      return response.status(405).end(`Method ${request.method} Not Allowed`);
+    }
+  }
   try {
     switch (request.method) {
       case "GET":
@@ -10,9 +19,6 @@ export default function Guests(request, response) {
         return putHandler(request, response);
       case "DELETE":
         return deleteHandler(request, response);
-      default:
-        response.setHeader("Allow", ["GET", "PUT", "DELETE"]);
-        return response.status(405).end(`Method ${request.method} Not Allowed`);
     }
   } catch (error) {
     console.log("Error", error);

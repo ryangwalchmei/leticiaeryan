@@ -2,15 +2,19 @@ import guestFactory from "models/guests";
 
 const guestDb = guestFactory();
 
-export default function guest(request, response) {
+export default async function guest(request, response) {
   const allowedMethods = ["GET"];
   const isPermited = allowedMethods.includes(request.method);
 
-  if (!isPermited) throw new Error();
+  if (!isPermited) {
+    response.setHeader("Allow", allowedMethods);
+    return response.status(405).end(`Method ${request.method} Not Allowed`);
+  }
 
   try {
-    if (request.method === "GET") {
-      return getHandler(request, response);
+    switch (request.method) {
+      case "GET":
+        return await getHandler(request, response);
     }
 
     throw new Error({ message: "Method not allowed" });
