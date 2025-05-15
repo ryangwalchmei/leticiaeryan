@@ -3,10 +3,13 @@ import invitationFactory from "models/invitation";
 const invitationDb = invitationFactory();
 
 export default function Invitation(request, response) {
-  const allowedMethods = ["GET", "POST", "PUT", "DELETE"];
+  const allowedMethods = ["GET", "POST"];
   const isPermited = allowedMethods.includes(request.method);
 
-  if (!isPermited) throw new Error({ message: "Method Not Allowed" });
+  if (!isPermited) {
+    response.setHeader("Allow", allowedMethods);
+    return response.status(405).end(`Method ${request.method} Not Allowed`);
+  }
 
   try {
     switch (request.method) {
@@ -14,13 +17,6 @@ export default function Invitation(request, response) {
         return getHandler(request, response);
       case "POST":
         return postHandler(request, response);
-      case "PUT":
-        return putHandler(request, response);
-      case "DELETE":
-        return deleteHandler(request, response);
-      default:
-        response.setHeader("Allow", ["GET", "PUT", "DELETE"]);
-        return response.status(405).end(`Method ${request.method} Not Allowed`);
     }
   } catch (error) {
     console.log("Error", error);
@@ -55,21 +51,5 @@ async function postHandler(request, response) {
   } catch (error) {
     console.error("Error:", error);
     return response.status(500).json({ message: "Internal Server Error" });
-  }
-}
-
-async function deleteHandler(request, response) {
-  return otherMethods(request, response);
-}
-
-async function putHandler(request, response) {
-  return otherMethods(request, response);
-}
-
-async function otherMethods(request, response) {
-  const { id } = request.query;
-
-  if (!id || id === "" || id === undefined) {
-    return response.status(400).json({ message: "invitation_id is required" });
   }
 }

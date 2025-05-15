@@ -2,21 +2,21 @@ import giftsFactory from "models/gifts";
 
 const giftsDb = giftsFactory();
 
-export default function gifts(request, response) {
-  const allowedMethods = ["GET", "POST", "PUT", "DELETE"];
+export default async function gifts(request, response) {
+  const allowedMethods = ["GET", "POST"];
   const isPermited = allowedMethods.includes(request.method);
 
-  if (!isPermited) throw new Error();
+  if (!isPermited) {
+    response.setHeader("Allow", allowedMethods);
+    return response.status(405).end(`Method ${request.method} Not Allowed`);
+  }
 
   try {
-    if (request.method === "GET") {
-      return getHandler(request, response);
-    } else if (request.method === "POST") {
-      return postHandler(request, response);
-    } else if (request.method === "PUT") {
-      return putHandler(request, response);
-    } else if (request.method === "DELETE") {
-      return deleteHandler(request, response);
+    switch (request.method) {
+      case "GET":
+        return await getHandler(request, response);
+      case "POST":
+        return await postHandler(request, response);
     }
   } catch (error) {
     console.log("Error", error);
@@ -32,15 +32,4 @@ async function postHandler(request, response) {
   const returnIdGiftsDb = await giftsDb.createGifts(request.body);
 
   return response.status(201).json(returnIdGiftsDb[0]);
-}
-
-async function putHandler(request, response) {
-  const returnGift = await giftsDb.updateGift(request.query.id, request.body);
-
-  return response.status(200).json(returnGift[0]);
-}
-
-async function deleteHandler(request, response) {
-  const returnGift = await giftsDb.deleteGift(request.query.id);
-  return response.status(204).json(returnGift[0]);
 }

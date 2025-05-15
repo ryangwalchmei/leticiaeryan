@@ -7,15 +7,15 @@ export default function guest(request, response) {
   const allowedMethods = ["GET"];
   const isPermited = allowedMethods.includes(request.method);
 
-  if (!isPermited) throw new Error({ message: "Method Not Allowed" });
+  if (!isPermited) {
+    response.setHeader("Allow", allowedMethods);
+    return response.status(405).end(`Method ${request.method} Not Allowed`);
+  }
 
   try {
     switch (request.method) {
       case "GET":
         return getHandler(request, response);
-      default:
-        response.setHeader("Allow", ["GET"]);
-        return response.status(405).end(`Method ${request.method} Not Allowed`);
     }
   } catch (error) {
     console.log("Error", error);

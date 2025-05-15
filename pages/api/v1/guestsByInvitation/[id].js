@@ -5,12 +5,19 @@ const guestInvitation = guestInvitationFactory();
 const invitation = invitationFactory();
 
 export default async function Gift(request, response) {
-  if (request.method !== "GET") {
-    return response.status(405).json({ message: "Method Not Allowed" });
+  const allowedMethods = ["GET"];
+  const isPermited = allowedMethods.includes(request.method);
+
+  if (!isPermited) {
+    response.setHeader("Allow", allowedMethods);
+    return response.status(405).end(`Method ${request.method} Not Allowed`);
   }
 
   try {
-    return await getHandler(request, response);
+    switch (request.method) {
+      case "GET":
+        return await getHandler(request, response);
+    }
   } catch (error) {
     console.error("Error:", error);
     return response.status(500).json({ message: "Internal Server Error" });

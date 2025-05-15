@@ -210,11 +210,7 @@ describe("PUT /api/v1/invitation/:id", () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: "Letícia e Família", status: "confirmado" }),
     });
-
-    expect(response.status).toBe(400);
-    const errorBody = await response.json();
-    expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("invitation_id is required");
+    expect(response.status).toBe(405);
   });
 
   test("Erro ao tentar atualizar ID do convite", async () => {
@@ -270,10 +266,7 @@ describe("DELETE /api/v1/invitation/:id", () => {
       method: "DELETE",
     });
 
-    expect(response.status).toBe(400);
-    const errorBody = await response.json();
-    expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("invitation_id is required");
+    expect(response.status).toBe(405);
   });
 
   test("Erro ao deletar convite com ID inválido", async () => {

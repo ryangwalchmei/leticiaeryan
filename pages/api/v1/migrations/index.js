@@ -1,48 +1,55 @@
 import migrationRunner from "node-pg-migrate";
-import { join } from "node:path";
+import { resolve } from "node:path";
 import database from "infra/database";
 
 export default async function migrations(request, response) {
   const allowedMethods = ["GET", "POST"];
-  const isPermited = allowedMethods.includes(request.method);
+  if (!allowedMethods.includes(request.method)) {
+    response.setHeader("Allow", allowedMethods);
+    return response.status(405).json({
+      error: `Method ${request.method} not allowed`,
+    });
+  }
 
   let dbClient;
 
   try {
-    if (!isPermited)
-      return response.status(405).json({
-        error: `Method ${request.method} not allowed`,
-      });
-
     dbClient = await database.getNewClient();
     const defaultMigrationOptions = {
-      dbClient: dbClient,
+      dbClient,
       dryRun: true,
-      dir: join("infra", "migrations"),
+      dir: resolve("infra", "migrations"),
       direction: "up",
       verbose: true,
       migrationsTable: "pgmigrations",
     };
 
-    if (request.method === "GET") {
+    async function getHandler() {
       const pendingMigrations = await migrationRunner(defaultMigrationOptions);
       return response.status(200).json(pendingMigrations);
     }
 
-    if (request.method === "POST") {
+    async function postHandler() {
       const migratedMigrations = await migrationRunner({
         ...defaultMigrationOptions,
         dryRun: false,
       });
-      if (migratedMigrations.length > 0) {
-        return response.status(201).json(migratedMigrations);
-      }
-      return response.status(200).json(migratedMigrations);
+      const statusCode = migratedMigrations.length > 0 ? 201 : 200;
+      return response.status(statusCode).json(migratedMigrations);
+    }
+
+    switch (request.method) {
+      case "GET":
+        return await getHandler();
+      case "POST":
+        return await postHandler();
+      default:
+        return response.status(405).json({ error: "Method not allowed" });
     }
   } catch (error) {
     console.error(error);
-    throw error;
+    return response.status(500).json({ error: "Internal Server Error" });
   } finally {
-    await dbClient.end();
+    if (dbClient) await dbClient.end();
   }
 }
