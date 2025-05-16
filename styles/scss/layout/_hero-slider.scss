@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "styles/scss/helpers/_variables.scss" as *;
 @use "styles/scss/helpers/_mixins.scss" as *;
 
@@ -50,7 +51,7 @@
   // slider controls
   .swiper-button-prev,
   .swiper-button-next {
-    background: transparentize($white, 0.8);
+    background: color.adjust($white, $alpha: -0.8);
     width: 60px;
     height: 60px;
     line-height: 60px;

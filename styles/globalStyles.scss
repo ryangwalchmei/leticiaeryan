@@ -5,10 +5,5 @@ body {
   font-family: var(--font-jost);
   font-size: $base-font-size + px;
   color: $text-color;
-  @media (min-width: 1025px) {
-    zoom: 85%;
-  }
   background-color: $body-bg-color;
 }
-
-//
