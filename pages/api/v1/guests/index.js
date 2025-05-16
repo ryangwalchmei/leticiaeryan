@@ -1,46 +1,50 @@
+import { handleError } from "infra/errors/erroHandler";
+import { BadRequestError, MethodNotAllowedError } from "infra/errors/errors";
 import guestFactory from "models/guests";
 import invitationFactory from "models/invitation";
 
 const guestDb = guestFactory();
 
-export default function guest(request, response) {
-  const allowedMethods = ["GET", "POST", "PUT", "DELETE"];
+export default async function guest(request, response) {
+  const allowedMethods = ["GET", "POST"];
   const isPermited = allowedMethods.includes(request.method);
 
-  if (!isPermited) throw new Error({ message: "Method Not Allowed" });
-
   try {
+    if (!isPermited) {
+      throw new MethodNotAllowedError({
+        cause: new Error("Método não permitido"),
+        method: request.method,
+        allowedMethods,
+      });
+    }
     switch (request.method) {
       case "GET":
-        return getHandler(request, response);
+        return await getHandler(request, response);
       case "POST":
-        return postHandler(request, response);
-      case "PUT":
-        return putHandler(request, response);
-      case "DELETE":
-        return deleteHandler(request, response);
-      default:
-        response.setHeader("Allow", ["GET", "PUT", "DELETE"]);
-        return response.status(405).end(`Method ${request.method} Not Allowed`);
+        return await postHandler(request, response);
     }
   } catch (error) {
-    console.log("Error", error);
+    return handleError(error, request, response);
   }
 }
 
 async function getHandler(request, response) {
-  const convidadosList = await guestDb.getGuests();
-  return response.status(200).json(convidadosList);
+  try {
+    const convidadosList = await guestDb.getGuests();
+    return response.status(200).json(convidadosList);
+  } catch (error) {
+    return handleError(error, request, response);
+  }
 }
 
 async function postHandler(request, response) {
   try {
     if (request.body.name === undefined || request.body.name === "") {
-      return response.status(400).json({ message: "Name is required" });
+      throw new BadRequestError("Name is required");
     }
 
     if (request.body.name.length > 50) {
-      return response.status(400).json({ message: "Name is too long" });
+      throw new BadRequestError("Name is too long");
     }
 
     const invitations = await invitationFactory().getInvitation(
@@ -48,33 +52,17 @@ async function postHandler(request, response) {
     );
 
     if (invitations.code === "22P02") {
-      return response.status(400).json({ message: "Invalid ID" });
+      throw new BadRequestError("Invalid ID");
     }
 
     if (invitations.length === 0 || !invitations) {
-      return response.status(400).json({ message: "Invalid invitation_id" });
+      throw new BadRequestError("Invalid invitation_id");
     }
 
     const returnIdGuestDb = await guestDb.createGuests(request.body);
 
     return response.status(201).json(returnIdGuestDb[0]);
   } catch (error) {
-    return response.status(400).json(error);
-  }
-}
-
-async function deleteHandler(request, response) {
-  const { id } = request.query;
-
-  if (!id || id === "" || id === undefined) {
-    return response.status(404).json({ message: "guest_id is required" });
-  }
-}
-
-async function putHandler(request, response) {
-  const { id } = request.query;
-
-  if (!id || id === "") {
-    return response.status(400).json({ message: "guest_id is required" });
+    return handleError(error, request, response);
   }
 }

@@ -9,7 +9,7 @@ let invitationCreated = null;
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
-  await fetch("http://localhost:3000/api/v1/migrations", { method: "POST" });
+  await orchestrator.runMigrationsPending();
 });
 
 describe("POST /api/v1/invitation", () => {
@@ -122,12 +122,12 @@ describe("GET /api/v1/invitation/:id", () => {
     expect(responseBody.id).toBe(invitationCreated.id);
   });
 
-  test("Falha ao buscar um convite inexistente", async () => {
+  test("Falha ao buscar um convite com id inválido", async () => {
     const response = await fetch(
       "http://localhost:3000/api/v1/invitation/99999999",
     );
 
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
   });
 });
 
@@ -166,7 +166,7 @@ describe("PUT /api/v1/invitation/:id", () => {
       },
     );
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(403);
   });
 
   test("Erro ao atualizar convite com ID inexistente", async () => {
@@ -182,7 +182,7 @@ describe("PUT /api/v1/invitation/:id", () => {
       },
     );
 
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
     expect(errorBody.message).toContain("Invalid ID");
@@ -210,11 +210,7 @@ describe("PUT /api/v1/invitation/:id", () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: "Letícia e Família", status: "confirmado" }),
     });
-
-    expect(response.status).toBe(400);
-    const errorBody = await response.json();
-    expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("invitation_id is required");
+    expect(response.status).toBe(405);
   });
 
   test("Erro ao tentar atualizar ID do convite", async () => {
@@ -259,7 +255,7 @@ describe("DELETE /api/v1/invitation/:id", () => {
       { method: "DELETE" },
     );
 
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
     expect(errorBody.message).toContain("Invalid ID");
@@ -270,10 +266,7 @@ describe("DELETE /api/v1/invitation/:id", () => {
       method: "DELETE",
     });
 
-    expect(response.status).toBe(400);
-    const errorBody = await response.json();
-    expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("invitation_id is required");
+    expect(response.status).toBe(405);
   });
 
   test("Erro ao deletar convite com ID inválido", async () => {
@@ -282,7 +275,7 @@ describe("DELETE /api/v1/invitation/:id", () => {
       { method: "DELETE" },
     );
 
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
     expect(errorBody.message).toContain("Invalid ID");

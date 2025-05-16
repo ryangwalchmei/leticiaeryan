@@ -1,6 +1,8 @@
 import migrationRunner from "node-pg-migrate";
-import { join } from "node:path";
+import { resolve } from "node:path";
 import database from "infra/database";
+import { MethodNotAllowedError } from "infra/errors/errors";
+import { handleError } from "infra/errors/erroHandler";
 
 export default async function migrations(request, response) {
   const allowedMethods = ["GET", "POST"];
@@ -9,40 +11,47 @@ export default async function migrations(request, response) {
   let dbClient;
 
   try {
-    if (!isPermited)
-      return response.status(405).json({
-        error: `Method ${request.method} not allowed`,
+    if (!isPermited) {
+      throw new MethodNotAllowedError({
+        cause: new Error("Método não permitido"),
+        method: request.method,
+        allowedMethods,
       });
+    }
 
     dbClient = await database.getNewClient();
     const defaultMigrationOptions = {
-      dbClient: dbClient,
+      dbClient,
       dryRun: true,
-      dir: join("infra", "migrations"),
+      dir: resolve("infra", "migrations"),
       direction: "up",
       verbose: true,
       migrationsTable: "pgmigrations",
     };
 
-    if (request.method === "GET") {
+    async function getHandler() {
       const pendingMigrations = await migrationRunner(defaultMigrationOptions);
       return response.status(200).json(pendingMigrations);
     }
 
-    if (request.method === "POST") {
+    async function postHandler() {
       const migratedMigrations = await migrationRunner({
         ...defaultMigrationOptions,
         dryRun: false,
       });
-      if (migratedMigrations.length > 0) {
-        return response.status(201).json(migratedMigrations);
-      }
-      return response.status(200).json(migratedMigrations);
+      const statusCode = migratedMigrations.length > 0 ? 201 : 200;
+      return response.status(statusCode).json(migratedMigrations);
+    }
+
+    switch (request.method) {
+      case "GET":
+        return await getHandler();
+      case "POST":
+        return await postHandler();
     }
   } catch (error) {
-    console.error(error);
-    throw error;
+    return handleError(error, request, response);
   } finally {
-    await dbClient.end();
+    if (dbClient) await dbClient.end();
   }
 }

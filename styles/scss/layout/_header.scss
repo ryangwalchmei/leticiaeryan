@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "styles/scss/helpers/_variables.scss" as *;
 @use "styles/scss/helpers/_mixins.scss" as *;
 
@@ -938,7 +939,7 @@
     > ul li a:hover,
     > ul li a:focus {
       text-decoration: none;
-      color: darken($theme-primary-color, 5%);
+      color: color.adjust($theme-primary-color, $lightness: -5%);
     }
 
     // style for widther screen

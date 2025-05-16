@@ -7,7 +7,7 @@ let guestsDefaultParams = null;
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
-  await fetch("http://localhost:3000/api/v1/migrations", { method: "POST" });
+  await orchestrator.runMigrationsPending();
 
   const invitationDb = await fetch("http://localhost:3000/api/v1/invitation", {
     method: "POST",
@@ -215,10 +215,7 @@ describe("PUT /api/v1/guests/:id", () => {
         confirmation_status: "confirmado",
       }),
     });
-    expect(response.status).toBe(400);
-    const errorBody = await response.json();
-    expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("guest_id is required");
+    expect(response.status).toBe(405);
   });
 
   test("Erro ao tentar atualizar ID do convidado", async () => {
@@ -260,7 +257,7 @@ describe("DELETE /api/v1/guests/:id", () => {
     const response = await fetch(`http://localhost:3000/api/v1/guests/999999`, {
       method: "DELETE",
     });
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
     expect(errorBody.message).toContain("Invalid ID");
@@ -270,7 +267,7 @@ describe("DELETE /api/v1/guests/:id", () => {
     const response = await fetch(`http://localhost:3000/api/v1/guests/abc`, {
       method: "DELETE",
     });
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
     expect(errorBody.message).toContain("Invalid ID");
@@ -280,9 +277,6 @@ describe("DELETE /api/v1/guests/:id", () => {
     const response = await fetch(`http://localhost:3000/api/v1/guests/`, {
       method: "DELETE",
     });
-    expect(response.status).toBe(404);
-    const errorBody = await response.json();
-    expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("guest_id is required");
+    expect(response.status).toBe(405);
   });
 });

@@ -1,20 +1,28 @@
+import { handleError } from "infra/errors/erroHandler";
+import { BadRequestError, MethodNotAllowedError } from "infra/errors/errors";
 import notificationFactory from "models/notifications";
 const notification = notificationFactory();
 
 export default async function Notifications(request, response) {
+  const allowedMethods = ["GET", "POST", "PUT"];
+  const isPermited = allowedMethods.includes(request.method);
+
   try {
+    if (!isPermited) {
+      throw new MethodNotAllowedError({
+        cause: new Error("Método não permitido"),
+        method: request.method,
+        allowedMethods,
+      });
+    }
     switch (request.method) {
       case "GET":
         return await getHandler(request, response);
       case "POST":
         return await postHandler(request, response);
-      default:
-        response.setHeader("Allow", ["GET", "POST", "PUT"]);
-        return response.status(405).end(`Method ${request.method} Not Allowed`);
     }
   } catch (error) {
-    console.error("Error:", error);
-    return response.status(500).json({ message: "Internal Server Error" });
+    return handleError(error, request, response);
   }
 }
 
@@ -24,10 +32,7 @@ async function getHandler(request, response) {
     const allNotifications = await notification.getNotifications();
     return response.status(200).json(allNotifications);
   } catch (error) {
-    console.error("GET Error:", error);
-    return response
-      .status(500)
-      .json({ message: "Failed to fetch notifications" });
+    return handleError(error, request, response);
   }
 }
 
@@ -36,9 +41,21 @@ async function postHandler(request, response) {
   try {
     const { guest_id, title, message, type } = request.body;
 
-    // Validação básica
-    if (!guest_id || !title || !message || !type) {
-      return response.status(400).json({ message: "Missing required fields" });
+    const propsRequired = ["guest_id", "title", "message", "type"];
+
+    const missingProps = propsRequired.filter((prop) => {
+      return (
+        !Object.prototype.hasOwnProperty.call(request.body, prop) ||
+        request.body[prop] === undefined ||
+        request.body[prop] === null ||
+        request.body[prop] === ""
+      );
+    });
+
+    if (missingProps.length > 0) {
+      throw new BadRequestError(
+        `Missing required fields: ${missingProps.join(", ")}`,
+      );
     }
 
     const newNotification = await notification.createNotifications({
@@ -50,9 +67,6 @@ async function postHandler(request, response) {
 
     return response.status(201).json(newNotification[0]);
   } catch (error) {
-    console.error("POST Error:", error);
-    return response
-      .status(500)
-      .json({ message: "Failed to create notification" });
+    return handleError(error, request, response);
   }
 }

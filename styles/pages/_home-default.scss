@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "styles/scss/helpers/_variables.scss" as *;
 @use "styles/scss/helpers/_mixins.scss" as *;
 /* 3.2 wpo-couple-section */
@@ -20,6 +21,7 @@
       display: flex;
       align-items: center;
       padding-left: 70px;
+      text-align: center;
 
       @media (max-width: 1199px) {
         padding-left: 0;
@@ -81,8 +83,6 @@
           }
         }
       }
-
-      text-align: center;
 
       .couple-text {
         max-width: 460px;
@@ -708,7 +708,7 @@
     // slider controls
     .slick-prev,
     .slick-next {
-      background-color: transparentize($theme-primary-color, 0.3);
+      background-color: color.adjust($theme-primary-color, $alpha: -0.3);
       width: 45px;
       height: 45px;
       z-index: 10;

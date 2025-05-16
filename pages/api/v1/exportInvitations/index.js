@@ -1,37 +1,49 @@
+import { handleError } from "infra/errors/erroHandler";
+import { MethodNotAllowedError, NotFoundError } from "infra/errors/errors";
 import invitationFactory from "models/invitation";
 import * as XLSX from "xlsx";
 
 const invitationDb = invitationFactory();
 
-export default function guest(request, response) {
+export default async function guest(request, response) {
   const allowedMethods = ["GET"];
-  const isPermited = allowedMethods.includes(request.method);
-
-  if (!isPermited) throw new Error({ message: "Method Not Allowed" });
+  const isPermitted = allowedMethods.includes(request.method);
 
   try {
+    if (!isPermitted) {
+      throw new MethodNotAllowedError({
+        cause: new Error("Método não permitido"),
+        method: request.method,
+        allowedMethods,
+      });
+    }
     switch (request.method) {
       case "GET":
         return getHandler(request, response);
-      default:
-        response.setHeader("Allow", ["GET"]);
-        return response.status(405).end(`Method ${request.method} Not Allowed`);
     }
   } catch (error) {
-    console.log("Error", error);
+    return handleError(error, request, response);
   }
 }
 
 async function getHandler(request, response) {
-  const invitationsList = await invitationDb.getInvitations();
-
   try {
-    const ws = XLSX.utils.json_to_sheet(invitationsList);
+    const invitationsList = await invitationDb.getInvitations();
 
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Convites");
+    if (!Array.isArray(invitationsList)) {
+      throw new NotFoundError(
+        "Data format error: expected an array of invitations",
+      );
+    }
 
-    const file = XLSX.write(wb, { bookType: "xlsx", type: "buffer" });
+    const worksheet = XLSX.utils.json_to_sheet(invitationsList, {
+      header: ["id", "name", "pin_code", "shipping_date", "status"],
+    });
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Convites");
+
+    const buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
 
     response.setHeader(
       "Content-Type",
@@ -41,9 +53,11 @@ async function getHandler(request, response) {
       "Content-Disposition",
       "attachment; filename=Convites.xlsx",
     );
-    return response.status(200).send(file);
+    response.setHeader("Content-Length", Buffer.byteLength(buffer));
+    response.setHeader("X-Content-Type-Options", "nosniff");
+
+    return response.status(200).send(buffer);
   } catch (error) {
-    console.log("Error", error);
-    return response.status(500).json({ message: "Erro ao exportar os dados" });
+    return handleError(error, request, response);
   }
 }

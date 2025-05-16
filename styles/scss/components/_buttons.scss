@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "styles/scss/helpers/_variables.scss" as *;
 @use "styles/scss/helpers/_mixins.scss" as *;
 
@@ -38,7 +39,7 @@
   &:hover,
   &:focus,
   &:active {
-    background: darken($theme-primary-color, 8);
+    background: color.adjust($theme-primary-color);
     color: $white;
   }
 
@@ -92,9 +93,9 @@
 
 .theme-btn-s4 {
   &:hover {
-    background: darken($theme-primary-color, 6%);
+    background: color.adjust($theme-primary-color, $lightness: -6%);
     &:after {
-      border: 1px solid darken($theme-primary-color, 6%);
+      border: 1px solid color.adjust($theme-primary-color, $lightness: -6%);
     }
   }
 }
@@ -113,15 +114,15 @@
     display: none;
   }
   &:hover {
-    background-color: darken($theme-primary-color, 8%);
+    background-color: color.adjust($theme-primary-color, $lightness: -8%);
   }
 
   &.s1 {
-    background: transparentize($theme-primary-color, 0.8);
+    background: color.adjust($theme-primary-color, $alpha: -0.8);
     color: $dark-gray;
 
     &:hover {
-      background-color: darken(#ddd, 8%);
+      background-color: color.adjust(#ddd, $lightness: -8%);
     }
   }
 }

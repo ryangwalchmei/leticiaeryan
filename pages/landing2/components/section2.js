@@ -65,12 +65,18 @@ export default function L2Section2() {
                   <div className="col-lg-6">
                     <div className="couple-img-wrap">
                       <div className="couple-common">
-                        <div className="couple-img animate__animated animate__pulse animate__delay-1s animate__slow">
+                        <div className="couple-img">
                           <Image
                             src={listInformations.bride.image}
                             alt={`Photo of ${listInformations.bride.name}`}
                             width={239}
                             height={606}
+                            style={{
+                              WebkitAnimation:
+                                "kenburnLeve 20s 1.2s alternate infinite",
+                              animation:
+                                "kenburnLeve 20s 1.2s alternate infinite",
+                            }}
                           />
                         </div>
                       </div>
@@ -80,12 +86,18 @@ export default function L2Section2() {
                         data-point="middle"
                         data-path="280"
                       >
-                        <div className="couple-img animate__animated animate__pulse animate__delay-3s animate__slow">
+                        <div className="couple-img">
                           <Image
                             src={listInformations.groom.image}
                             alt={`Photo of ${listInformations.groom.name}`}
                             width={239}
                             height={606}
+                            style={{
+                              WebkitAnimation:
+                                "kenburnLeve 20s 1.2s alternate infinite",
+                              animation:
+                                "kenburnLeve 20s 1.2s alternate infinite",
+                            }}
                           />
                         </div>
                       </div>
