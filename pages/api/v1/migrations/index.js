@@ -1,19 +1,24 @@
 import migrationRunner from "node-pg-migrate";
 import { resolve } from "node:path";
 import database from "infra/database";
+import { MethodNotAllowedError } from "infra/errors/errors";
+import { handleError } from "infra/errors/erroHandler";
 
 export default async function migrations(request, response) {
   const allowedMethods = ["GET", "POST"];
-  if (!allowedMethods.includes(request.method)) {
-    response.setHeader("Allow", allowedMethods);
-    return response.status(405).json({
-      error: `Method ${request.method} not allowed`,
-    });
-  }
+  const isPermited = allowedMethods.includes(request.method);
 
   let dbClient;
 
   try {
+    if (!isPermited) {
+      throw new MethodNotAllowedError({
+        cause: new Error("Método não permitido"),
+        method: request.method,
+        allowedMethods,
+      });
+    }
+
     dbClient = await database.getNewClient();
     const defaultMigrationOptions = {
       dbClient,
@@ -43,12 +48,9 @@ export default async function migrations(request, response) {
         return await getHandler();
       case "POST":
         return await postHandler();
-      default:
-        return response.status(405).json({ error: "Method not allowed" });
     }
   } catch (error) {
-    console.error(error);
-    return response.status(500).json({ error: "Internal Server Error" });
+    return handleError(error, request, response);
   } finally {
     if (dbClient) await dbClient.end();
   }

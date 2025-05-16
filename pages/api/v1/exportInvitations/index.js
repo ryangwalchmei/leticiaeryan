@@ -1,3 +1,5 @@
+import { handleError } from "infra/errors/erroHandler";
+import { MethodNotAllowedError, NotFoundError } from "infra/errors/errors";
 import invitationFactory from "models/invitation";
 import * as XLSX from "xlsx";
 
@@ -7,19 +9,20 @@ export default async function guest(request, response) {
   const allowedMethods = ["GET"];
   const isPermitted = allowedMethods.includes(request.method);
 
-  if (!isPermitted) {
-    response.setHeader("Allow", allowedMethods);
-    return response.status(405).end(`Method ${request.method} Not Allowed`);
-  }
-
   try {
+    if (!isPermitted) {
+      throw new MethodNotAllowedError({
+        cause: new Error("Método não permitido"),
+        method: request.method,
+        allowedMethods,
+      });
+    }
     switch (request.method) {
       case "GET":
         return getHandler(request, response);
     }
   } catch (error) {
-    console.error("Erro inesperado:", error);
-    return response.status(500).json({ message: "Erro interno no servidor" });
+    return handleError(error, request, response);
   }
 }
 
@@ -27,7 +30,16 @@ async function getHandler(request, response) {
   try {
     const invitationsList = await invitationDb.getInvitations();
 
-    const worksheet = XLSX.utils.json_to_sheet(invitationsList);
+    if (!Array.isArray(invitationsList)) {
+      throw new NotFoundError(
+        "Data format error: expected an array of invitations",
+      );
+    }
+
+    const worksheet = XLSX.utils.json_to_sheet(invitationsList, {
+      header: ["id", "name", "pin_code", "shipping_date", "status"],
+    });
+
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Convites");
 
@@ -42,10 +54,10 @@ async function getHandler(request, response) {
       "attachment; filename=Convites.xlsx",
     );
     response.setHeader("Content-Length", Buffer.byteLength(buffer));
+    response.setHeader("X-Content-Type-Options", "nosniff");
 
     return response.status(200).send(buffer);
   } catch (error) {
-    console.error("Erro ao gerar planilha:", error);
-    return response.status(500).json({ message: "Erro ao exportar os dados" });
+    return handleError(error, request, response);
   }
 }

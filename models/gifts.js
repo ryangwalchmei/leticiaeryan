@@ -38,7 +38,7 @@ export default function gifts() {
   async function deleteGift(id) {
     try {
       const returnQuery = database.query({
-        text: "DELETE FROM gifts WHERE id = $1;",
+        text: "DELETE FROM gifts WHERE id = $1 RETURNING *;",
         values: [id],
       });
 

@@ -78,6 +78,27 @@ describe("CRUD /api/v1/notifications", () => {
       expect(notificationCreated).toHaveProperty("id");
       expect(notificationCreated.title).toBe(notificationDefaultParams.title);
     });
+
+    test("Falha ao tentar criar uma notifiação sem especificar dados obrigatórios", async () => {
+      const response = await fetch(
+        "http://localhost:3000/api/v1/notifications",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            guest_id: guestExample.id,
+          }),
+        },
+      );
+
+      const responseBody = await response.json();
+
+      expect(response.status).toBe(400);
+
+      expect(responseBody).toHaveProperty("message");
+      expect(responseBody).toHaveProperty("name");
+      expect(responseBody).toHaveProperty("status_code");
+    });
   });
 
   describe("GET", () => {

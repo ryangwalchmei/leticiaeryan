@@ -1,3 +1,5 @@
+import { handleError } from "infra/errors/erroHandler";
+import { MethodNotAllowedError } from "infra/errors/errors";
 import guestFactory from "models/guests";
 
 const guestDb = guestFactory();
@@ -6,12 +8,14 @@ export default async function guest(request, response) {
   const allowedMethods = ["GET"];
   const isPermited = allowedMethods.includes(request.method);
 
-  if (!isPermited) {
-    response.setHeader("Allow", allowedMethods);
-    return response.status(405).end(`Method ${request.method} Not Allowed`);
-  }
-
   try {
+    if (!isPermited) {
+      throw new MethodNotAllowedError({
+        cause: new Error("Método não permitido"),
+        method: request.method,
+        allowedMethods,
+      });
+    }
     switch (request.method) {
       case "GET":
         return await getHandler(request, response);
@@ -19,12 +23,15 @@ export default async function guest(request, response) {
 
     throw new Error({ message: "Method not allowed" });
   } catch (error) {
-    console.log("Error", error);
-    return response.status(405).json({ message: "Method not allowed" });
+    return handleError(error, request, response);
   }
 }
 
 async function getHandler(request, response) {
-  const convidadosList = await guestDb.getGuests();
-  return response.status(200).json(convidadosList);
+  try {
+    const convidadosList = await guestDb.getGuests();
+    return response.status(200).json(convidadosList);
+  } catch (error) {
+    return handleError(error, request, response);
+  }
 }

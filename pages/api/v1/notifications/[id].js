@@ -1,3 +1,9 @@
+import { handleError } from "infra/errors/erroHandler";
+import {
+  BadRequestError,
+  MethodNotAllowedError,
+  NotFoundError,
+} from "infra/errors/errors";
 import notificationFactory from "models/notifications";
 const notification = notificationFactory();
 
@@ -5,19 +11,20 @@ export default async function Notifications(request, response) {
   const allowedMethods = ["PUT"];
   const isPermited = allowedMethods.includes(request.method);
 
-  if (!isPermited) {
-    response.setHeader("Allow", allowedMethods);
-    return response.status(405).end(`Method ${request.method} Not Allowed`);
-  }
-
   try {
+    if (!isPermited) {
+      throw new MethodNotAllowedError({
+        cause: new Error("Método não permitido"),
+        method: request.method,
+        allowedMethods,
+      });
+    }
     switch (request.method) {
       case "PUT":
         return await putHandler(request, response);
     }
   } catch (error) {
-    console.error("Error:", error);
-    return response.status(500).json({ message: "Internal Server Error" });
+    return handleError(error, request, response);
   }
 }
 
@@ -28,26 +35,23 @@ async function putHandler(request, response) {
     const existingNotification = await notification.getNotificationById(id);
 
     if (!existingNotification || existingNotification.length === 0) {
-      return response.status(404).json({ message: "Notification not found" });
+      throw new NotFoundError("Notification not found");
     }
 
     if (request.body.id) {
-      return response.status(400).json({ message: "ID cannot be changed" });
+      throw new BadRequestError("ID cannot be changed");
     }
 
     if (request.body.title === "") {
-      return response.status(400).json({ message: "Title is required" });
+      throw new BadRequestError("Title is required");
     }
 
     const updatedNotification = await notification.markAsRead(id);
     return response.status(200).json(updatedNotification[0]);
   } catch (error) {
     if (error.code === "22P02") {
-      console.log("INVALIDO", { id });
-      return response.status(404).json({ message: "Invalid ID" });
+      throw new NotFoundError("Invalid ID");
     }
-
-    console.error("Error:", error);
-    return response.status(500).json({ message: "Internal Server Error" });
+    return handleError(error, request, response);
   }
 }

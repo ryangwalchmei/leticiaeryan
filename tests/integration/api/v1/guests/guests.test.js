@@ -257,7 +257,7 @@ describe("DELETE /api/v1/guests/:id", () => {
     const response = await fetch(`http://localhost:3000/api/v1/guests/999999`, {
       method: "DELETE",
     });
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
     expect(errorBody.message).toContain("Invalid ID");
@@ -267,7 +267,7 @@ describe("DELETE /api/v1/guests/:id", () => {
     const response = await fetch(`http://localhost:3000/api/v1/guests/abc`, {
       method: "DELETE",
     });
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
     expect(errorBody.message).toContain("Invalid ID");

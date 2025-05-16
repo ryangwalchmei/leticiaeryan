@@ -1,3 +1,10 @@
+import { handleError } from "infra/errors/erroHandler";
+import {
+  BadRequestError,
+  ForbiddenError,
+  MethodNotAllowedError,
+  NotFoundError,
+} from "infra/errors/errors";
 import invitationFactory from "models/invitation";
 const invitation = invitationFactory();
 
@@ -5,12 +12,15 @@ export default function Invitation(request, response) {
   const allowedMethods = ["GET", "PUT", "DELETE"];
   const isPermited = allowedMethods.includes(request.method);
 
-  if (!isPermited) {
-    response.setHeader("Allow", allowedMethods);
-    return response.status(405).end(`Method ${request.method} Not Allowed`);
-  }
-
   try {
+    if (!isPermited) {
+      throw new MethodNotAllowedError({
+        cause: new Error("Método não permitido"),
+        method: request.method,
+        allowedMethods,
+      });
+    }
+
     switch (request.method) {
       case "GET":
         return getHandler(request, response);
@@ -20,8 +30,7 @@ export default function Invitation(request, response) {
         return deleteHandler(request, response);
     }
   } catch (error) {
-    console.error("Error:", error);
-    return response.status(500).json({ message: "Internal Server Error" });
+    return handleError(error, request, response);
   }
 }
 
@@ -30,17 +39,16 @@ async function getHandler(request, response) {
     const returnInvitation = await invitation.getInvitation(request.query.id);
 
     if (returnInvitation.code === "22P02") {
-      return response.status(404).json({ message: "Invalid ID" });
+      throw new BadRequestError("Invalid ID");
     }
 
     if (!returnInvitation || returnInvitation.length === 0) {
-      return response.status(404).json({ message: "Invitation not found" });
+      throw new NotFoundError("Invitation not found");
     }
 
     return response.status(200).json(returnInvitation[0]);
   } catch (error) {
-    console.error("Error:", error);
-    return response.status(500).json({ message: "Internal Server Error" });
+    return handleError(error, request, response);
   }
 }
 
@@ -49,25 +57,23 @@ async function putHandler(request, response) {
     const returnInvitation = await invitation.getInvitation(request.query.id);
 
     if (returnInvitation.code === "22P02") {
-      return response.status(404).json({ message: "Invalid ID" });
+      throw new BadRequestError("Invalid ID");
     }
 
     if (returnInvitation.length === 0) {
-      return response.status(404).json({ message: "Invitation not found" });
+      throw new BadRequestError("Invitation not found");
     }
 
     if (request.body.id) {
-      return response.status(400).json({ message: "ID cannot be changed" });
+      throw new BadRequestError("ID cannot be changed");
     }
 
     if (request.body.name === "") {
-      return response.status(400).json({ message: "Name is required" });
+      throw new BadRequestError("Name is required");
     }
 
     if (request.body.pin_code) {
-      return response
-        .status(400)
-        .json({ message: "Pin code cannot be updated" });
+      throw new ForbiddenError("Pin code cannot be updated");
     }
 
     if (returnInvitation.length === 1) {
@@ -79,8 +85,7 @@ async function putHandler(request, response) {
       return response.status(200).json(updatedInvitation[0]);
     }
   } catch (error) {
-    console.error("Error:", error);
-    return response.status(500).json({ message: "Internal Server Error" });
+    return handleError(error, request, response);
   }
 }
 
@@ -89,18 +94,17 @@ async function deleteHandler(request, response) {
     const returnInvitation = await invitation.getInvitation(request.query.id);
 
     if (returnInvitation.code === "22P02") {
-      return response.status(404).json({ message: "Invalid ID" });
+      throw new BadRequestError("Invalid ID");
     }
 
     if (returnInvitation.length === 0) {
-      return response.status(404).json({ message: "Invitation not found" });
+      throw new BadRequestError("Invitation not found");
     }
 
     await invitation.deleteInvitation(request.query.id).then(() => {
       return response.status(204).json(returnInvitation[0]);
     });
   } catch (error) {
-    console.error("Error:", error);
-    return response.status(500).json({ message: "Internal Server Error" });
+    return handleError(error, request, response);
   }
 }

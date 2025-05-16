@@ -1,4 +1,5 @@
 import orchestrator from "tests/orchestrator";
+import * as XLSX from "xlsx";
 
 describe("GET /api/v1/exportInvitations", () => {
   describe("Com convites no banco", () => {
@@ -51,7 +52,21 @@ describe("GET /api/v1/exportInvitations", () => {
 
       expect(response.status).toBe(405);
       const text = await response.text();
-      expect(text).toContain("Method POST Not Allowed");
+      expect(text).toContain("MethodNotAllowedError");
+    });
+
+    test("Planilha contém dados corretos", async () => {
+      const response = await fetch(
+        "http://localhost:3000/api/v1/exportInvitations",
+      );
+      const buffer = await response.arrayBuffer();
+      const workbook = XLSX.read(buffer, { type: "buffer" });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const data = XLSX.utils.sheet_to_json(sheet);
+
+      expect(data.length).toBeGreaterThan(0);
+      expect(data[0].name).toBe("Família Silva");
+      expect(data[0].status).toBe("pendente");
     });
   });
 
@@ -73,6 +88,24 @@ describe("GET /api/v1/exportInvitations", () => {
 
       const buffer = await response.arrayBuffer();
       expect(buffer.byteLength).toBeGreaterThan(0);
+    });
+
+    test("Planilha vazia possui headers corretos", async () => {
+      const response = await fetch(
+        "http://localhost:3000/api/v1/exportInvitations",
+      );
+      const buffer = await response.arrayBuffer();
+      const workbook = XLSX.read(buffer, { type: "buffer" });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const headers = XLSX.utils.sheet_to_json(sheet, { header: 1 })[0];
+
+      expect(headers).toEqual([
+        "id",
+        "name",
+        "pin_code",
+        "shipping_date",
+        "status",
+      ]);
     });
   });
 });

@@ -6,6 +6,7 @@ let guestsList = [];
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
+  await orchestrator.clearDatabase();
   await orchestrator.runMigrationsPending();
 
   // Criando um convite
@@ -54,10 +55,6 @@ beforeAll(async () => {
       throw new Error("Falha ao criar convidados.");
     }
   }
-});
-
-afterAll(async () => {
-  // Opcional: Adicione lógica para limpar os dados criados nos testes.
 });
 
 describe("GET /api/v1/guestsByInvitation", () => {
@@ -110,5 +107,24 @@ describe("GET /api/v1/guestsByInvitation/:id", () => {
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
     expect(errorBody.message).toContain("Invalid invitation_id");
+  });
+
+  test("Busca convidados com invitation_id válido mas que não existe no banco", async () => {
+    const uuid = crypto.randomUUID();
+    const response = await fetch(
+      `http://localhost:3000/api/v1/guestsByInvitation/${uuid}`,
+    );
+
+    expect(response.status).toBe(404);
+    responseBody = await response.json();
+
+    const isObject =
+      typeof responseBody === "object" &&
+      responseBody !== null &&
+      !Array.isArray(responseBody);
+
+    expect(isObject).toBe(true);
+    expect(responseBody.name).toBe("NotFoundError");
+    expect(responseBody.message).toBe("Not found invitation associated");
   });
 });
