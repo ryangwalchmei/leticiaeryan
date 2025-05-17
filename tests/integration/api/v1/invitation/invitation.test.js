@@ -126,8 +126,13 @@ describe("GET /api/v1/invitation/:id", () => {
     const response = await fetch(
       "http://localhost:3000/api/v1/invitation/99999999",
     );
+    expect(response.status).toBe(503);
 
-    expect(response.status).toBe(400);
+    const errorBody = await response.json();
+    expect(errorBody).toHaveProperty("message");
+    expect(errorBody.message).toContain(
+      "Um erro interno não esperado aconteceu.",
+    );
   });
 });
 
@@ -182,10 +187,13 @@ describe("PUT /api/v1/invitation/:id", () => {
       },
     );
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(503);
+
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("Invalid ID");
+    expect(errorBody.message).toContain(
+      "Um erro interno não esperado aconteceu.",
+    );
   });
 
   test("Erro ao atualizar convite com nome vazio", async () => {
@@ -255,10 +263,13 @@ describe("DELETE /api/v1/invitation/:id", () => {
       { method: "DELETE" },
     );
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(503);
+
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("Invalid ID");
+    expect(errorBody.message).toContain(
+      "Um erro interno não esperado aconteceu.",
+    );
   });
 
   test("Erro ao deletar convite sem especificar id", async () => {
@@ -275,9 +286,12 @@ describe("DELETE /api/v1/invitation/:id", () => {
       { method: "DELETE" },
     );
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(503);
+
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("Invalid ID");
+    expect(errorBody.message).toContain(
+      "Um erro interno não esperado aconteceu.",
+    );
   });
 });

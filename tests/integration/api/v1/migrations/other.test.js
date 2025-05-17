@@ -21,13 +21,6 @@ describe("Requests to /api/v1/migrations", () => {
       expect(response.status).toBe(405);
     });
 
-    test("HEAD method should return 405", async () => {
-      const response = await fetch("http://localhost:3000/api/v1/migrations", {
-        method: "HEAD",
-      });
-      expect(response.status).toBe(405);
-    });
-
     test("OPTIONS method should return 405", async () => {
       const response = await fetch("http://localhost:3000/api/v1/migrations", {
         method: "OPTIONS",

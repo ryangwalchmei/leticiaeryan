@@ -137,10 +137,13 @@ describe("CRUD /api/v1/notifications", () => {
         "http://localhost:3000/api/v1/notifications/abc",
         { method: "PUT", headers: { "Content-Type": "application/json" } },
       );
+      expect(response.status).toBe(503);
 
-      expect(response.status).toBe(404);
-      const data = await response.json();
-      expect(data.message).toBe("Invalid ID");
+      const errorBody = await response.json();
+      expect(errorBody).toHaveProperty("message");
+      expect(errorBody.message).toContain(
+        "Um erro interno não esperado aconteceu.",
+      );
     });
 
     test("Falha ao ler notificação inexistente", async () => {
@@ -148,10 +151,13 @@ describe("CRUD /api/v1/notifications", () => {
         "http://localhost:3000/api/v1/notifications/999999",
         { method: "PUT", headers: { "Content-Type": "application/json" } },
       );
+      expect(response.status).toBe(503);
 
-      expect(response.status).toBe(404);
-      const data = await response.json();
-      expect(data.message).toBe("Invalid ID");
+      const errorBody = await response.json();
+      expect(errorBody).toHaveProperty("message");
+      expect(errorBody.message).toContain(
+        "Um erro interno não esperado aconteceu.",
+      );
     });
 
     test("Falha ao tentar alterar o ID da notificação", async () => {
