@@ -1,37 +1,23 @@
-import { handleError } from "infra/errors/erroHandler";
+import controller from "infra/controller";
 import { MethodNotAllowedError } from "infra/errors/errors";
 import guestFactory from "models/guests";
+import { createRouter } from "next-connect";
+
+const router = createRouter();
+router.get(getHandler);
+router.all((request) => {
+  const allowedMethods = ["GET"];
+  throw new MethodNotAllowedError({
+    cause: new Error("Método não permitido"),
+    method: request.method,
+    allowedMethods,
+  });
+});
 
 const guestDb = guestFactory();
-
-export default async function guest(request, response) {
-  const allowedMethods = ["GET"];
-  const isPermited = allowedMethods.includes(request.method);
-
-  try {
-    if (!isPermited) {
-      throw new MethodNotAllowedError({
-        cause: new Error("Método não permitido"),
-        method: request.method,
-        allowedMethods,
-      });
-    }
-    switch (request.method) {
-      case "GET":
-        return await getHandler(request, response);
-    }
-
-    throw new Error({ message: "Method not allowed" });
-  } catch (error) {
-    return handleError(error, request, response);
-  }
-}
+export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  try {
-    const convidadosList = await guestDb.getGuests();
-    return response.status(200).json(convidadosList);
-  } catch (error) {
-    return handleError(error, request, response);
-  }
+  const convidadosList = await guestDb.getGuests();
+  return response.status(200).json(convidadosList);
 }
