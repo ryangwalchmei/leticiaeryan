@@ -89,10 +89,10 @@ describe("POST /api/v1/guests", () => {
       body: JSON.stringify(invalidParams),
     });
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(404);
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("Invalid invitation_id");
+    expect(errorBody.message).toContain("Invitation not found");
   });
 });
 

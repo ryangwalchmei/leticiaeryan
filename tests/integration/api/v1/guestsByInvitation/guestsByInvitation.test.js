@@ -125,6 +125,6 @@ describe("GET /api/v1/guestsByInvitation/:id", () => {
 
     expect(isObject).toBe(true);
     expect(responseBody.name).toBe("NotFoundError");
-    expect(responseBody.message).toBe("Not found invitation associated");
+    expect(responseBody.message).toBe("Invitation not found");
   });
 });

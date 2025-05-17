@@ -1,5 +1,5 @@
 import controller from "infra/controller";
-import { BadRequestError, MethodNotAllowedError } from "infra/errors/errors";
+import { MethodNotAllowedError } from "infra/errors/errors";
 import invitationFactory from "models/invitation";
 import { createRouter } from "next-connect";
 
@@ -25,14 +25,6 @@ async function getHandler(request, response) {
 }
 
 async function postHandler(request, response) {
-  if (request.body.name === undefined) {
-    throw new BadRequestError("Name is required");
-  }
-
-  if (request.body.name.length > 50) {
-    throw new BadRequestError("Name is too long");
-  }
-
   const returnIdInvitationDb = await invitationDb.createInvitation(
     request.body,
   );
