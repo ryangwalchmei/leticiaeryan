@@ -42,6 +42,8 @@ async function postHandler(request, response) {
     throw new BadRequestError("Invalid ID");
   }
 
+  console.log({ RESPOSTA: invitations.code });
+
   if (invitations.length === 0 || !invitations) {
     throw new BadRequestError("Invalid invitation_id");
   }

@@ -28,7 +28,10 @@ function onErrorHandler(error, request, response) {
     }
   }
 
-  const internalError = new InternalServerError({ cause: error });
+  const internalError = new InternalServerError({
+    cause: error,
+    statusCode: error.statusCode,
+  });
   console.error("Erro interno não tratado:", internalError);
   return response.status(internalError.statusCode).json(internalError.toJSON());
 }
