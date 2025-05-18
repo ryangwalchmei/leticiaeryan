@@ -1,12 +1,7 @@
-import {
-  BadRequestError,
-  MethodNotAllowedError,
-  NotFoundError,
-} from "infra/errors/errors";
-import giftFactory from "models/gifts";
-import isValidUUID from "utils/uuidValidator";
+import { MethodNotAllowedError } from "infra/errors/errors";
 import { createRouter } from "next-connect";
 import controller from "infra/controller";
+import gifts from "models/gifts";
 
 const router = createRouter();
 router.get(getHandler);
@@ -21,71 +16,19 @@ router.all((request) => {
   });
 });
 
-const gifts = giftFactory();
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  if (!isValidUUID(request.query.id)) {
-    throw new BadRequestError("Invalid ID ");
-  }
-  const returnGift = await gifts.getGift(request.query.id);
-
-  if (returnGift.code === "22P02") {
-    throw new BadRequestError("Invalid ID");
-  }
-
-  if (returnGift.length === 0) {
-    throw new NotFoundError("Gift is not found");
-  }
-
-  if (returnGift.length === 1) {
-    return response.status(200).json(returnGift[0]);
-  }
+  const [returnGift] = await gifts.getGift(request.query.id);
+  return response.status(200).json(returnGift);
 }
 
 async function putHandler(request, response) {
-  const propsRequired = ["title"];
-
-  const missingProps = propsRequired.filter((prop) => {
-    return (
-      !Object.prototype.hasOwnProperty.call(request.body, prop) ||
-      request.body[prop] === undefined ||
-      request.body[prop] === null ||
-      request.body[prop] === ""
-    );
-  });
-
-  if (missingProps.length > 0) {
-    throw new BadRequestError(
-      `The following properties are required and are either missing or invalid: ${missingProps.join(", ")}`,
-    );
-  }
-
-  if (!isValidUUID(request.query.id)) {
-    throw new BadRequestError("Invalid ID");
-  }
-
-  const returnGift = await gifts.updateGift(request.query.id, request.body);
-
-  if (returnGift.length === 0) {
-    throw new NotFoundError("Gift is not found");
-  }
-
-  return response.status(200).json(returnGift[0]);
+  const [returnGift] = await gifts.updateGift(request.query.id, request.body);
+  return response.status(200).json(returnGift);
 }
 
 async function deleteHandler(request, response) {
-  const { id } = request.query;
-
-  if (!isValidUUID(id)) {
-    throw new BadRequestError("Invalid ID");
-  }
-
-  const deleted = await gifts.deleteGift(id);
-
-  if (!deleted || deleted.length === 0) {
-    throw new NotFoundError("Gift is not found");
-  }
-
-  return response.status(204).send();
+  await gifts.deleteGift(request.query.id);
+  return response.status(204).end();
 }

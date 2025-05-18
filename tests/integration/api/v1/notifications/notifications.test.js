@@ -175,7 +175,7 @@ describe("CRUD /api/v1/notifications", () => {
       expect(data.message).toBe("ID cannot be changed");
     });
 
-    test("Falha ao atualizar com título vazio", async () => {
+    test("Falha ao atualizar título", async () => {
       const response = await fetch(
         `http://localhost:3000/api/v1/notifications/${notificationCreated.id}`,
         {
@@ -187,7 +187,7 @@ describe("CRUD /api/v1/notifications", () => {
 
       expect(response.status).toBe(400);
       const data = await response.json();
-      expect(data.message).toBe("Title is required");
+      expect(data.message).toBe("Title cannot be changed");
     });
   });
 });

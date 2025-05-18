@@ -1,124 +1,129 @@
 import database from "infra/database.js";
-export default function Guest() {
-  async function getGuests() {
-    try {
-      const returnQuery = await database.query("SELECT  * FROM guests;");
-      return returnQuery.rows;
-    } catch (error) {
-      throw error;
-    }
+import { BadRequestError, NotFoundError } from "infra/errors/errors";
+import invitation from "./invitation";
+
+async function getGuests() {
+  const returnQuery = await database.query("SELECT  * FROM guests;");
+  return returnQuery.rows;
+}
+async function getGuest(id) {
+  const returnQuery = await database.query({
+    text: "SELECT * FROM guests WHERE id = $1",
+    values: [id],
+  });
+
+  if (returnQuery.rows.length === 0) {
+    throw new NotFoundError("Guest is not found");
   }
-  async function getGuest(id) {
-    try {
-      const returnQuery = await database.query({
-        text: "SELECT * FROM guests WHERE id = $1",
-        values: [id],
-      });
-      return returnQuery.rows;
-    } catch (error) {
-      if (error.code === "22P02") {
-        return error;
-      }
-      throw error;
-    }
+  return returnQuery.rows;
+}
+
+async function createGuests(data) {
+  const {
+    name,
+    email,
+    cell,
+    is_family,
+    is_friend,
+    is_musician,
+    is_witness,
+    is_bridesmaid,
+    is_bestman,
+    is_bride,
+    is_groom,
+    guest_of,
+    invitation_id,
+    confirmation_status,
+  } = data;
+
+  const confirmation_date = confirmation_status
+    ? new Date().toISOString()
+    : null;
+  if (name === undefined || name === "") {
+    throw new BadRequestError("Name is required");
   }
-  async function createGuests(data) {
-    const {
-      name,
-      email,
-      cell,
-      is_family,
-      is_friend,
-      is_musician,
-      is_witness,
-      is_bridesmaid,
-      is_bestman,
-      is_bride,
-      is_groom,
-      guest_of,
-      invitation_id,
-      confirmation_status,
-    } = data;
 
-    const confirmation_date = confirmation_status
-      ? new Date().toISOString()
-      : null;
+  if (name.length > 50) {
+    throw new BadRequestError("Name is too long");
+  }
 
-    const values = [
-      name,
-      email,
-      cell,
-      is_family,
-      is_friend,
-      is_musician,
-      is_witness,
-      is_bridesmaid,
-      is_bestman,
-      is_bride,
-      is_groom,
-      guest_of,
-      invitation_id,
-      confirmation_status,
-      confirmation_date,
-    ];
+  await invitation.getInvitation(invitation_id);
 
-    try {
-      const returnQuery = await database.query({
-        text: `
+  const values = [
+    name,
+    email,
+    cell,
+    is_family,
+    is_friend,
+    is_musician,
+    is_witness,
+    is_bridesmaid,
+    is_bestman,
+    is_bride,
+    is_groom,
+    guest_of,
+    invitation_id,
+    confirmation_status,
+    confirmation_date,
+  ];
+
+  const returnQuery = await database.query({
+    text: `
           INSERT INTO public.guests 
           (name, email, cell, is_family, is_friend, is_musician, is_witness, is_bridesmaid, 
            is_bestman, is_bride, is_groom, guest_of, invitation_id, confirmation_status, confirmation_date) 
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) 
           RETURNING *;`,
-        values,
-      });
+    values,
+  });
 
-      return returnQuery.rows;
-    } catch (error) {
-      throw error;
-    }
+  return returnQuery.rows;
+}
+
+async function deleteGuests(id) {
+  await getGuest(id);
+
+  const returnQuery = await database.query({
+    text: "DELETE FROM guests WHERE id = $1;",
+    values: [id],
+  });
+
+  return returnQuery.rows;
+}
+
+async function updateGuests(id, data) {
+  const {
+    name,
+    email,
+    cell,
+    is_family,
+    is_friend,
+    is_musician,
+    is_witness,
+    is_bridesmaid,
+    is_bestman,
+    is_bride,
+    is_groom,
+    guest_of,
+    confirmation_status,
+  } = data;
+
+  const confirmation_date = confirmation_status
+    ? new Date().toISOString()
+    : null;
+
+  await guests.getGuest(id);
+
+  if (data.id) {
+    throw new BadRequestError("ID cannot be changed");
   }
 
-  async function deleteGuests(id) {
-    try {
-      const returnQuery = await database.query({
-        text: "DELETE FROM guests WHERE id = $1;",
-        values: [id],
-      });
-
-      if (returnQuery.rowCount === 0) {
-        return new Error("Convidado não encontrado.");
-      }
-      return returnQuery.rows;
-    } catch (error) {
-      throw error;
-    }
+  if (data.name === "") {
+    throw new BadRequestError("Name is required");
   }
 
-  async function updateGuests(id, data) {
-    const {
-      name,
-      email,
-      cell,
-      is_family,
-      is_friend,
-      is_musician,
-      is_witness,
-      is_bridesmaid,
-      is_bestman,
-      is_bride,
-      is_groom,
-      guest_of,
-      confirmation_status,
-    } = data;
-
-    const confirmation_date = confirmation_status
-      ? new Date().toISOString()
-      : null;
-
-    try {
-      const returnQuery = await database.query({
-        text: `UPDATE public.guests 
+  const returnQuery = await database.query({
+    text: `UPDATE public.guests 
                 SET 
                   name = COALESCE($1, name),
                   email = COALESCE($2, email),
@@ -137,40 +142,38 @@ export default function Guest() {
                 WHERE id = $15 
                 RETURNING *;
                 `,
-        values: [
-          name,
-          email,
-          cell,
-          is_family,
-          is_friend,
-          is_musician,
-          is_witness,
-          is_bridesmaid,
-          is_bestman,
-          is_bride,
-          is_groom,
-          guest_of,
-          confirmation_status,
-          confirmation_date,
-          id,
-        ],
-      });
+    values: [
+      name,
+      email,
+      cell,
+      is_family,
+      is_friend,
+      is_musician,
+      is_witness,
+      is_bridesmaid,
+      is_bestman,
+      is_bride,
+      is_groom,
+      guest_of,
+      confirmation_status,
+      confirmation_date,
+      id,
+    ],
+  });
 
-      if (returnQuery.rowCount === 0) {
-        return new Error("Convidado não encontrado.");
-      }
-
-      return returnQuery.rows;
-    } catch (error) {
-      throw error;
-    }
+  if (returnQuery.rowCount === 0) {
+    return new Error("Convidado não encontrado.");
   }
 
-  return {
-    createGuests,
-    getGuests,
-    getGuest,
-    deleteGuests,
-    updateGuests,
-  };
+  return returnQuery.rows;
 }
+
+const guests = {
+  createGuests,
+  getGuests,
+  getGuest,
+  deleteGuests,
+  updateGuests,
+};
+
+export default guests;
