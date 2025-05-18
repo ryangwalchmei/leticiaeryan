@@ -1,8 +1,7 @@
 import controller from "infra/controller";
 import { MethodNotAllowedError } from "infra/errors/errors";
+import invitation from "models/invitation";
 import { createRouter } from "next-connect";
-import invitationFactory from "models/invitation";
-const invitation = invitationFactory();
 
 const router = createRouter();
 router.get(getHandler);
@@ -20,22 +19,22 @@ router.all((request) => {
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  const returnInvitation = await invitation.getInvitation(request.query.id);
+  const [returnInvitation] = await invitation.getInvitation(request.query.id);
 
-  return response.status(200).json(returnInvitation[0]);
+  return response.status(200).json(returnInvitation);
 }
 
 async function putHandler(request, response) {
-  const updatedInvitation = await invitation.updateInvitation(
+  const [updatedInvitation] = await invitation.updateInvitation(
     request.query.id,
     request.body,
   );
 
-  return response.status(200).json(updatedInvitation[0]);
+  return response.status(200).json(updatedInvitation);
 }
 
 async function deleteHandler(request, response) {
-  const invitationDelete = await invitation.deleteInvitation(request.query.id);
+  await invitation.deleteInvitation(request.query.id);
 
-  return response.status(204).json(invitationDelete);
+  return response.status(204).end();
 }

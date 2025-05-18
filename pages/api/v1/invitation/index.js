@@ -1,6 +1,6 @@
 import controller from "infra/controller";
 import { MethodNotAllowedError } from "infra/errors/errors";
-import invitationFactory from "models/invitation";
+import invitation from "models/invitation";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
@@ -15,19 +15,15 @@ router.all((request) => {
   });
 });
 
-const invitationDb = invitationFactory();
-
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  const convidadosList = await invitationDb.getInvitations();
+  const convidadosList = await invitation.getInvitations();
   return response.status(200).json(convidadosList);
 }
 
 async function postHandler(request, response) {
-  const returnIdInvitationDb = await invitationDb.createInvitation(
-    request.body,
-  );
+  const returnIdInvitationDb = await invitation.createInvitation(request.body);
 
   return response.status(201).json(returnIdInvitationDb[0]);
 }

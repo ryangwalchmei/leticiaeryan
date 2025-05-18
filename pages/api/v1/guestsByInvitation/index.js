@@ -1,6 +1,6 @@
 import controller from "infra/controller";
 import { MethodNotAllowedError } from "infra/errors/errors";
-import guestFactory from "models/guests";
+import guests from "models/guests";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
@@ -14,10 +14,9 @@ router.all((request) => {
   });
 });
 
-const guestDb = guestFactory();
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  const convidadosList = await guestDb.getGuests();
+  const convidadosList = await guests.getGuests();
   return response.status(200).json(convidadosList);
 }

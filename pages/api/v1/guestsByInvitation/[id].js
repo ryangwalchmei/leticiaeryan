@@ -1,12 +1,6 @@
 import controller from "infra/controller";
-import {
-  BadRequestError,
-  MethodNotAllowedError,
-  NotFoundError,
-} from "infra/errors/errors";
-import guestInvitationFactory from "models/guestsInvitation";
-import invitationFactory from "models/invitation";
-import isValidUUID from "utils/uuidValidator";
+import { MethodNotAllowedError } from "infra/errors/errors";
+import invitation from "models/invitation";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
@@ -20,34 +14,9 @@ router.all((request) => {
   });
 });
 
-const guestInvitation = guestInvitationFactory();
-const invitation = invitationFactory();
-
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  const { id } = request.query;
-
-  if (!id) {
-    throw new BadRequestError("invitation_id is required");
-  }
-
-  if (!isValidUUID(id)) {
-    throw new BadRequestError("Invalid invitation_id");
-  }
-
-  const invitations = await invitation.getInvitation(id);
-
-  if (
-    !invitations ||
-    invitations.length === 0 ||
-    invitations.code === "22P02"
-  ) {
-    throw new NotFoundError("Not found invitation associated");
-  }
-
-  const guestsInvitation =
-    (await guestInvitation.getGuestsByInvitationId(id)) || [];
-
-  return response.status(200).json(guestsInvitation);
+  const guests = await invitation.getInvitationGuests(request.query.id);
+  return response.status(200).json(guests);
 }

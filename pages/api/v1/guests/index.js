@@ -1,7 +1,6 @@
 import controller from "infra/controller";
-import { BadRequestError, MethodNotAllowedError } from "infra/errors/errors";
-import guestFactory from "models/guests";
-import invitationFactory from "models/invitation";
+import { MethodNotAllowedError } from "infra/errors/errors";
+import guests from "models/guests";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
@@ -16,39 +15,14 @@ router.all((request) => {
   });
 });
 
-const guestDb = guestFactory();
-
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  const convidadosList = await guestDb.getGuests();
-  return response.status(200).json(convidadosList);
+  const guestList = await guests.getGuests();
+  return response.status(200).json(guestList);
 }
 
 async function postHandler(request, response) {
-  if (request.body.name === undefined || request.body.name === "") {
-    throw new BadRequestError("Name is required");
-  }
-
-  if (request.body.name.length > 50) {
-    throw new BadRequestError("Name is too long");
-  }
-
-  const invitations = await invitationFactory().getInvitation(
-    request.body.invitation_id,
-  );
-
-  if (invitations.code === "22P02") {
-    throw new BadRequestError("Invalid ID");
-  }
-
-  console.log({ RESPOSTA: invitations.code });
-
-  if (invitations.length === 0 || !invitations) {
-    throw new BadRequestError("Invalid invitation_id");
-  }
-
-  const returnIdGuestDb = await guestDb.createGuests(request.body);
-
-  return response.status(201).json(returnIdGuestDb[0]);
+  const [newGuest] = await guests.createGuests(request.body);
+  return response.status(201).json(newGuest);
 }
