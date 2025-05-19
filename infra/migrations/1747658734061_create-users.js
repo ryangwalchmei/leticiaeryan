@@ -12,7 +12,7 @@ exports.up = (pgm) => {
       notNull: true,
       unique: true,
     },
-    avatarSrc: {
+    avatarsrc: {
       type: "varchar(254)",
     },
 
