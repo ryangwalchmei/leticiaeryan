@@ -1,7 +1,7 @@
 import { MethodNotAllowedError } from "infra/errors/errors";
 import { createRouter } from "next-connect";
 import controller from "infra/controller";
-import gifts from "models/gifts";
+import gifts from "models/gift";
 
 const router = createRouter();
 router.get(getHandler);
