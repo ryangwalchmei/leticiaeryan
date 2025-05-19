@@ -19,7 +19,7 @@ async function getGift(id) {
     });
 
     if (returnGift.rows.length === 0) {
-      throw new NotFoundError("Gift is not found");
+      throw new NotFoundError({ message: "Gift is not found" });
     }
 
     return returnGift.rows;
@@ -108,7 +108,7 @@ async function updateGift(id, data) {
   });
 
   if (rows.length === 0) {
-    throw new NotFoundError("Gift is not found or is not exist");
+    throw new NotFoundError({ message: "Gift is not found or is not exist" });
   }
 
   return rows;

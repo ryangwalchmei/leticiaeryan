@@ -1,12 +1,13 @@
-import controller from "infra/controller";
-import { MethodNotAllowedError } from "infra/errors/errors";
-import guests from "models/guest";
 import { createRouter } from "next-connect";
+import controller from "infra/controller";
+import user from "models/user";
+import { MethodNotAllowedError } from "infra/errors/errors";
 
 const router = createRouter();
-router.get(getHandler);
+
+router.post(postHandler);
 router.all((request) => {
-  const allowedMethods = ["GET"];
+  const allowedMethods = ["POST"];
   throw new MethodNotAllowedError({
     cause: new Error("Método não permitido"),
     method: request.method,
@@ -16,7 +17,7 @@ router.all((request) => {
 
 export default router.handler(controller.errorHandlers);
 
-async function getHandler(request, response) {
-  const convidadosList = await guests.getGuests();
-  return response.status(200).json(convidadosList);
+async function postHandler(request, response) {
+  const [newUser] = await user.create(request.body);
+  return response.status(201).json(newUser);
 }

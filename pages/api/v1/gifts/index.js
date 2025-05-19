@@ -1,6 +1,6 @@
 import controller from "infra/controller";
 import { MethodNotAllowedError } from "infra/errors/errors";
-import gifts from "models/gifts";
+import gifts from "models/gift";
 import { createRouter } from "next-connect";
 
 const router = createRouter();

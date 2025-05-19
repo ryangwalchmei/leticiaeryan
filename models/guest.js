@@ -13,7 +13,7 @@ async function getGuest(id) {
   });
 
   if (returnQuery.rows.length === 0) {
-    throw new NotFoundError("Guest is not found");
+    throw new NotFoundError({ message: "Guest is not found" });
   }
   return returnQuery.rows;
 }

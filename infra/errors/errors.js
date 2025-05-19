@@ -15,6 +15,26 @@ export class BadRequestError extends Error {
   }
 }
 
+export class ValidationError extends Error {
+  constructor({ cause, message, action }) {
+    super(message || "Um erro de validação ocorreu.", {
+      cause,
+    });
+    this.name = "ValidationError";
+    this.action = action || "Ajuste os dados enviados e tente novamente.";
+    this.statusCode = 400;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      action: this.action,
+      status_code: this.statusCode,
+    };
+  }
+}
+
 //status code: 401 - Erro na autenticação
 export class UnauthorizedError extends Error {
   constructor(message = "Acesso não autorizado", cause) {
@@ -54,9 +74,13 @@ export class ForbiddenError extends Error {
 
 //status code: 404  O recurso (rota, item, ID, etc.) não foi encontrado.
 export class NotFoundError extends Error {
-  constructor(message = "Recurso não encontrado", cause) {
-    super(message, { cause });
+  constructor({ cause, message, action }) {
+    super(message || "Não foi possível encontrar este recurso no sistema.", {
+      cause,
+    });
     this.name = "NotFoundError";
+    this.action =
+      action || "Verifique se os parâmetros enviados na consulta estão certos.";
     this.statusCode = 404;
   }
 
@@ -64,6 +88,7 @@ export class NotFoundError extends Error {
     return {
       name: this.name,
       message: this.message,
+      action: this.action,
       status_code: this.statusCode,
     };
   }

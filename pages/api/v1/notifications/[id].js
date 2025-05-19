@@ -1,6 +1,6 @@
 import controller from "infra/controller";
 import { MethodNotAllowedError } from "infra/errors/errors";
-import notifications from "models/notifications";
+import notifications from "models/notification";
 import { createRouter } from "next-connect";
 
 const router = createRouter();

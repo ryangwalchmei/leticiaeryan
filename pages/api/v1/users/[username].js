@@ -1,9 +1,10 @@
 import controller from "infra/controller";
 import { MethodNotAllowedError } from "infra/errors/errors";
-import guests from "models/guest";
+import user from "models/user";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
+
 router.get(getHandler);
 router.all((request) => {
   const allowedMethods = ["GET"];
@@ -17,6 +18,6 @@ router.all((request) => {
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  const convidadosList = await guests.getGuests();
-  return response.status(200).json(convidadosList);
+  const [userFound] = await user.findOneByUsername(request.query.username);
+  return response.status(200).json(userFound);
 }

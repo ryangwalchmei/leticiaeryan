@@ -22,7 +22,7 @@ async function getInvitation(id) {
     });
 
     if (!returnQuery.rows || returnQuery.rows.length === 0) {
-      throw new NotFoundError("Invitation not found");
+      throw new NotFoundError({ message: "Invitation not found" });
     }
 
     return returnQuery.rows;
@@ -115,9 +115,9 @@ async function getInvitationGuests(id) {
 async function exportInvitationsToXLSX() {
   const invitationsList = await getInvitations();
   if (!Array.isArray(invitationsList)) {
-    throw new NotFoundError(
-      "Data format error: expected an array of invitations",
-    );
+    throw new NotFoundError({
+      message: "Data format error: expected an array of invitations",
+    });
   }
   const worksheet = XLSX.utils.json_to_sheet(invitationsList, {
     header: ["id", "name", "pin_code", "shipping_date", "status"],

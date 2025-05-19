@@ -6,6 +6,7 @@ import {
   NotFoundError,
   ForbiddenError,
   ConflictError,
+  ValidationError,
 } from "infra/errors/errors";
 
 const simpleHandledErrors = [
@@ -14,6 +15,7 @@ const simpleHandledErrors = [
   ForbiddenError,
   ConflictError,
   NotFoundError,
+  ValidationError,
 ];
 
 function onErrorHandler(error, request, response) {
