@@ -3,10 +3,10 @@ import fetchAPI from "contexts/utils/fetchAPI";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import cx from "classnames";
 import { useData } from "contexts/getDataContext";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { Box, Button } from "@mui/material";
 
 function InfoLine({ label, value }) {
   return value ? (
@@ -58,12 +58,9 @@ export default function GuestCards({ id }) {
     );
   }
 
-  async function handleChangeStatus(guestToggle) {
+  async function handleChangeStatus(guestToggle, status) {
     try {
-      const newStatus =
-        guestToggle.confirmation_status === "confirmed"
-          ? "declined"
-          : "confirmed";
+      const newStatus = status;
 
       toggleGuestConfirmationStatus(guestToggle);
 
@@ -90,20 +87,27 @@ export default function GuestCards({ id }) {
     const isConfirmed = guest.confirmation_status === "confirmed";
     const isDeclined = guest.confirmation_status === "declined";
 
-    const label = isConfirmed ? "Desconfirmar" : "Confirmar";
-
     return (
-      <button
-        className={cx("btn", {
-          "btn-secondary": !guest.confirmation_status,
-          "btn-danger": isConfirmed,
-          "btn-success": isDeclined,
-        })}
-        aria-label={`Alterar status de ${guest.name}`}
-        onClick={() => handleChangeStatus(guest)}
-      >
-        {label}
-      </button>
+      <Box sx={{ "& button": { m: 1 } }}>
+        <Button
+          color="primary"
+          hidden={isConfirmed}
+          aria-label={`Alterar status de ${guest.name}`}
+          onClick={() => handleChangeStatus(guest, "confirmed")}
+          variant="outlined"
+        >
+          Confirmar
+        </Button>
+        <Button
+          color="error"
+          hidden={isDeclined}
+          aria-label={`Alterar status de ${guest.name}`}
+          onClick={() => handleChangeStatus(guest, "declined")}
+          variant="outlined"
+        >
+          Desconfirmar
+        </Button>
+      </Box>
     );
   };
 
