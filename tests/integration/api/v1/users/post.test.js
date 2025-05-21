@@ -114,5 +114,37 @@ describe("POST /api/v1/users", () => {
         status_code: 400,
       });
     });
+
+    test("usuários diferentes com senhas iguais", async () => {
+      const response1 = await fetch("http://localhost:3000/api/v1/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: "passwordigual1",
+          email: "passwordigual1@gwalchmei.com.br",
+          password: "senha123",
+        }),
+      });
+      expect(response1.status).toBe(201);
+      const responseBody1 = await response1.json();
+
+      const response2 = await fetch("http://localhost:3000/api/v1/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: "passwordigual2",
+          email: "passwordigual2@gwalchmei.com.br",
+          password: "senha123",
+        }),
+      });
+      expect(response2.status).toBe(201);
+
+      const responseBody2 = await response2.json();
+      expect(responseBody1.password).not.toEqual(responseBody2.password);
+    });
   });
 });
