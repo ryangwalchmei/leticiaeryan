@@ -37,9 +37,12 @@ export class ValidationError extends Error {
 
 //status code: 401 - Erro na autenticação
 export class UnauthorizedError extends Error {
-  constructor(message = "Acesso não autorizado", cause) {
-    super(message, { cause });
+  constructor({ message = "Acesso não autorizado", cause, action }) {
+    super(message || "Usuário não autenticado", {
+      cause,
+    });
     this.name = "UnauthorizedError";
+    this.action = action || "Faça novamente o login para continuar";
     this.statusCode = 401;
   }
 
@@ -47,6 +50,7 @@ export class UnauthorizedError extends Error {
     return {
       name: this.name,
       message: this.message,
+      action: this.action,
       status_code: this.statusCode,
     };
   }

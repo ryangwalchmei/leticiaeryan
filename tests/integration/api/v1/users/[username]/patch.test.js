@@ -225,5 +225,35 @@ describe("PATCH /api/v1/users/[username]", () => {
       expect(correctPasswordMatch).toBe(true);
       expect(incorrectPasswordMatch).toBe(false);
     });
+
+    test("should return success on change case of 'username'", async () => {
+      const user1Response = await fetch("http://localhost:3000/api/v1/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: "userName1",
+          email: "username1@robsonsouza.dev.br",
+          password: "senha123",
+        }),
+      });
+      expect(user1Response.status).toEqual(201);
+
+      const response = await fetch(
+        "http://localhost:3000/api/v1/users/username1",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: "UserName1",
+          }),
+        },
+      );
+
+      expect(response.status).toEqual(200);
+    });
   });
 });
