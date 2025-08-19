@@ -29,6 +29,9 @@ function onErrorHandler(error, request, response) {
 
   for (const ErrorType of simpleHandledErrors) {
     if (error instanceof ErrorType) {
+      if (error instanceof UnauthorizedError) {
+        clearSessionCookie(response);
+      }
       return response.status(error.statusCode).json(error.toJSON());
     }
   }
