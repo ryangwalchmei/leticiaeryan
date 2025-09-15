@@ -1,19 +1,42 @@
-const { default: Swal } = require("sweetalert2");
+import {
+  ConflictError,
+  NotFoundError,
+  ServiceError,
+  UnauthorizedError,
+  ValidationError,
+} from "infra/errors/errors";
 
 export default async function fetchAPI(endpoint, options) {
   try {
     const response = await fetch(endpoint, options);
 
+    let errorBody = null;
     if (!response.ok) {
-      let errorBody;
       try {
         errorBody = await response.json();
       } catch {
         errorBody = { message: "Erro desconhecido" };
       }
-      throw new Error(
-        errorBody.message || "Ocorreu um erro ao se comunicar com o servidor.",
-      );
+
+      const msg = errorBody.message || "Erro ao se comunicar com o servidor.";
+
+      switch (response.status) {
+        case 400:
+          throw new ValidationError({
+            message: "",
+            action: "",
+          });
+        case 401:
+        case 403:
+          throw new UnauthorizedError(msg);
+        case 404:
+          throw new NotFoundError(msg);
+        case 409:
+          throw new ConflictError(msg);
+        case 500:
+        default:
+          throw new ServiceError(msg);
+      }
     }
 
     if (response.status === 204) {
@@ -26,13 +49,7 @@ export default async function fetchAPI(endpoint, options) {
       return null;
     }
   } catch (error) {
-    Swal.fire({
-      title: "Erro!",
-      text: error.message || "Algo deu errado.",
-      icon: "error",
-      confirmButtonText: "OK",
-    });
-
+    console.error(error);
     throw error;
   }
 }
