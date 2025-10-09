@@ -28,6 +28,7 @@ describe("GET /api/v1/users/[username]", () => {
         avatarsrc: "example.jpg",
         email: createdUser.email,
         password: responseBody.password,
+        features: [],
         created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
       });
@@ -56,6 +57,7 @@ describe("GET /api/v1/users/[username]", () => {
         email: createdUser.email,
         avatarsrc: "example.jpg",
         password: responseBody.password,
+        features: [],
         created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
       });
