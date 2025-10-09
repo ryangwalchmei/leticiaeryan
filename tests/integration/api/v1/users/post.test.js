@@ -33,7 +33,7 @@ describe("POST /api/v1/users", () => {
         username: "ryangwalchmei",
         email: "dev@gwalchmei.com.br",
         password: responseBody.password,
-        features: [],
+        features: ["read:activation_token"],
         avatarsrc: "groom.jpg",
         created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
