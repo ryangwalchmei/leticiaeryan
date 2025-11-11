@@ -120,7 +120,7 @@ describe("DELETE /api/v1/sessions", () => {
 
       // Double check assertions
       const doubleCheckResponse = await fetch(
-        "http://localhost:3000/api/v1/users",
+        "http://localhost:3000/api/v1/user",
         {
           headers: {
             Cookie: `session_id=${sessionObject.token}`,
