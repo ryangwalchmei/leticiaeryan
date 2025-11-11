@@ -75,7 +75,9 @@ async function updateInvitation(id, data) {
   }
 
   if (data.pin_code) {
-    throw new ForbiddenError("Pin code cannot be updated");
+    throw new ForbiddenError({
+      message: "Pin code cannot be updated",
+    });
   }
 
   await getInvitation(id);
