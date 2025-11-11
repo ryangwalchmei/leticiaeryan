@@ -102,6 +102,10 @@ function extractUUID(text) {
   return match ? match[0] : null;
 }
 
+async function activateUser(inactiveUser) {
+  return await user.setFeatures(inactiveUser.id, ["create:session"]);
+}
+
 const orchestrator = {
   waitForAllServices,
   clearDatabase,
@@ -111,6 +115,7 @@ const orchestrator = {
   deleteAllEmails,
   getLastEmail,
   extractUUID,
+  activateUser,
 };
 
 export default orchestrator;
