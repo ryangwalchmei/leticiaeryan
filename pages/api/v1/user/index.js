@@ -1,15 +1,24 @@
 import controller from "infra/controller";
+import { ForbiddenError } from "infra/errors/errors";
+import authorization from "models/authorization";
 import session from "models/session";
 import user from "models/user";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
 
-router.get(getHandler);
+router.use(controller.injectAnonymousOrUser);
+router.get(controller.canRequest("read:session"), getHandler);
 
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
+  if (!authorization.can(request.context.user, "read:session")) {
+    throw new ForbiddenError({
+      message: "Você não possui permissão para acessar esse recurso.",
+      action: "Contate o suporte caso você acredite que isto seja um erro.",
+    });
+  }
   const sessionToken = request.cookies.session_id;
 
   const sessionObject = await session.findOneValidByToken(sessionToken);

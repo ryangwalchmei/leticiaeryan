@@ -103,7 +103,10 @@ function extractUUID(text) {
 }
 
 async function activateUser(inactiveUser) {
-  return await user.setFeatures(inactiveUser.id, ["create:session"]);
+  return await user.setFeatures(inactiveUser.id, [
+    "create:session",
+    "read:session",
+  ]);
 }
 
 const orchestrator = {
