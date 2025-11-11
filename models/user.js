@@ -58,7 +58,7 @@ async function findOneByUsername(username) {
       });
     }
 
-    return results.rows;
+    return results.rows[0];
   }
 }
 
@@ -88,7 +88,7 @@ async function findOneByEmail(email) {
       });
     }
 
-    return results.rows;
+    return results.rows[0];
   }
 }
 
@@ -119,7 +119,7 @@ async function create(userInputValues) {
         userInputValues.features,
       ],
     });
-    return results.rows;
+    return results.rows[0];
   }
 
   function injectDefaultfeaturesInObject(userInputValues) {
@@ -128,7 +128,7 @@ async function create(userInputValues) {
 }
 
 async function update(username, userInputValues) {
-  const [currentUser] = await findOneByUsername(username);
+  const currentUser = await findOneByUsername(username);
   if ("username" in userInputValues) {
     if (
       currentUser.username.toLowerCase() !==

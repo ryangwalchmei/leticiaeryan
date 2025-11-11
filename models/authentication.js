@@ -28,7 +28,7 @@ async function getAuthenticatedUser(providedEmail, providedPassword) {
 
   async function findUserByEmail(providedEmail) {
     try {
-      const [storedUser] = await user.findOneByEmail(providedEmail);
+      const storedUser = await user.findOneByEmail(providedEmail);
       return storedUser;
     } catch (error) {
       await fakePasswordValidation();

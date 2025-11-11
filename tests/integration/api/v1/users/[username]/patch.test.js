@@ -67,7 +67,7 @@ describe("PATCH /api/v1/users/[username]", () => {
         email: "email1@curso.dev",
       });
 
-      const [createdUser2] = await orchestrator.createUser({
+      const createdUser2 = await orchestrator.createUser({
         email: "email2@curso.dev",
       });
 
@@ -97,7 +97,7 @@ describe("PATCH /api/v1/users/[username]", () => {
     });
 
     test("With unique 'username'", async () => {
-      const [createdUser] = await orchestrator.createUser();
+      const createdUser = await orchestrator.createUser();
 
       const response = await fetch(
         `http://localhost:3000/api/v1/users/${createdUser.username}`,
@@ -135,7 +135,7 @@ describe("PATCH /api/v1/users/[username]", () => {
     });
 
     test("With unique 'email'", async () => {
-      const [createdUser] = await orchestrator.createUser();
+      const createdUser = await orchestrator.createUser();
 
       const response = await fetch(
         `http://localhost:3000/api/v1/users/${createdUser.username}`,
@@ -174,7 +174,7 @@ describe("PATCH /api/v1/users/[username]", () => {
     });
 
     test("With new 'password'", async () => {
-      const [createdUser] = await orchestrator.createUser({
+      const createdUser = await orchestrator.createUser({
         password: "newPassword1",
       });
 
@@ -212,9 +212,7 @@ describe("PATCH /api/v1/users/[username]", () => {
 
       expect(responseBody.updated_at > responseBody.created_at).toBe(true);
 
-      const [userInDatabase] = await user.findOneByUsername(
-        createdUser.username,
-      );
+      const userInDatabase = await user.findOneByUsername(createdUser.username);
       const correctPasswordMatch = await password.compare(
         "newPassword2",
         userInDatabase.password,
