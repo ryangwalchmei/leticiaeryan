@@ -4,9 +4,11 @@ import invitation from "models/invitation";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
-router.get(getHandler);
-router.put(putHandler);
-router.delete(deleteHandler);
+
+router.use(controller.injectAnonymousOrUser);
+router.get(controller.canRequest("read:invitations"), getHandler);
+router.put(controller.canRequest("update:invitations"), putHandler);
+router.delete(controller.canRequest("delete:invitations"), deleteHandler);
 router.all((request) => {
   const allowedMethods = ["GET", "PUT", "DELETE"];
   throw new MethodNotAllowedError({
@@ -19,7 +21,7 @@ router.all((request) => {
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  const [returnInvitation] = await invitation.getInvitation(request.query.id);
+  const returnInvitation = await invitation.getInvitation(request.query.id);
 
   return response.status(200).json(returnInvitation);
 }

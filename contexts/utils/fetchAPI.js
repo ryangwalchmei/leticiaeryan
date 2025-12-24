@@ -8,7 +8,10 @@ import {
 
 export default async function fetchAPI(endpoint, options) {
   try {
-    const response = await fetch(endpoint, options);
+    const response = await fetch(endpoint, {
+      ...options,
+      credentials: "include",
+    });
 
     let errorBody = null;
     if (!response.ok) {

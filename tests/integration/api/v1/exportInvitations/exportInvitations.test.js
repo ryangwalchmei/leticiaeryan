@@ -1,24 +1,16 @@
 import orchestrator from "tests/orchestrator";
 import * as XLSX from "xlsx";
 
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
+  await orchestrator.clearDatabase();
+  await orchestrator.runMigrationsPending();
+});
+
 describe("GET /api/v1/exportInvitations", () => {
   describe("Com convites no banco", () => {
-    beforeAll(async () => {
-      await orchestrator.waitForAllServices();
-      await orchestrator.clearDatabase();
-      await orchestrator.runMigrationsPending();
-
-      await fetch("http://localhost:3000/api/v1/invitation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: "Família Silva",
-          status: "pendente",
-        }),
-      });
-    });
-
     test("Exporta XLSX com sucesso", async () => {
+      const invitationCreated = await orchestrator.createInvitation();
       const response = await fetch(
         "http://localhost:3000/api/v1/exportInvitations",
       );
@@ -33,13 +25,16 @@ describe("GET /api/v1/exportInvitations", () => {
 
       const buffer = await response.arrayBuffer();
       expect(buffer.byteLength).toBeGreaterThan(0);
-    });
 
-    test("Verifica presence do header Content-Length", async () => {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/exportInvitations",
-      );
       expect(response.headers.get("Content-Length")).not.toBeNull();
+
+      const workbook = XLSX.read(buffer, { type: "buffer" });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const data = XLSX.utils.sheet_to_json(sheet);
+
+      expect(data.length).toBeGreaterThan(0);
+      expect(data[0].name).toBe(invitationCreated.name);
+      expect(data[0].status).toBe(invitationCreated.status);
     });
 
     test("Retorna 405 se método não for GET", async () => {
@@ -55,57 +50,32 @@ describe("GET /api/v1/exportInvitations", () => {
       expect(text).toContain("MethodNotAllowedError");
     });
 
-    test("Planilha contém dados corretos", async () => {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/exportInvitations",
-      );
-      const buffer = await response.arrayBuffer();
-      const workbook = XLSX.read(buffer, { type: "buffer" });
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const data = XLSX.utils.sheet_to_json(sheet);
+    describe("Sem convites no banco", () => {
+      test("Exporta XLSX vazio com sucesso", async () => {
+        const response = await fetch(
+          "http://localhost:3000/api/v1/exportInvitations",
+        );
 
-      expect(data.length).toBeGreaterThan(0);
-      expect(data[0].name).toBe("Família Silva");
-      expect(data[0].status).toBe("pendente");
-    });
-  });
+        expect(response.status).toBe(200);
+        expect(response.headers.get("Content-Type")).toBe(
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        );
 
-  describe("Sem convites no banco", () => {
-    beforeAll(async () => {
-      await orchestrator.clearDatabase();
-      await orchestrator.runMigrationsPending();
-    });
+        const buffer = await response.arrayBuffer();
+        expect(buffer.byteLength).toBeGreaterThan(0);
 
-    test("Exporta XLSX vazio com sucesso", async () => {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/exportInvitations",
-      );
+        const workbook = XLSX.read(buffer, { type: "buffer" });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const headers = XLSX.utils.sheet_to_json(sheet, { header: 1 })[0];
 
-      expect(response.status).toBe(200);
-      expect(response.headers.get("Content-Type")).toBe(
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      );
-
-      const buffer = await response.arrayBuffer();
-      expect(buffer.byteLength).toBeGreaterThan(0);
-    });
-
-    test("Planilha vazia possui headers corretos", async () => {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/exportInvitations",
-      );
-      const buffer = await response.arrayBuffer();
-      const workbook = XLSX.read(buffer, { type: "buffer" });
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const headers = XLSX.utils.sheet_to_json(sheet, { header: 1 })[0];
-
-      expect(headers).toEqual([
-        "id",
-        "name",
-        "pin_code",
-        "shipping_date",
-        "status",
-      ]);
+        expect(headers).toEqual([
+          "id",
+          "name",
+          "pin_code",
+          "shipping_date",
+          "status",
+        ]);
+      });
     });
   });
 });

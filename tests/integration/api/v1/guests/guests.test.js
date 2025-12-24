@@ -9,20 +9,7 @@ beforeAll(async () => {
   await orchestrator.waitForAllServices();
   await orchestrator.runMigrationsPending();
 
-  const invitationDb = await fetch("http://localhost:3000/api/v1/invitation", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: "Ryan e Família",
-      status: "pendente",
-    }),
-  });
-
-  if (!invitationDb.ok) {
-    throw new Error("Falha ao criar convite.");
-  }
-
-  invitationExample = await invitationDb.json();
+  invitationExample = await orchestrator.createInvitation();
   guestsDefaultParams = {
     name: "Lucas Almeida",
     email: "lucas.almeida@example.com",

@@ -3,6 +3,7 @@ import database from "infra/database";
 import { faker } from "@faker-js/faker";
 import user from "models/user";
 import session from "models/session";
+import invitation from "models/invitation";
 
 const emailHttpUrl = `${process.env.EMAIL_HTTP_HOST}:${process.env.EMAIL_HTTP_PORT}`;
 
@@ -109,6 +110,19 @@ async function activateUser(inactiveUser) {
   ]);
 }
 
+async function createInvitation(invitationObject) {
+  return await invitation.createInvitation({
+    name: invitationObject?.name || faker.company.name(),
+    pin_code:
+      invitationObject?.pin_code ||
+      faker.number.int({
+        min: 1000,
+        max: 99999,
+      }),
+    status: invitationObject?.status || "pendente",
+  });
+}
+
 const orchestrator = {
   waitForAllServices,
   clearDatabase,
@@ -119,6 +133,7 @@ const orchestrator = {
   getLastEmail,
   extractUUID,
   activateUser,
+  createInvitation,
 };
 
 export default orchestrator;

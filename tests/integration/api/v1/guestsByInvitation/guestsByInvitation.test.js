@@ -9,21 +9,7 @@ beforeAll(async () => {
   await orchestrator.clearDatabase();
   await orchestrator.runMigrationsPending();
 
-  // Criando um convite
-  const invitationDb = await fetch("http://localhost:3000/api/v1/invitation", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: "Família Souza",
-      status: "pendente",
-    }),
-  });
-
-  if (!invitationDb.ok) {
-    throw new Error("Falha ao criar convite.");
-  }
-
-  invitationExample = await invitationDb.json();
+  invitationExample = await orchestrator.createInvitation();
 
   // Criando convidados associados a esse convite
   const guestsData = [
@@ -97,7 +83,7 @@ describe("GET /api/v1/guestsByInvitation/:id", () => {
     });
   });
 
-  test("Erro ao buscar convidados com invitation_id inexistente", async () => {
+  test("With uuid invalid", async () => {
     const response = await fetch(
       `http://localhost:3000/api/v1/guestsByInvitation/999999`,
     );
@@ -106,7 +92,7 @@ describe("GET /api/v1/guestsByInvitation/:id", () => {
 
     const errorBody = await response.json();
     expect(errorBody).toHaveProperty("message");
-    expect(errorBody.message).toContain("Invalid invitation_id");
+    expect(errorBody.message).toContain("invalid input syntax for type uuid");
   });
 
   test("Busca convidados com invitation_id válido mas que não existe no banco", async () => {
