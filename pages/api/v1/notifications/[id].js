@@ -5,7 +5,8 @@ import { createRouter } from "next-connect";
 
 const router = createRouter();
 
-router.put(putHandler);
+router.use(controller.injectAnonymousOrUser);
+router.put(controller.canRequest("update:notifications"), putHandler);
 router.all((request) => {
   const allowedMethods = ["PUT"];
   throw new MethodNotAllowedError({
@@ -18,6 +19,6 @@ router.all((request) => {
 export default router.handler(controller.errorHandlers);
 
 async function putHandler(request, response) {
-  const [updatedNotification] = await notifications.markAsRead(request);
+  const updatedNotification = await notifications.markAsRead(request);
   return response.status(200).json(updatedNotification);
 }

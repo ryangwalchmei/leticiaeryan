@@ -4,6 +4,8 @@ import { faker } from "@faker-js/faker";
 import user from "models/user";
 import session from "models/session";
 import invitation from "models/invitation";
+import guests from "models/guest";
+import notifications from "models/notification";
 
 const emailHttpUrl = `${process.env.EMAIL_HTTP_HOST}:${process.env.EMAIL_HTTP_PORT}`;
 
@@ -123,6 +125,56 @@ async function createInvitation(invitationObject) {
   });
 }
 
+async function createGuest(guestObject, invitationId) {
+  let invitationCreated;
+  if (!invitationId) {
+    invitationCreated = await createInvitation({
+      name: faker.company.name(),
+    });
+  }
+  return await guests.createGuests({
+    name: guestObject?.name || faker.person.fullName(),
+    email: guestObject?.email || faker.internet.email(),
+    cell:
+      guestObject?.cell ||
+      faker.phone.number({
+        style: "human",
+      }),
+    is_family: faker.datatype.boolean(),
+    is_friend: faker.datatype.boolean(),
+    is_musician: faker.datatype.boolean(),
+    is_witness: faker.datatype.boolean(),
+    is_bridesmaid: faker.datatype.boolean(),
+    is_bestman: faker.datatype.boolean(),
+    is_bride: faker.datatype.boolean(),
+    is_groom: faker.datatype.boolean(),
+    guest_of: null,
+    invitation_id: invitationId || invitationCreated.id,
+  });
+}
+
+async function createNotification(guestId, notificationObject) {
+  let invitationCreated;
+  let guestCreated;
+  if (!guestId) {
+    guestCreated = await createGuest();
+
+    guestId = guestCreated.id;
+    invitationCreated = await invitation.getInvitation(
+      guestCreated.invitation_id,
+    );
+  }
+
+  return await notifications.createNotifications({
+    title: notificationObject?.title || "Presença Confirmada",
+    message:
+      notificationObject?.message ||
+      `${guestCreated.name} confirmou presença no convite ${invitationCreated.name}`,
+    type: notificationObject?.type || "Info",
+    guest_id: guestId,
+  });
+}
+
 const orchestrator = {
   waitForAllServices,
   clearDatabase,
@@ -134,6 +186,8 @@ const orchestrator = {
   extractUUID,
   activateUser,
   createInvitation,
+  createGuest,
+  createNotification,
 };
 
 export default orchestrator;

@@ -1,5 +1,6 @@
 import database from "infra/database.js";
-import { BadRequestError } from "infra/errors/errors";
+import { BadRequestError, NotFoundError } from "infra/errors/errors";
+import { version as uuidVersion, validate as isUuid } from "uuid";
 
 async function getNotifications() {
   const result = await database.query("SELECT * FROM notifications;");
@@ -7,20 +8,20 @@ async function getNotifications() {
 }
 
 async function getNotificationById(id) {
-  try {
-    const result = await database.query({
-      text: `
+  const result = await database.query({
+    text: `
         SELECT * FROM notifications WHERE id = $1;`,
-      values: [id],
-    });
+    values: [id],
+  });
 
-    return result.rows;
-  } catch (error) {
-    if (error.code === "22P02") {
-      return error;
-    }
-    throw error;
+  if (result.rowCount === 0) {
+    throw new NotFoundError({
+      message: "A notificação informada não foi encontrada no sistema.",
+      action: "Verifique se o notification id está digitado corretamente.",
+    });
   }
+
+  return result.rows[0];
 }
 
 async function createNotifications(data) {
@@ -52,7 +53,7 @@ async function createNotifications(data) {
     values: [guest_id, title, message, type, is_read, datecreated],
   });
 
-  return result.rows;
+  return result.rows[0];
 }
 
 async function markAsRead(data) {
@@ -63,6 +64,10 @@ async function markAsRead(data) {
 
   if (body.title || body.title === "") {
     throw new BadRequestError("Title cannot be changed");
+  }
+
+  if ((!isUuid(query.id) || uuidVersion(query.id)) !== 4) {
+    throw new BadRequestError("invalid input syntax for type uuid");
   }
 
   await getNotificationById(query.id);
@@ -81,7 +86,7 @@ async function markAsRead(data) {
     values: [is_read, dateread, query.id],
   });
 
-  return result.rows;
+  return result.rows[0];
 }
 
 const notifications = {

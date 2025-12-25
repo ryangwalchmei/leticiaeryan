@@ -1,12 +1,21 @@
 import database from "infra/database.js";
 import { BadRequestError, NotFoundError } from "infra/errors/errors";
 import invitation from "./invitation";
+import { version as uuidVersion, validate as isUuid } from "uuid";
 
 async function getGuests() {
   const returnQuery = await database.query("SELECT  * FROM guests;");
   return returnQuery.rows;
 }
 async function getGuest(id) {
+  if (!id) {
+    throw new BadRequestError("Guest id is required");
+  }
+
+  if ((!isUuid(id) || uuidVersion(id)) !== 4) {
+    throw new BadRequestError("invalid input syntax for type uuid");
+  }
+
   const returnQuery = await database.query({
     text: "SELECT * FROM guests WHERE id = $1",
     values: [id],
@@ -15,7 +24,7 @@ async function getGuest(id) {
   if (returnQuery.rows.length === 0) {
     throw new NotFoundError({ message: "Guest is not found" });
   }
-  return returnQuery.rows;
+  return returnQuery.rows[0];
 }
 
 async function createGuests(data) {
@@ -77,7 +86,7 @@ async function createGuests(data) {
     values,
   });
 
-  return returnQuery.rows;
+  return returnQuery.rows[0];
 }
 
 async function deleteGuests(id) {
@@ -165,7 +174,7 @@ async function updateGuests(id, data) {
     return new Error("Convidado não encontrado.");
   }
 
-  return returnQuery.rows;
+  return returnQuery.rows[0];
 }
 
 const guests = {

@@ -4,7 +4,8 @@ import guests from "models/guest";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
-router.get(getHandler);
+router.use(controller.injectAnonymousOrUser);
+router.get(controller.canRequest("read:guest:all"), getHandler);
 router.all((request) => {
   const allowedMethods = ["GET"];
   throw new MethodNotAllowedError({
