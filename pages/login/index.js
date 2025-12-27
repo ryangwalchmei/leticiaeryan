@@ -1,86 +1,170 @@
 import { Navbar } from "components/navbar/navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import FormInput from "components/formInput";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+} from "@mui/material";
+import Link from "next/link";
+import SimpleReactValidator from "simple-react-validator";
+import { showToast } from "components/toasts";
+import fetchAPI from "contexts/utils/fetchAPI";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const router = useRouter();
+  const { replace } = useRouter();
+  const [loading, setLoading] = useState(true);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    if (!email || !password) {
-      setError("Por favor, preencha todos os campos.");
-      return;
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        await fetchAPI("/api/v1/user");
+        replace("/admin");
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
     }
 
+    checkAuth();
+  }, []);
+
+  async function handleLogin(formValues) {
     try {
-      const emailAdm = process.env.NEXT_PUBLIC_ADM_EMAIL;
-      const passwordAdm = process.env.NEXT_PUBLIC_ADM_PASSWORD;
+      const loginResponse = await fetchAPI(`/api/v1/sessions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formValues.email,
+          password: formValues.password,
+        }),
+      });
 
-      if (email !== emailAdm || password !== passwordAdm) {
-        console.log({ emailAdm });
+      return { success: true, data: loginResponse };
+    } catch (error) {
+      return { success: false, error };
+    }
+  }
 
-        setError("Credenciais inválidas.");
-        return;
+  const [value, setValue] = useState({
+    email: "user@gmail.com",
+    password: "123456",
+    remember: false,
+  });
+  const changeHandler = (e) => {
+    setValue({ ...value, [e.target.name]: e.target.value });
+    validator.showMessages();
+  };
+
+  const rememberHandler = () => {
+    setValue({ ...value, remember: !value.remember });
+  };
+  const [validator] = useState(
+    new SimpleReactValidator({
+      className: "errorMessage",
+    }),
+  );
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    if (validator.allValid()) {
+      const loginObject = await handleLogin({
+        email: value.email,
+        password: value.password,
+      });
+
+      if (loginObject.success) {
+        validator.hideMessages();
+        showToast({
+          icon: "success",
+          title: "Você efetuou login com sucesso!",
+        });
+        replace("/admin");
+      } else {
+        validator.showMessages();
+        showToast({
+          icon: "error",
+          title: loginObject.error.message,
+          text: loginObject.error.action,
+        });
       }
-
-      router.push("/admin");
-    } catch (err) {
-      console.log(err);
-      setError("Ocorreu um erro. Tente novamente.");
     }
   };
+
+  if (loading) return <></>;
 
   return (
     <>
       <Navbar />
-      <div className="MuiGrid-root loginWrapper css-rfnosa">
-        <div className="MuiGrid-root loginForm css-rfnosa">
-          <h2>Login</h2>
-          <p>Apenas para os administradores</p>
-          <form onSubmit={handleLogin}>
-            <div className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-1h77wgb">
-              <FormInput
-                label="E-mail"
-                id="email"
-                name="email"
-                placeholder="E-mail"
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <FormInput
-                label="Senha"
-                id="password"
-                name="Senha"
-                placeholder="Senha"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {error && (
-                <div className="error-message" style={{ color: "red" }}>
-                  {error}
-                </div>
-              )}
-              <div className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-15j76c0">
-                <div className="MuiGrid-root formFooter css-rfnosa">
-                  <button
-                    className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-fullWidth cBtnTheme css-1kol59t"
-                    type="submit"
-                  >
+      <Grid className="loginWrapper">
+        <Grid className="loginForm">
+          <h2>Sign In</h2>
+          <p>Sign in to your account</p>
+          <form onSubmit={submitForm}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <TextField
+                  className="inputOutline"
+                  fullWidth
+                  placeholder="E-mail"
+                  value={value.email}
+                  variant="outlined"
+                  name="email"
+                  label="E-mail"
+                  onBlur={(e) => changeHandler(e)}
+                  onChange={(e) => changeHandler(e)}
+                />
+                {validator.message("email", value.email, "required|email")}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  className="inputOutline"
+                  fullWidth
+                  placeholder="Password"
+                  value={value.password}
+                  variant="outlined"
+                  name="password"
+                  type="password"
+                  label="Password"
+                  onBlur={(e) => changeHandler(e)}
+                  onChange={(e) => changeHandler(e)}
+                />
+                {validator.message("password", value.password, "required")}
+              </Grid>
+              <Grid item xs={12}>
+                <Grid className="formAction">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={value.remember}
+                        onChange={rememberHandler}
+                      />
+                    }
+                    label="Remember Me"
+                  />
+                  <Link href="/forgot-password">Forgot Password?</Link>
+                </Grid>
+                <Grid className="formFooter">
+                  <Button fullWidth className="cBtnTheme" type="submit">
                     Login
-                  </button>
-                </div>
-              </div>
-            </div>
+                  </Button>
+                </Grid>
+                <p className="noteHelp">
+                  Don`&apos;`t have an account?
+                  <Link href="/register">Create free account</Link>
+                </p>
+              </Grid>
+            </Grid>
           </form>
-        </div>
-      </div>
+          <div className="shape-img">
+            <i className="fi flaticon-honeycomb"></i>
+          </div>
+        </Grid>
+      </Grid>
     </>
   );
 }

@@ -8,6 +8,8 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import MenuContent from "./menuContent";
 import OptionsMenu from "./optionsMenu";
+import { useRouter } from "next/router";
+import fetchAPI from "contexts/utils/fetchAPI";
 
 const drawerWidth = 300;
 
@@ -22,6 +24,27 @@ const Drawer = styled(MuiDrawer)({
 });
 
 export default function SideMenu() {
+  const [user, setUser] = React.useState({});
+  const [loading, setLoading] = React.useState(true);
+  const { replace } = useRouter();
+
+  React.useEffect(() => {
+    async function checkAuth() {
+      try {
+        const response = await fetchAPI("/api/v1/user");
+
+        setUser(response);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        replace("/login");
+      }
+    }
+    checkAuth();
+  }, []);
+
+  if (loading) return <></>;
+
   return (
     <Drawer
       variant="permanent"
@@ -62,7 +85,7 @@ export default function SideMenu() {
         }}
       >
         <Avatar
-          alt="Letícia e Ryan"
+          alt={user?.username}
           src="/images/photos/7.jpg"
           sx={{ width: 36, height: 36 }}
         />
@@ -71,10 +94,10 @@ export default function SideMenu() {
             variant="body2"
             sx={{ fontWeight: 500, lineHeight: "16px" }}
           >
-            Letícia e Ryan
+            {user?.username}
           </Typography>
           <Typography variant="caption" sx={{ color: "text.secondary" }}>
-            lr@gwalchmei.com.br
+            {user?.email}
           </Typography>
         </Box>
         <OptionsMenu />
