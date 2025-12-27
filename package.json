@@ -52,6 +52,7 @@
     "react-slick": "0.30.3",
     "sass": "1.97.1",
     "set-cookie-parser": "2.7.2",
+    "simple-react-validator": "^1.6.2",
     "sweetalert2": "11.26.17",
     "swr": "2.3.8",
     "uuid": "11.1.0",
