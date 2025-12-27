@@ -28,22 +28,30 @@ export const CreateDataProvider = ({ children }) => {
     });
 
     if (formValues) {
-      await fetchAPI(`/api/v1/invitation`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formValues),
-      });
+      try {
+        await fetchAPI(`/api/v1/invitation`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        });
 
-      await refresh().refreshInvitations();
-      await refresh().refreshGuests();
+        await refresh().refreshInvitations();
+        await refresh().refreshGuests();
 
-      showToast({
-        icon: "success",
-        title: "Criado!",
-        text: "Convite foi criado com sucesso!",
-      });
+        showToast({
+          icon: "success",
+          title: "Criado!",
+          text: "Convite foi criado com sucesso!",
+        });
+      } catch (error) {
+        showToast({
+          icon: "error",
+          title: error.message,
+          text: error.action || "Ocorreu um erro ao atualizar o convite.",
+        });
+      }
     }
   }
 
@@ -71,8 +79,12 @@ export const CreateDataProvider = ({ children }) => {
         title: "Atualizado!",
         text: `Status alterado para "${updatedStatus}".`,
       });
-    } catch {
-      showToast({ icon: "error", title: "Não atualizado!" });
+    } catch (error) {
+      showToast({
+        icon: "error",
+        title: error.message,
+        text: error.action || "Ocorreu um erro ao atualizar o convite.",
+      });
     }
   }
 
@@ -96,18 +108,29 @@ export const CreateDataProvider = ({ children }) => {
     });
 
     if (result.isConfirmed) {
-      await fetchAPI(`/api/v1/invitation/${item.id}`, {
-        method: "DELETE",
-      });
+      try {
+        const response = await fetchAPI(`/api/v1/invitation/${item.id}`, {
+          method: "DELETE",
+        });
 
-      await refresh().refreshInvitations();
-      await refresh().refreshGuests();
+        await refresh().refreshInvitations();
+        await refresh().refreshGuests();
 
-      showToast({
-        icon: "success",
-        title: "Excluído!",
-        text: "Convite excluído com sucesso!",
-      });
+        showToast({
+          icon: "success",
+          title: "Excluído!",
+          text: "Convite excluído com sucesso!",
+        });
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+
+        showToast({
+          icon: "error",
+          title: error.message,
+          text: error.action || "Ocorreu um erro ao deletar convite.",
+        });
+      }
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       showToast({
         icon: "error",
@@ -142,8 +165,8 @@ export const CreateDataProvider = ({ children }) => {
     } catch (error) {
       showToast({
         icon: "error",
-        title: "Erro!",
-        text: error.message || "Ocorreu um erro ao adicionar o convidado.",
+        title: error.message,
+        text: error.action || "Ocorreu um erro ao atualizar o convidado.",
       });
     }
   }
@@ -201,8 +224,8 @@ export const CreateDataProvider = ({ children }) => {
     } catch (error) {
       showToast({
         icon: "error",
-        title: "Erro!",
-        text: error.message || "Ocorreu um erro ao atualizar o convidado.",
+        title: error.message,
+        text: error.action || "Ocorreu um erro ao atualizar o convidado.",
       });
     }
   }
@@ -227,17 +250,25 @@ export const CreateDataProvider = ({ children }) => {
     });
 
     if (result.isConfirmed) {
-      await fetchAPI(`/api/v1/guests/${item.id}`, {
-        method: "DELETE",
-      });
+      try {
+        await fetchAPI(`/api/v1/guests/${item.id}`, {
+          method: "DELETE",
+        });
 
-      await refresh().refreshGuests();
+        await refresh().refreshGuests();
 
-      showToast({
-        icon: "success",
-        title: "Excluído!",
-        text: "Convidado excluído com sucesso!",
-      });
+        showToast({
+          icon: "success",
+          title: "Excluído!",
+          text: "Convidado excluído com sucesso!",
+        });
+      } catch (error) {
+        showToast({
+          icon: "error",
+          title: error.message,
+          text: error.action || "Ocorreu um erro ao atualizar o convite.",
+        });
+      }
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       showToast({
         icon: "error",

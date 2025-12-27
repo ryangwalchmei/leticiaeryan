@@ -4,9 +4,11 @@ import guests from "models/guest";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
-router.get(getHandler);
-router.put(putHandler);
-router.delete(deleteHandler);
+
+router.use(controller.injectAnonymousOrUser);
+router.get(controller.canRequest("read:guests"), getHandler);
+router.put(controller.canRequest("update:guests"), putHandler);
+router.delete(controller.canRequest("delete:guests"), deleteHandler);
 router.all((request) => {
   const allowedMethods = ["GET", "PUT", "DELETE"];
   throw new MethodNotAllowedError({
@@ -19,12 +21,12 @@ router.all((request) => {
 export default router.handler(controller.errorHandlers);
 
 async function getHandler(request, response) {
-  const [returnGuests] = await guests.getGuest(request.query.id);
+  const returnGuests = await guests.getGuest(request.query.id);
   return response.status(200).json(returnGuests);
 }
 
 async function putHandler(request, response) {
-  const [modifiedGuests] = await guests.updateGuests(
+  const modifiedGuests = await guests.updateGuests(
     request.query.id,
     request.body,
   );

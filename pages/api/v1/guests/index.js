@@ -4,8 +4,10 @@ import guests from "models/guest";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
-router.get(getHandler);
-router.post(postHandler);
+
+router.use(controller.injectAnonymousOrUser);
+router.get(controller.canRequest("read:guests"), getHandler);
+router.post(controller.canRequest("create:guests"), postHandler);
 router.all((request) => {
   const allowedMethods = ["GET", "POST"];
   throw new MethodNotAllowedError({
@@ -23,6 +25,6 @@ async function getHandler(request, response) {
 }
 
 async function postHandler(request, response) {
-  const [newGuest] = await guests.createGuests(request.body);
+  const newGuest = await guests.createGuests(request.body);
   return response.status(201).json(newGuest);
 }

@@ -2,12 +2,12 @@ import { createRouter } from "next-connect";
 import controller from "infra/controller";
 import user from "models/user";
 import { MethodNotAllowedError } from "infra/errors/errors";
-import session from "models/session";
+import activation from "models/activation";
 
 const router = createRouter();
 
-router.post(postHandler);
-router.get(getHandler);
+router.use(controller.injectAnonymousOrUser);
+router.post(controller.canRequest("create:user"), postHandler);
 
 router.all((request) => {
   const allowedMethods = ["POST"];
@@ -21,22 +21,10 @@ router.all((request) => {
 export default router.handler(controller.errorHandlers);
 
 async function postHandler(request, response) {
-  const [newUser] = await user.create(request.body);
+  const newUser = await user.create(request.body);
+
+  const activationToken = await activation.create(newUser.id);
+  await activation.sendEmailToUser(newUser, activationToken);
+
   return response.status(201).json(newUser);
-}
-
-async function getHandler(request, response) {
-  const sessionToken = request.cookies.session_id;
-
-  const sessionObject = await session.findOneValidByToken(sessionToken);
-  const renewedSessionObject = await session.renew(sessionObject.id);
-  controller.setSessionCookie(renewedSessionObject.token, response);
-
-  const userFound = await user.findOneById(sessionObject.user_id);
-
-  response.setHeader(
-    "Cache-Control",
-    "no-store, no-cache, max-age=0, must-revalidate",
-  );
-  return response.status(200).json(userFound);
 }

@@ -5,8 +5,9 @@ import { createRouter } from "next-connect";
 
 const router = createRouter();
 
-router.get(getHandler);
-router.post(postHandler);
+router.use(controller.injectAnonymousOrUser);
+router.get(controller.canRequest("read:notifications"), getHandler);
+router.post(controller.canRequest("create:notifications"), postHandler);
 router.all((request) => {
   const allowedMethods = ["GET", "POST"];
   throw new MethodNotAllowedError({
@@ -26,8 +27,6 @@ async function getHandler(request, response) {
 
 // POST /api/notifications
 async function postHandler(request, response) {
-  const [newNotification] = await notifications.createNotifications(
-    request.body,
-  );
+  const newNotification = await notifications.createNotifications(request.body);
   return response.status(201).json(newNotification);
 }

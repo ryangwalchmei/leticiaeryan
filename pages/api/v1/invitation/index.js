@@ -4,8 +4,10 @@ import invitation from "models/invitation";
 import { createRouter } from "next-connect";
 
 const router = createRouter();
-router.get(getHandler);
-router.post(postHandler);
+
+router.use(controller.injectAnonymousOrUser);
+router.get(controller.canRequest("read:invitations"), getHandler);
+router.post(controller.canRequest("create:invitations"), postHandler);
 router.all((request) => {
   const allowedMethods = ["GET", "POST"];
   throw new MethodNotAllowedError({
@@ -25,5 +27,5 @@ async function getHandler(request, response) {
 async function postHandler(request, response) {
   const returnIdInvitationDb = await invitation.createInvitation(request.body);
 
-  return response.status(201).json(returnIdInvitationDb[0]);
+  return response.status(201).json(returnIdInvitationDb);
 }

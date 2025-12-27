@@ -7,31 +7,24 @@ import {
   ForbiddenError,
   NotFoundError,
 } from "infra/errors/errors";
-import isValidUUID from "utils/uuidValidator";
+import { version as uuidVersion, validate as isUuid } from "uuid";
 
 async function getInvitations() {
-  const returnQuery = database.query("SELECT  * FROM invitation;");
-  return (await returnQuery).rows;
+  const returnQuery = await database.query("SELECT  * FROM invitation;");
+  return returnQuery.rows;
 }
 
 async function getInvitation(id) {
-  try {
-    const returnQuery = await database.query({
-      text: "SELECT * FROM invitation WHERE id = $1",
-      values: [id],
-    });
+  const returnQuery = await database.query({
+    text: "SELECT * FROM invitation WHERE id = $1",
+    values: [id],
+  });
 
-    if (!returnQuery.rows || returnQuery.rows.length === 0) {
-      throw new NotFoundError({ message: "Invitation not found" });
-    }
-
-    return returnQuery.rows;
-  } catch (error) {
-    if (error.code === "22P02") {
-      throw new BadRequestError("Invalid ID");
-    }
-    throw error;
+  if (!returnQuery.rows || returnQuery.rows.length === 0) {
+    throw new NotFoundError({ message: "Invitation not found" });
   }
+
+  return returnQuery.rows[0];
 }
 
 async function createInvitation(data) {
@@ -52,7 +45,7 @@ async function createInvitation(data) {
     values: [name, pin_code, shipping_date, status],
   });
 
-  return returnQuery.rows;
+  return returnQuery.rows[0];
 }
 
 async function deleteInvitation(id) {
@@ -67,6 +60,11 @@ async function deleteInvitation(id) {
 async function updateInvitation(id, data) {
   const { name, shipping_date, status } = data;
 
+  if ((!isUuid(id) || uuidVersion(id)) !== 4) {
+    throw new BadRequestError("invalid input syntax for type uuid");
+  }
+  await getInvitation(id);
+
   if (data.id) {
     throw new BadRequestError("ID cannot be changed");
   }
@@ -75,10 +73,11 @@ async function updateInvitation(id, data) {
   }
 
   if (data.pin_code) {
-    throw new ForbiddenError("Pin code cannot be updated");
+    throw new ForbiddenError({
+      message: "Pin code cannot be updated",
+    });
   }
 
-  await getInvitation(id);
   const returnQuery = await database.query({
     text: `UPDATE public.invitation 
                 SET 
@@ -98,8 +97,8 @@ async function getInvitationGuests(id) {
     throw new BadRequestError("invitation_id is required");
   }
 
-  if (!isValidUUID(id)) {
-    throw new BadRequestError("Invalid invitation_id");
+  if ((!isUuid(id) || uuidVersion(id)) !== 4) {
+    throw new BadRequestError("invalid input syntax for type uuid");
   }
 
   await getInvitation(id);

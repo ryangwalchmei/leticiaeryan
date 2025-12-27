@@ -58,7 +58,7 @@ async function findOneByUsername(username) {
       });
     }
 
-    return results.rows;
+    return results.rows[0];
   }
 }
 
@@ -88,7 +88,7 @@ async function findOneByEmail(email) {
       });
     }
 
-    return results.rows;
+    return results.rows[0];
   }
 }
 
@@ -96,6 +96,7 @@ async function create(userInputValues) {
   await validateUniqueUsername(userInputValues.username);
   await validateUniqueEmail(userInputValues.email);
   await hashPasswordInObject(userInputValues);
+  injectDefaultfeaturesInObject(userInputValues);
 
   const newUser = await runInsertQuery(userInputValues);
   return newUser;
@@ -104,9 +105,9 @@ async function create(userInputValues) {
     const results = await database.query({
       text: `
         INSERT INTO
-          users (username, email, password, avatarsrc)
+          users (username, email, password, avatarsrc, features)
         VALUES
-          ($1, $2, $3, $4)
+          ($1, $2, $3, $4, $5)
         RETURNING
           *
         ;`,
@@ -115,14 +116,19 @@ async function create(userInputValues) {
         userInputValues.email,
         userInputValues.password,
         userInputValues.avatarsrc,
+        userInputValues.features,
       ],
     });
-    return results.rows;
+    return results.rows[0];
+  }
+
+  function injectDefaultfeaturesInObject(userInputValues) {
+    userInputValues.features = ["read:activation_token"];
   }
 }
 
 async function update(username, userInputValues) {
-  const [currentUser] = await findOneByUsername(username);
+  const currentUser = await findOneByUsername(username);
   if ("username" in userInputValues) {
     if (
       currentUser.username.toLowerCase() !==
@@ -220,12 +226,37 @@ async function hashPasswordInObject(userInputValues) {
   userInputValues.password = hashedPassword;
 }
 
+async function setFeatures(userId, features) {
+  const updatedUser = await runUpdateQuery(userId, features);
+  return updatedUser;
+
+  async function runUpdateQuery(userId, features) {
+    const results = await database.query({
+      text: `
+        UPDATE
+          users
+        SET
+          features = $2,
+          updated_at = timezone('utc', now())
+        WHERE
+          id = $1
+        RETURNING
+          *
+      ;`,
+      values: [userId, features],
+    });
+
+    return results.rows[0];
+  }
+}
+
 const user = {
   create,
   findOneByUsername,
   update,
   findOneByEmail,
   findOneById,
+  setFeatures,
 };
 
 export default user;
