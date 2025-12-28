@@ -6,8 +6,19 @@ import AppNavbar from "./components/appNavbar";
 import Header from "./components/header";
 import MainGrid from "./components/mainGrid";
 import AppTheme from "../../themes/appTheme";
+import { useEffect } from "react";
+import useUser from "contexts/userContext";
+import Router from "next/router";
 
 export default function AdminPage(props) {
+  const { user, isLoading } = useUser();
+  useEffect(() => {
+    if (!user?.id) {
+      Router.replace("/login");
+    }
+  }, []);
+
+  if (!user?.id || isLoading) return <></>;
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />

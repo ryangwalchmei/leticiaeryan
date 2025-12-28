@@ -17,7 +17,7 @@ export default function InvitationsGrid() {
       >
         <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
           <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-            Letícia e Ryan - Convites
+            Convites
           </Typography>
           <Grid container spacing={2} sx={{ mb: 4 }}>
             <Grid item size={12}>

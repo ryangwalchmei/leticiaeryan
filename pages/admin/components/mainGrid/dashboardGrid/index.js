@@ -7,6 +7,7 @@ import { useData } from "contexts/getDataContext";
 import StatCard from "./statCard";
 import { useEffect, useMemo, useState } from "react";
 import RenderOnLoadingData from "../../isLoading";
+import useUser from "contexts/userContext";
 
 const ChartOnlyClient = dynamic(() => import("./chartOnlyClient"), {
   ssr: false,
@@ -14,6 +15,7 @@ const ChartOnlyClient = dynamic(() => import("./chartOnlyClient"), {
 
 export default function DashboardGrid() {
   const { informations } = useMenu();
+  const { user } = useUser();
   const { guestList, confirmationSummary = {} } = useData();
 
   const [guestCategories, setGuestCategories] = useState({
@@ -184,7 +186,7 @@ export default function DashboardGrid() {
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       <Typography component="h4" variant="h4" sx={{ mb: 2 }}>
-        Olá, Letícia
+        Olá, {user?.username}
       </Typography>
 
       <RenderOnLoadingData
