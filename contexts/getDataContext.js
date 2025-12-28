@@ -26,6 +26,7 @@ export const GetDataProvider = ({ children }) => {
   const [isFilterConfirmedGuests, setIsFilterConfirmedGuests] = useState(false);
 
   useEffect(() => {
+    if (invitationList.length === 0) return;
     const invitations = [...invitationList]
       .sort((a, b) => a.name.localeCompare(b.name))
       .map((invitation) => ({
@@ -38,6 +39,7 @@ export const GetDataProvider = ({ children }) => {
   }, [invitationList, guestList]);
 
   useEffect(() => {
+    if (guestList.length === 0) return;
     let confirmationFilter = null;
     if (isFilterConfirmedGuests) {
       confirmationFilter = "confirmed";

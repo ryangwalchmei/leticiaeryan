@@ -16,8 +16,10 @@ import { useNotifications } from "contexts/notificationsContext";
 import { Badge, IconButton, ListItemText, Menu, MenuItem } from "@mui/material";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import useUser from "contexts/userContext";
 
 function SideMenuMobile({ open, toggleDrawer }) {
+  const { user, logout } = useUser();
   const {
     notificationList,
     handleReadNotification,
@@ -74,12 +76,12 @@ function SideMenuMobile({ open, toggleDrawer }) {
           >
             <Avatar
               sizes="small"
-              alt="Leticia e Ryan"
-              src="/static/images/avatar/7.jpg"
+              alt={user?.username}
+              src={user?.avatarsrc}
               sx={{ width: 24, height: 24 }}
             />
             <Typography component="p" variant="h6">
-              Letícia e Ryan
+              {user?.username}
             </Typography>
           </Stack>
           <IconButton color="inherit" onClick={handleOpenNotifications}>
@@ -207,7 +209,10 @@ function SideMenuMobile({ open, toggleDrawer }) {
         </Stack>
         <Stack sx={{ p: 2 }}>
           <Button
-            onClick={() => toggleDrawer(false)}
+            onClick={() => {
+              toggleDrawer(false);
+              logout();
+            }}
             variant="outlined"
             fullWidth
             startIcon={<LogoutRoundedIcon />}

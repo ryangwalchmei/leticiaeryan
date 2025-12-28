@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import MenuContent from "./menuContent";
 import OptionsMenu from "./optionsMenu";
+import useUser from "contexts/userContext";
 
 const drawerWidth = 300;
 
@@ -22,6 +23,10 @@ const Drawer = styled(MuiDrawer)({
 });
 
 export default function SideMenu() {
+  const { user, isLoading } = useUser();
+
+  if (isLoading || !user) return <></>;
+
   return (
     <Drawer
       variant="permanent"
@@ -62,8 +67,8 @@ export default function SideMenu() {
         }}
       >
         <Avatar
-          alt="Letícia e Ryan"
-          src="/images/photos/7.jpg"
+          alt={user?.username}
+          src={user?.avatarsrc}
           sx={{ width: 36, height: 36 }}
         />
         <Box sx={{ mr: "auto" }}>
@@ -71,10 +76,10 @@ export default function SideMenu() {
             variant="body2"
             sx={{ fontWeight: 500, lineHeight: "16px" }}
           >
-            Letícia e Ryan
+            {user?.username}
           </Typography>
           <Typography variant="caption" sx={{ color: "text.secondary" }}>
-            lr@gwalchmei.com.br
+            {user?.email}
           </Typography>
         </Box>
         <OptionsMenu />

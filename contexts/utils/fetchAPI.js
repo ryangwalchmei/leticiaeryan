@@ -5,7 +5,6 @@ export default async function fetchAPI(endpoint, options) {
       credentials: "include",
     });
 
-    console.log({ response });
     if (!response.ok) {
       const errorObject = await response.json();
       throw errorObject;
